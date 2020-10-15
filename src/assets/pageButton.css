@@ -1,0 +1,31 @@
+.pagination { 
+    margin: 20px auto 50px auto; 
+}
+.pagination div { 
+    display: inline-block;
+    width: 120px;
+    text-align: center;
+    font-size: 20px;
+ }
+.pagination button {
+  display: inline-block;
+  font-size: 16px;
+  padding: 8px 16px;
+  background-color:  rgb(3,37,65) !important;
+  border: 1px solid black;
+  border-radius: 0.2em;
+  width: 70px;
+}
+
+.pagination button:nth-child(1) {
+  color: #b3b3b3;
+  margin-right: 12px;
+}
+
+.pagination div:nth-child(2) {
+  margin-right: 12px;
+}
+
+.pagination button:nth-child(3) {
+  color: #ffffff;
+}
