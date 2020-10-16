@@ -92,7 +92,8 @@
 }
 
 .movie__company > img{
-    width: 50px;
+    width: 5%;
+    height: 40px;
     margin: 30px;
 }
 
