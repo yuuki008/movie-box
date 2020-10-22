@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { ReactNode, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getIsSignedIn } from './redux/selectors'
 import { listenAuthState } from './redux/user/operations'

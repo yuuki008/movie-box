@@ -60,28 +60,33 @@ const ReleaseMovie:React.FC<Props> = ({movie}) => {
         const data:any = Date.parse(releaseDate)
         const item = data - today
         setSpan(item)
-        if(item < 0){
-            setMessage('公開中!!!')
-        }else if(item < 86400000){
-            setMessage("明日公開!!")
-        }else if(item < 172800000){
-            setMessage('残り2日!')
-        }else if(item < 259200000){
-            setMessage('残り3日!')
-        }else if(item < 345600000){
-            setMessage('残り4日!')
-        }else if(item < 432000000){
-            setMessage('残り5日!')
-        }else if(item < 518400000){
-            setMessage('残り6日!')
-        }else if(item < 604800000){
-            setMessage('残り7日!')
+        console.log(item)
+        if(item > 0){
+            if(item < 86400000){
+                setMessage("明日公開!!")
+            }else if(item < 172800000){
+                setMessage('残り2日!')
+            }else if(item < 259200000){
+                setMessage('残り3日!')
+            }else if(item < 345600000){
+                setMessage('残り4日!')
+            }else if(item < 432000000){
+                setMessage('残り5日!')
+            }else if(item < 518400000){
+                setMessage('残り6日!')
+            }else if(item < 604800000){
+                setMessage('残り7日!')
+            }
+        }else{
+            if(item > -604800000){
+                setMessage('公開中')
+            }
         }
     },[])
 
     return (
         <>
-        {upcoming < 604800000 && (
+        {upcoming < 604800000 && upcoming > -604800000 && (
         <Button
             className={classes.notification}
             onClick={() => dispatch(push('/movie/' + movie.id))}

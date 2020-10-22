@@ -100,7 +100,7 @@ const Header = () => {
     const selector = useSelector(state => state)
 
     const [anchorEl, setAnchorEl] = useState(null),
-          [count, setCount] = useState(0);
+          [count, setCount] = useState("");
 
     const isSignedIn = getIsSignedIn(selector)
     const notifications = getNotifications(selector)
@@ -153,7 +153,7 @@ const Header = () => {
     useEffect(() => {
       const today:any = new Date()
       if(isSignedIn){
-        setCount(0)
+        setCount("")
         notifications.map((item:any) => {
           const release = item.release_date.split('-')
           const releaseDate = `${release[0]}/${release[1]}/${release[2]} 00:00:00`
@@ -163,7 +163,7 @@ const Header = () => {
             list.push(item)
           }  
         })
-        setCount(list.length)
+        setCount("!")
       }
     },[notifications])
 
@@ -187,7 +187,7 @@ const Header = () => {
                 onClick={handleClick}
                 onMouseOver={handleClick}
               >
-                <Badge badgeContent={count} color="primary">
+                <Badge badgeContent={"!"} color="primary">
                   <NotificationsIcon className={classes.icon} />
                 </Badge>
               </IconButton>
@@ -199,7 +199,7 @@ const Header = () => {
                 MenuListProps={{onMouseLeave: handleClose}}
                 className={classes.menu}
               >
-                {notifications.length > 0 && count !== 0  ?  (
+                {notifications.length > 0 ? (
                   notifications.map((item:any) => 
                     <ReleaseMovie key={item.movieId} movie={item}/>
                   )
