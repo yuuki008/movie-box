@@ -40,8 +40,6 @@ const MovieContainer = () => {
     const selector = useSelector(state => state)
     const dispatch = useDispatch()
     let movielist = getMovieList(selector)
-    const genres = getGenres(selector)
-    const isSignedIn = getIsSignedIn(selector)
     const movies = movielist.items
     const isFetching = movielist.isFetching
     const total_pages = movielist.total_pages

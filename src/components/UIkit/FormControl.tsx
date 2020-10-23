@@ -45,9 +45,7 @@ const FormControl:React.FC<Props> = ({folder, func}) => {
                 setMovies(snapshot.docs.map((doc:any) => doc.data()))  
         })
     },[])
-
-      console.log(movies)
-
+    
       useEffect(() => {
           if(movies.length > 0){
               const list = []

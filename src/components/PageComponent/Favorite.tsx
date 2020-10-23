@@ -50,7 +50,6 @@ interface Props {
 }
 
 const Favorite:React.FC<Props> = ({movie, favorites}) => {
-    console.log(movie)
     const classes = useStyles()
     const dispatch = useDispatch()
     const [favorite, setFavorite] = useState(false),
