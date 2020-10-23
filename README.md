@@ -1,4 +1,4 @@
-## Movie box (TMDB api)
+# Movie box (TMDB api)
 
 TMDB apiを使った映画検索はアプリ
 
@@ -44,8 +44,4 @@ TMDB apiを使った映画検索はアプリ
     "typescript-fsa-reducers": "^1.2.2"
 `
 
-###　概要
-<p align="center">
- <img src="./list.png" width="700">
-</p>
 

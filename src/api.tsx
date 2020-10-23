@@ -11,8 +11,8 @@ export const IMG_SIZE_SMALL = 'w150/';
 export const IMG_SIZE_LARGE = 'w342/';
 export const CAST_MAX_NUM = 5;
 export const TRAILER_MAX_NUM = 3;
-export const API_KEY = '?api_key=ac3439121bf2a6cf27a1fa4d96625a41';
-export const API_KEY_ALT = '&api_key=ac3439121bf2a6cf27a1fa4d96625a41'
+export const API_KEY = '?api_key=APIKEY';
+export const API_KEY_ALT = '&api_key=APIKEY'
 export const URL_NETWORK = `https://api.themoviedb.org/3/discover/tv`;
 export const URL_TRND = `https://api.themoviedb.org/3/trending/all/week`;
 export const URL_UPCOMING = `https://api.themoviedb.org/3/movie/upcoming`;

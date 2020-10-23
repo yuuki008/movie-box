@@ -1,4 +1,4 @@
-import { API_KEY, URL_DETAIL, URL_CAST, URL_PERSON } from "../../api"
+import { API_KEY, URL_DETAIL, URL_CAST } from "../../api"
 import {fetchCasts, fetchCastsSuccess, fetchCastsFailure} from './actions';
 
 export const fetchCastList = (id: string) => {
