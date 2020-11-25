@@ -1,9 +1,9 @@
 import React from 'react'
 import { URL_YOUTUBE } from '../../api'
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 const Div = styled.div({
-    padding: "10px",
+    padding: '10px',
 })
 
 const Iframe = styled.iframe({
@@ -16,10 +16,15 @@ interface Props {
     }
 }
 
-const Trailer: React.FC<Props> = ({trailer}) => {
+const Trailer: React.FC<Props> = ({ trailer }) => {
     return (
         <Div>
-            <Iframe style={{borderRadius: '10px'}} title={URL_YOUTUBE + trailer.key} src={URL_YOUTUBE + trailer.key} allowFullScreen />
+            <Iframe
+                style={{ borderRadius: '10px' }}
+                title={URL_YOUTUBE + trailer.key}
+                src={URL_YOUTUBE + trailer.key}
+                allowFullScreen
+            />
         </Div>
     )
 }

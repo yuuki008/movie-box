@@ -1,30 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {getFavorite, getFolders, getUid} from '../redux/selectors';
-import AddIcon from '@material-ui/icons/Add';
-import {makeStyles} from '@material-ui/core/styles'
-import { Button } from '@material-ui/core';
-import '../assets/profile.css';
-import { fetchFavoriteMovie, fetchFolders, makeFolder } from '../redux/user/operations';
-import { MovieCard, FolderMovie, TextInput } from '../components';
-
-const useStyles = makeStyles({
-    icon: {
-        height: '70px',
-        width: '70px',
-    },
-    add:{
-        color: 'white',
-        width: '60px',
-        backgroundColor: ' rgb(3,37,65)',
-        borderTopRightRadius: '30px',
-        borderBottomRightRadius: '30px',
-    },
-})
+import { getFavorite, getFolders, getUid } from '../redux/selectors'
+import AddIcon from '@material-ui/icons/Add'
+import { makeStyles } from '@material-ui/core/styles'
+import { Button } from '@material-ui/core'
+import { fetchFavoriteMovie, fetchFolders, makeFolder } from '../redux/user/operations'
+import { MovieCard, FolderMovie, TextInput } from '../components'
+import styled from 'styled-components'
 
 const MyList = () => {
     const classes = useStyles()
-    const selector = useSelector(state => state)
+    const selector = useSelector((state) => state)
     const dispatch = useDispatch()
 
     const [name, setName] = useState('')
@@ -34,75 +20,156 @@ const MyList = () => {
     const favorites = getFavorite(selector)
     const folders = getFolders(selector)
 
-    const inputName = useCallback((event) => {
-        setName(event.target.value)
-    },[setName])
+    const inputName = useCallback(
+        (event) => {
+            setName(event.target.value)
+        },
+        [setName],
+    )
 
     const handleMakeFolder = () => {
-        if(name !== ""){
+        if (name !== '') {
             dispatch(makeFolder(uid, name))
-            setName("")
+            setName('')
             dispatch(fetchFolders(uid))
         }
     }
 
     useEffect(() => {
-        if(uid){
+        if (uid) {
             dispatch(fetchFavoriteMovie(uid))
             dispatch(fetchFolders(uid))
         }
-    },[uid])
+    }, [uid])
 
     useEffect(() => {
-        if(favorites.length){
+        if (favorites.length) {
             setBackground(favorites[Math.floor(Math.random() * favorites.length)].backdrop_path)
         }
-    },[favorites])
-
+    }, [favorites])
 
     return (
-        <div className="mylist">
-            <div className="mylist__list">
-            <div
-                style={{
-                    backgroundImage: `url('https://image.tmdb.org/t/p/w1920_and_h800_multi_faces_filter(duotone,032541,01b4e4)${background}`,
-                    backgroundPosition: 'center center',
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat'
-                }}
-            >
-                <div className="mylist__header">
-                    <div className="mylist__header__content">
-                        <h3>自分だけのプレイリストを作ろう！</h3>
-                        <div className="mylist__make">
-                            <TextInput label="new playlist..." fullWidth={true} multiline={false} required={false} rows={1} type={'text'} onChange={inputName} value={name}/>
-                            <Button
-                                className={classes.add}
-                                onClick={() => handleMakeFolder()}
-                            >作成</Button>
-                        </div>
-                        <p></p>
-                    </div>
+        <Div>
+            <Div2>
+                <div
+                    style={{
+                        backgroundImage: `url('https://image.tmdb.org/t/p/w1920_and_h800_multi_faces_filter(duotone,032541,01b4e4)${background}`,
+                        backgroundPosition: 'center center',
+                        backgroundSize: 'cover',
+                        backgroundRepeat: 'no-repeat',
+                    }}>
+                    <DivHead>
+                        <DivHead2>
+                            <h3>自分だけのプレイリストを作ろう！</h3>
+                            <DivHead3>
+                                <TextInput
+                                    label="new playlist..."
+                                    fullWidth={true}
+                                    multiline={false}
+                                    required={false}
+                                    rows={1}
+                                    type={'text'}
+                                    onChange={inputName}
+                                    value={name}
+                                />
+                                <Button className={classes.add} onClick={() => handleMakeFolder()}>
+                                    作成
+                                </Button>
+                            </DivHead3>
+                        </DivHead2>
+                    </DivHead>
                 </div>
-            </div>
-                <div className="mylist__favorite">
-                        <h2>お気に入り</h2>
-                    <div className="mylist__favorite__list">
-                        {favorites.length > 0 &&(
-                            favorites.map((item:any) => 
-                                <MovieCard movie={item} key={item.id}/>
-                            )
-                        )}
-                    </div>
-                </div>
-                {folders.map((folder:any) => 
-                    <div className="mylist__favorite" key={folder.id}>
-                        <FolderMovie folder={folder}/>
-                    </div>
-                )}
-            </div>
-        </div>
+                <DivLike>
+                    <h2>お気に入り</h2>
+                    <DivLike2>
+                        {favorites.length > 0 && favorites.map((item: any) => <MovieCard movie={item} key={item.id} />)}
+                    </DivLike2>
+                </DivLike>
+                {folders.map((folder: any) => (
+                    <DivLike key={folder.id}>
+                        <FolderMovie folder={folder} />
+                    </DivLike>
+                ))}
+            </Div2>
+        </Div>
     )
 }
 
 export default MyList
+
+const useStyles = makeStyles({
+    icon: {
+        height: '70px',
+        width: '70px',
+    },
+    add: {
+        color: 'white',
+        width: '60px',
+        backgroundColor: ' rgb(3,37,65)',
+        borderTopRightRadius: '30px',
+        borderBottomRightRadius: '30px',
+    },
+})
+
+const Div = styled.div({
+    maxWidth: '1100px',
+    width: '70%',
+    margin: '0 auto',
+    display: 'flex',
+    position: 'relative',
+    marginTop: '60px',
+})
+
+const Div2 = styled.div({
+    width: '100%',
+})
+
+const DivLike = styled.div({
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    h2: {
+        paddingTop: '20px',
+    },
+})
+
+const DivLike2 = styled.div({
+    display: 'flex',
+    overflowX: 'scroll',
+    width: '100%',
+})
+
+const DivImage: any = styled.div((props: { background: string }) => ({
+    backgroundImage: `url('https://image.tmdb.org/t/p/w1920_and_h800_multi_faces_filter(duotone,032541,01b4e4)${props.background}`,
+    backgroundPosition: 'center center',
+    backgroundSize: 'cover',
+    backgroundRepeat: 'no-repeat',
+}))
+
+const DivHead = styled.div({
+    background: 'linear-gradient(to right, rgba(var(--tmdbDarkBlue), 0.8) 0%, rgba(var(--tmdbDarkBlue), 0) 100%)',
+    width: '100%',
+    height: '300px',
+})
+
+const DivHead2 = styled.div({
+    position: 'relative',
+    h3: {
+        paddingTop: '70px',
+        paddingLeft: '70px',
+        fontWeight: 700,
+        fontSize: '27px',
+        margin: '0 auto',
+        color: 'white',
+    },
+})
+
+const DivHead3 = styled.div({
+    display: 'flex',
+    backgroundColor: 'white',
+    width: '70%',
+    margin: '30px auto',
+    borderRadius: '30px',
+    paddingLeft: '20px',
+    height: '55px',
+})

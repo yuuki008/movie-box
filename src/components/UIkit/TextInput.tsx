@@ -1,18 +1,18 @@
 import { TextField } from '@material-ui/core'
 import React from 'react'
 
-interface Props{
-    fullWidth: boolean;
-    label: string;
-    multiline: boolean;
-    required: boolean;
-    rows: number;
-    value: string;
-    type: string;
+interface Props {
+    fullWidth: boolean
+    label: string
+    multiline: boolean
+    required: boolean
+    rows: number
+    value: string
+    type: string
     onChange: (event: any) => void
 }
 
-const TextInput:React.FC<Props> = ({fullWidth, label, multiline, required, rows, value, type, onChange}) => {
+const TextInput: React.FC<Props> = ({ fullWidth, label, multiline, required, rows, value, type, onChange }) => {
     return (
         <TextField
             fullWidth={fullWidth}

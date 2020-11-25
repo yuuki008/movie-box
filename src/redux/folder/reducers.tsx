@@ -1,14 +1,14 @@
-import {initialState} from '../store'
+import { initialState } from '../store'
 import * as Actions from './actions'
 
 export const folder = (state = initialState.folder, action: any) => {
-    switch(action.type){
+    switch (action.type) {
         case Actions.FETCH_FOLDER_MOVIE:
-            return{
+            return {
                 ...state,
-                list: [...action.payload]
+                list: [...action.payload],
             }
         default:
-            return state;
+            return state
     }
 }

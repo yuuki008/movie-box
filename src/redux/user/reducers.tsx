@@ -1,17 +1,17 @@
-import { initialState } from "../store";
+import { initialState } from '../store'
 import * as Actions from './actions'
 
-export const userReducer = (state = initialState.user, action:any) => {
-    switch(action.type){
+export const userReducer = (state = initialState.user, action: any) => {
+    switch (action.type) {
         case Actions.FETCH_NOTIFICATION:
-            return{
+            return {
                 ...state,
-                notifications: [...action.payload]
+                notifications: [...action.payload],
             }
         case Actions.FETCH_FOLDER:
-            return{
+            return {
                 ...state,
-                folder: [...action.payload]
+                folder: [...action.payload],
             }
         case Actions.FETCH_FAVORITE:
             return {
@@ -21,13 +21,13 @@ export const userReducer = (state = initialState.user, action:any) => {
         case Actions.SIGN_IN:
             return {
                 ...state,
-                ...action.payload
-            }
-        case Actions.SIGN_OUT:
-            return{
                 ...action.payload,
             }
-        default: 
+        case Actions.SIGN_OUT:
+            return {
+                ...action.payload,
+            }
+        default:
             return state
     }
 }
