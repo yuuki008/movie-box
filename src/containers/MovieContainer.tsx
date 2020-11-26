@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import styled from 'styled-components'
-import { getMovieList, getGenres, getIsSignedIn } from '../redux/selectors'
+import { getMovieList } from '../redux/selectors'
 import { searchMovieList, fetchMovieList } from '../redux/movielist/operations'
 import {
     API_GET_MOVIE_NOW_PLAYING,
@@ -18,7 +18,7 @@ const MovieContainer = () => {
     }
     const selector = useSelector((state) => state)
     const dispatch = useDispatch()
-    let movielist = getMovieList(selector)
+    const movielist = getMovieList(selector)
     const movies = movielist.items
     const isFetching = movielist.isFetching
     const total_pages = movielist.total_pages
@@ -54,12 +54,6 @@ const MovieContainer = () => {
         if (page === 0) {
             alert('該当の作品はありませんでした。')
             return false
-        }
-        let url: string
-        if (path === '/') {
-            url = API_GET_MOVIE_POPULAR
-        } else {
-            url = API_GET_MOVIE_UPCOMING
         }
         const newPage = page.toString()
         if (newPage === 'NaN') {
@@ -103,20 +97,20 @@ const MovieContainer = () => {
     }, [selectGenre, path])
 
     return (
-        <DivWrapper>
+        <Wrapper>
             <h2 style={{ position: 'fixed', top: 90, left: 80 }}>{pageTitle(path)}</h2>
             {!keyword ? (
                 <Genre selectGenre={selectGenre} toggleGenre={toggleGenre} />
             ) : (
-                <Area>
-                    <H2>{decodeURI(keyword)}の検索結果</H2>
-                </Area>
+                <HeadLabel>
+                    <Head>{decodeURI(keyword)}の検索結果</Head>
+                </HeadLabel>
             )}
             {!isFetching ? (
                 movies !== undefined || movies.length > 0 ? (
                     <>
-                        <Div>
-                            <Div2>
+                        <MovieWrapper>
+                            <MovieWrapper2>
                                 {movies.map((movie: any) => (
                                     <DefaultCard
                                         info
@@ -131,39 +125,39 @@ const MovieContainer = () => {
                                         first_air_date={movie.first_air_date}
                                     />
                                 ))}
-                            </Div2>
-                        </Div>
+                            </MovieWrapper2>
+                        </MovieWrapper>
                         {!keyword && page !== undefined && (
                             <PageButton changePage={changePage} page={page} total_pages={total_pages} />
                         )}
                     </>
                 ) : (
-                    <h3>Not found</h3>
+                    <Head>Not found</Head>
                 )
             ) : (
-                <H2>ロード中</H2>
+                <Head>ロード中</Head>
             )}
-        </DivWrapper>
+        </Wrapper>
     )
 }
 
 export default MovieContainer
 
-const DivWrapper = styled.div({
+const Wrapper = styled.div({
     display: 'flex',
     flexDirection: 'column',
     position: 'relative',
     paddingTop: '60px',
 })
 
-const H2 = styled.h2({
+const Head = styled.div({
     fontWeight: 600,
     fontSize: '22px',
     top: 50,
     margin: '60px auto',
 })
 
-const Area = styled.div({
+const HeadLabel = styled.div({
     display: 'flex',
     maxWidth: '1320px',
     width: '80%',
@@ -174,7 +168,7 @@ const Area = styled.div({
     position: 'relative',
 })
 
-const Div = styled.div({
+const MovieWrapper = styled.div({
     display: 'flex',
     width: '100%',
     maxWidth: '1450px',
@@ -182,7 +176,7 @@ const Div = styled.div({
     margin: '0 auto',
 })
 
-const Div2 = styled.div({
+const MovieWrapper2 = styled.div({
     overflowX: 'scroll',
     display: 'flex',
     alignContent: 'center',

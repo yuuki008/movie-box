@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getFavorite, getFolders, getUid } from '../redux/selectors'
-import AddIcon from '@material-ui/icons/Add'
 import { makeStyles } from '@material-ui/core/styles'
 import { Button } from '@material-ui/core'
 import { fetchFavoriteMovie, fetchFolders, makeFolder } from '../redux/user/operations'
@@ -49,8 +48,8 @@ const MyList = () => {
     }, [favorites])
 
     return (
-        <Div>
-            <Div2>
+        <Wrapper>
+            <Wrapper2>
                 <div
                     style={{
                         backgroundImage: `url('https://image.tmdb.org/t/p/w1920_and_h800_multi_faces_filter(duotone,032541,01b4e4)${background}`,
@@ -58,10 +57,10 @@ const MyList = () => {
                         backgroundSize: 'cover',
                         backgroundRepeat: 'no-repeat',
                     }}>
-                    <DivHead>
-                        <DivHead2>
+                    <HeaderWrapper>
+                        <Header>
                             <h3>自分だけのプレイリストを作ろう！</h3>
-                            <DivHead3>
+                            <MakeFolder>
                                 <TextInput
                                     label="new playlist..."
                                     fullWidth={true}
@@ -75,23 +74,23 @@ const MyList = () => {
                                 <Button className={classes.add} onClick={() => handleMakeFolder()}>
                                     作成
                                 </Button>
-                            </DivHead3>
-                        </DivHead2>
-                    </DivHead>
+                            </MakeFolder>
+                        </Header>
+                    </HeaderWrapper>
                 </div>
-                <DivLike>
+                <LikesWrapper>
                     <h2>お気に入り</h2>
-                    <DivLike2>
+                    <Likes>
                         {favorites.length > 0 && favorites.map((item: any) => <MovieCard movie={item} key={item.id} />)}
-                    </DivLike2>
-                </DivLike>
+                    </Likes>
+                </LikesWrapper>
                 {folders.map((folder: any) => (
-                    <DivLike key={folder.id}>
+                    <LikesWrapper key={folder.id}>
                         <FolderMovie folder={folder} />
-                    </DivLike>
+                    </LikesWrapper>
                 ))}
-            </Div2>
-        </Div>
+            </Wrapper2>
+        </Wrapper>
     )
 }
 
@@ -111,7 +110,7 @@ const useStyles = makeStyles({
     },
 })
 
-const Div = styled.div({
+const Wrapper = styled.div({
     maxWidth: '1100px',
     width: '70%',
     margin: '0 auto',
@@ -120,39 +119,25 @@ const Div = styled.div({
     marginTop: '60px',
 })
 
-const Div2 = styled.div({
+const Wrapper2 = styled.div({
     width: '100%',
 })
 
-const DivLike = styled.div({
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
-    h2: {
-        paddingTop: '20px',
-    },
-})
 
-const DivLike2 = styled.div({
-    display: 'flex',
-    overflowX: 'scroll',
-    width: '100%',
-})
+// const DivImage: any = styled.div((props: { background: string }) => ({
+//     backgroundImage: `url('https://image.tmdb.org/t/p/w1920_and_h800_multi_faces_filter(duotone,032541,01b4e4)${props.background}`,
+//     backgroundPosition: 'center center',
+//     backgroundSize: 'cover',
+//     backgroundRepeat: 'no-repeat',
+// }))
 
-const DivImage: any = styled.div((props: { background: string }) => ({
-    backgroundImage: `url('https://image.tmdb.org/t/p/w1920_and_h800_multi_faces_filter(duotone,032541,01b4e4)${props.background}`,
-    backgroundPosition: 'center center',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-}))
-
-const DivHead = styled.div({
+const HeaderWrapper = styled.div({
     background: 'linear-gradient(to right, rgba(var(--tmdbDarkBlue), 0.8) 0%, rgba(var(--tmdbDarkBlue), 0) 100%)',
     width: '100%',
     height: '300px',
 })
 
-const DivHead2 = styled.div({
+const Header = styled.div({
     position: 'relative',
     h3: {
         paddingTop: '70px',
@@ -164,7 +149,7 @@ const DivHead2 = styled.div({
     },
 })
 
-const DivHead3 = styled.div({
+const MakeFolder = styled.div({
     display: 'flex',
     backgroundColor: 'white',
     width: '70%',
@@ -173,3 +158,19 @@ const DivHead3 = styled.div({
     paddingLeft: '20px',
     height: '55px',
 })
+
+const LikesWrapper = styled.div({
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    h2: {
+        paddingTop: '20px',
+    },
+})
+
+const Likes = styled.div({
+    display: 'flex',
+    overflowX: 'scroll',
+    width: '100%',
+})
+

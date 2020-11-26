@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchCastList } from '../redux/castlist/operations'
 import { fetchMovieDetail } from '../redux/movie/operations'
@@ -17,7 +17,6 @@ import { IMG_SIZE_LARGE, URL_IMG } from '../api'
 import NoImage from '../assets/images/no_image.png'
 import { fetchSimilarMovies } from '../redux/movielist/operations'
 import styled from 'styled-components'
-import { makeStyles } from '@material-ui/styles'
 import { fetchFavoriteMovie, fetchNotification } from '../redux/user/operations'
 import { MovieCard, RatingStar, Cast, Trailer, FolderList, Favorite, Release } from '../components'
 
@@ -68,14 +67,14 @@ const MovieDetail = () => {
         year = movie.item.release_date.split('-')[0]
     }
 
-    const stringmethod = (str: string) => {
+    const stringmethod = (str: any) => {
         if (str !== undefined) {
             const date = str.substr(0, 4) + '年' + str.substr(5, 2) + '月' + str.substr(8, 2) + '日'
             return date
         }
     }
 
-    const usePrevious = (value: string) => {
+    const usePrevious = (value: any) => {
         const ref = useRef<string>()
         useEffect(() => {
             ref.current = value
@@ -106,7 +105,7 @@ const MovieDetail = () => {
             const month = release[1]
             const date = release[2]
             const releaseDate = `${year}/${month}/${date} 00:00:00`
-            let today: any = new Date()
+            const today: any = new Date()
             const data: any = Date.parse(releaseDate)
             if (data < today) {
                 setReleased(true)
@@ -123,10 +122,10 @@ const MovieDetail = () => {
         <h2 style={{ padding: '40px' }}>LOADING</h2>
     ) : (
         <>
-            <Div backdropImage={backdropImage}>
-                <DivWrapper>
-                    <DivDetail>
-                        <DivImage>
+            <MovieWrapper backdropImage={backdropImage}>
+                <MovieWrapper2>
+                    <MovieDescription>
+                        <MovieImage>
                             <img
                                 src={
                                     movie.item.poster_path !== null
@@ -134,11 +133,11 @@ const MovieDetail = () => {
                                         : NoImage
                                 }
                             />
-                        </DivImage>
-                        <DivInfo>
-                            <DivInfo2>
-                                <DivTitle>
-                                    <DivTitle2>
+                        </MovieImage>
+                        <MovieInfoWrapper>
+                            <MovieInfoLabel>
+                                <MovieTitleWrapper>
+                                    <MovieTitle>
                                         <h3>
                                             {movie.item.title}
                                             <span>({year})</span>
@@ -152,8 +151,8 @@ const MovieDetail = () => {
                                                 )}
                                             </>
                                         )}
-                                    </DivTitle2>
-                                    <DivInfo3>
+                                    </MovieTitle>
+                                    <MovieInfo>
                                         {stringmethod(movie.item.release_date)}
                                         {movie.item.production_countries !== undefined &&
                                             `(${movie.item.production_countries.map(
@@ -174,14 +173,14 @@ const MovieDetail = () => {
                                                 </span>
                                             ))}
                                         <span>{movie.item.runtime}分</span>
-                                    </DivInfo3>
-                                </DivTitle>
+                                    </MovieInfo>
+                                </MovieTitleWrapper>
                                 <RatingStar voteAverage={movie.item.vote_average} voteCount={movie.item.vote_count} />
-                                <DivDes>
+                                <MovieOverview>
                                     <h3>概要</h3>
                                     <p>{movie.item.overview}</p>
-                                </DivDes>
-                                <DivCompany>
+                                </MovieOverview>
+                                <MovieCompany>
                                     {movie.item.production_companies !== undefined &&
                                         movie.item.production_companies.map(
                                             (item: any, index: number) =>
@@ -192,64 +191,63 @@ const MovieDetail = () => {
                                                     />
                                                 ),
                                         )}
-                                </DivCompany>
-                            </DivInfo2>
-                        </DivInfo>
-                    </DivDetail>
-                </DivWrapper>
-            </Div>
-            <DivSub>
-                <DivCast>
+                                </MovieCompany>
+                            </MovieInfoLabel>
+                        </MovieInfoWrapper>
+                    </MovieDescription>
+                </MovieWrapper2>
+            </MovieWrapper>
+            <MovieSubWrapper>
+                <MovieCastWrapper>
                     <h2>主な出演者</h2>
-                    <DivCast2>
+                    <MovieCastWrapper2>
                         {casts.items.slice(0, 20).map((cast: cast, index: number) => (
                             <Cast cast={cast} key={index} />
                         ))}
-                    </DivCast2>
-                </DivCast>
+                    </MovieCastWrapper2>
+                </MovieCastWrapper>
                 {trailers.items.length !== 0 && (
-                    <DivTrail>
+                    <MovieTrailWrapper>
                         <h3>動画</h3>
-                        <DivTrail2>
+                        <MovieTrailWrapper2>
                             {trailers.items.map((trailer: { key: number }, index: number) => (
                                 <Trailer trailer={trailer} key={index} />
                             ))}
-                        </DivTrail2>
-                    </DivTrail>
+                        </MovieTrailWrapper2>
+                    </MovieTrailWrapper>
                 )}
                 {movies.isFetching !== true && (
-                    <DivSimiller>
+                    <MovieSimilarWrapper>
                         {movies.items !== undefined && movies.items.length > 0 && (
                             <>
                                 <h2>おすすめ</h2>
-                                <DivSimiller2>
+                                <MovieSimilarWrapper2>
                                     {movies.items.slice(0, 10).map((movie: movie) => (
                                         <MovieCard movie={movie} key={movie.id} />
                                     ))}
-                                </DivSimiller2>
+                                </MovieSimilarWrapper2>
                             </>
                         )}
-                    </DivSimiller>
+                    </MovieSimilarWrapper>
                 )}
-            </DivSub>
+            </MovieSubWrapper>
         </>
     )
 }
 
 export default MovieDetail
 
-const Div: any = styled.div((props: Image) => ({
+const MovieWrapper: any = styled.div((props: { backdropImage: string }) => ({
     backgroundImage: props.backdropImage,
     backgroundSize: 'cover',
     paddingTop: '60px',
 }))
 
-const DivWrapper = styled.div({
-    backgroundImage:
-        'linear-gradient(to right, rgba(5.88%, 27.45%, 27.06%, 0.6) 150px, rgba(10.59%, 36.47%, 36.08%, 0.84) 100%) !important',
+const MovieWrapper2 = styled.div({
+    backgroundImage: 'linear-gradient(to right, rgba(5.88%, 27.45%, 27.06%, 0.6) 150px, rgba(10.59%, 36.47%, 36.08%, 0.84) 100%) !important',
 })
 
-const DivDetail = styled.div({
+const MovieDescription = styled.div({
     display: 'flex',
     maxWidth: '1300px',
     padding: '40px',
@@ -258,7 +256,7 @@ const DivDetail = styled.div({
     color: 'white',
 })
 
-const DivImage = styled.div({
+const MovieImage = styled.div({
     width: '350px',
     minWidth: '350px',
     position: 'relative',
@@ -269,13 +267,13 @@ const DivImage = styled.div({
     },
 })
 
-const DivInfo = styled.div({
+const MovieInfoWrapper = styled.div({
     position: 'relative',
     alignContent: 'center',
     display: 'flex',
 })
 
-const DivInfo2 = styled.div({
+const MovieInfoLabel = styled.div({
     alignContent: 'center',
     display: 'flex',
     flexWrap: 'wrap',
@@ -284,7 +282,7 @@ const DivInfo2 = styled.div({
     paddingLeft: '40px',
 })
 
-const DivTitle = styled.div({
+const MovieTitleWrapper = styled.div({
     marginBottom: '24px',
     display: 'flex',
     flexDirection: 'column',
@@ -292,7 +290,7 @@ const DivTitle = styled.div({
     width: '100%',
 })
 
-const DivTitle2 = styled.div({
+const MovieTitle = styled.div({
     width: '100%',
     display: 'flex',
     h3: {
@@ -308,7 +306,7 @@ const DivTitle2 = styled.div({
     },
 })
 
-const DivInfo3 = styled.div({
+const MovieInfo = styled.div({
     display: 'flex',
     span: {
         fontWeight: 500,
@@ -317,7 +315,7 @@ const DivInfo3 = styled.div({
     },
 })
 
-const DivDes = styled.div({
+const MovieOverview = styled.div({
     maxHeight: '180px',
     marginBottom: '30px',
     width: '85%',
@@ -330,7 +328,7 @@ const DivDes = styled.div({
     },
 })
 
-const DivCompany = styled.div({
+const MovieCompany = styled.div({
     display: 'flex',
     width: '100%',
     img: {
@@ -340,7 +338,7 @@ const DivCompany = styled.div({
     },
 })
 
-const DivSub = styled.div({
+const MovieSubWrapper = styled.div({
     display: 'flex',
     flexDirection: 'column',
     maxWidth: '1300px',
@@ -348,13 +346,13 @@ const DivSub = styled.div({
     margin: '0 auto',
 })
 
-const DivCast = styled.div({
+const MovieCastWrapper = styled.div({
     display: 'flex',
     flexDirection: 'column',
     padding: '20px 40px',
 })
 
-const DivCast2 = styled.div({
+const MovieCastWrapper2 = styled.div({
     borderTop: '2px solid lightgray',
     paddingTop: '15px',
     display: 'flex',
@@ -363,11 +361,11 @@ const DivCast2 = styled.div({
     overflowY: 'hidden',
 })
 
-const DivTrail = styled.div({
+const MovieTrailWrapper = styled.div({
     padding: '20px 40px',
 })
 
-const DivTrail2 = styled.div({
+const MovieTrailWrapper2 = styled.div({
     borderTop: '2px solid lightgray',
     paddingTop: '15px',
     display: 'flex',
@@ -375,13 +373,13 @@ const DivTrail2 = styled.div({
     overflowY: 'hidden',
 })
 
-const DivSimiller = styled.div({
+const MovieSimilarWrapper = styled.div({
     display: 'flex',
     flexDirection: 'column',
     padding: '20px 40px',
 })
 
-const DivSimiller2 = styled.div({
+const MovieSimilarWrapper2 = styled.div({
     borderTop: '2px solid lightgray',
     paddingTop: '15px',
     display: 'flex',
