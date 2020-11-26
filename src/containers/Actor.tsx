@@ -47,69 +47,69 @@ const Actor = () => {
     return movies.isFetching || actor.isFetching ? (
         <h3 style={{ padding: '30px' }}>LOADING</h3>
     ) : (
-        <Div1>
-            <Div2>
-                <DivPoster>
-                    <Img src={actor.item.profile_path ? URL_IMG + 'w342/' + actor.item.profile_path : NoImage} />
-                    <Ul>
-                        <Li>
+        <Wrapper>
+            <WrapperSub>
+                <ActorInfoWrapper>
+                    <ActorImage src={actor.item.profile_path ? URL_IMG + 'w342/' + actor.item.profile_path : NoImage} />
+                    <ActorInfoList>
+                        <ActorInfo>
                             {actor.item.place_of_birth !== null && (
                                 <>
                                     <h4>出生地</h4>
                                     {actor.item.place_of_birth}
                                 </>
                             )}
-                        </Li>
-                        <Li>
+                        </ActorInfo>
+                        <ActorInfo>
                             <h4>性別</h4>
                             {gender(actor.item.gender)}
-                        </Li>
-                        <Li>
+                        </ActorInfo>
+                        <ActorInfo>
                             {actor.item.birthday !== null && (
                                 <>
                                     <h4>誕生日</h4>
                                     {actor.item.birthday}
                                 </>
                             )}
-                        </Li>
-                    </Ul>
-                </DivPoster>
-                <DivInfo>
-                    <H3>
+                        </ActorInfo>
+                    </ActorInfoList>
+                </ActorInfoWrapper>
+                <ActorDescription>
+                    <ActorTitle>
                         {actor.item.name}
-                        {actor.item.gender !== 0 && <Span>{actor.item.gender === 1 ? 'female' : 'male'}</Span>}
-                    </H3>
-                    <DivBiography>
+                        {actor.item.gender !== 0 && <span>{actor.item.gender === 1 ? 'female' : 'male'}</span>}
+                    </ActorTitle>
+                    <ActorBiography>
                         {actor.item.biography !== '' && (
                             <>
                                 <h3>経歴</h3>
-                                <DivBiography2>
+                                <ActorBiography2>
                                     <p>{actor.item.biography}</p>
-                                </DivBiography2>
+                                </ActorBiography2>
                             </>
                         )}
-                    </DivBiography>
-                    <DivMovies>
+                    </ActorBiography>
+                    <ActorMovies>
                         <h3>作品</h3>
-                        <DivMovies2>
+                        <ActorMovies2>
                             {movies.items.map((movie: movie) => (
                                 <MovieCard2 movie={movie} key={movie.id} />
                             ))}
-                        </DivMovies2>
-                    </DivMovies>
-                </DivInfo>
-            </Div2>
-        </Div1>
+                        </ActorMovies2>
+                    </ActorMovies>
+                </ActorDescription>
+            </WrapperSub>
+        </Wrapper>
     )
 }
 
 export default Actor
 
-const Div1 = styled.div({
+const Wrapper = styled.div({
     paddingTop: '60px',
 })
 
-const Div2 = styled.div({
+const WrapperSub = styled.div({
     display: 'flex',
     maxWidth: '1300px',
     padding: '40px',
@@ -117,28 +117,28 @@ const Div2 = styled.div({
     margin: '0 auto',
 })
 
-const DivPoster = styled.div({
+const ActorInfoWrapper = styled.div({
     display: 'flex',
     flexDirection: 'column',
 })
 
-const Img = styled.img({
+const ActorImage = styled.img({
     width: '300px',
     borderRadius: '10px',
     height: '450px',
 })
 
-const Ul = styled.ul({
+const ActorInfoList = styled.ul({
     marginTop: '15px',
     listStyle: 'none',
     padding: '40px',
 })
 
-const Li = styled.li({
+const ActorInfo = styled.li({
     paddingBottom: '10px',
 })
 
-const DivInfo = styled.div({
+const ActorDescription = styled.div({
     position: 'relative',
     alignContent: 'center',
     display: 'flex',
@@ -148,26 +148,27 @@ const DivInfo = styled.div({
     width: '70%',
 })
 
-const H3 = styled.h3({
+const ActorTitle = styled.div({
     width: '100%',
-})
-
-const Span = styled.span({
-    fontWeight: 400,
     fontSize: '20px',
-    color: 'gray',
-    paddingLeft: '20px',
-    height: '33px',
-    lineHeight: '33px',
-    flexWrap: 'wrap',
+    fontWeight: 600,
+    span: {
+        fontWeight: 400,
+        fontSize: '20px',
+        color: 'gray',
+        paddingLeft: '20px',
+        height: '33px',
+        lineHeight: '33px',
+        flexWrap: 'wrap',
+    },
 })
 
-const DivBiography = styled.div({
+const ActorBiography = styled.div({
     marginTop: '40px',
     width: '100%',
 })
 
-const DivBiography2 = styled.div({
+const ActorBiography2 = styled.div({
     padding: '20px',
     height: '200px',
     backgroundColor: 'white',
@@ -176,14 +177,14 @@ const DivBiography2 = styled.div({
     flexWrap: 'wrap',
 })
 
-const DivMovies = styled.div({
+const ActorMovies = styled.div({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
     padding: '10px',
 })
 
-const DivMovies2 = styled.div({
+const ActorMovies2 = styled.div({
     borderTop: '2px solid lightgray',
     paddingTop: '15px',
     display: 'flex',
