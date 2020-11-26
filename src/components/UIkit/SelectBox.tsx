@@ -1,26 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import InputLabel from '@material-ui/core/InputLabel'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import BoxLabel from './BoxLabel'
 import Chip from '@material-ui/core/Chip'
-
-const useStyles = makeStyles((theme) => ({
-    formControl: {
-        marginBottom: 16,
-        minWidth: 120,
-        maxWidth: '1200px',
-        width: '100%',
-    },
-    chips: {
-        display: 'flex',
-        overflowX: 'scroll',
-    },
-    chip: {
-        margin: 2,
-    },
-}))
 
 interface genre {
     id: number
@@ -44,7 +28,7 @@ const SelectBox: React.FC<Props> = ({ label, genres, select, required, selected 
             <Select
                 required={required}
                 value={name}
-                renderValue={(selected) => (
+                renderValue={() => (
                     <div className={classes.chips}>
                         <Chip label={name} className={classes.chip} />
                     </div>
@@ -58,3 +42,19 @@ const SelectBox: React.FC<Props> = ({ label, genres, select, required, selected 
 }
 
 export default SelectBox
+
+const useStyles = makeStyles({
+    formControl: {
+        marginBottom: 16,
+        minWidth: 120,
+        maxWidth: '1200px',
+        width: '100%',
+    },
+    chips: {
+        display: 'flex',
+        overflowX: 'scroll',
+    },
+    chip: {
+        margin: 2,
+    },
+})

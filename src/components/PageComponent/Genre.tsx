@@ -22,28 +22,28 @@ const Genre: React.FC<Props> = ({ selectGenre, toggleGenre }) => {
             .then((json) => setGenres(json.genres))
     }, [])
     return (
-        <Div>
+        <Wrapper>
             <div className="module-spacer--medium" />
-            <DivSelected>{selectGenre.map((g: genre) => g.name).join(' | ')}</DivSelected>
-            <DivGenres>
+            <GenreSelected>{selectGenre.map((g: genre) => g.name).join(' | ')}</GenreSelected>
+            <Genres>
                 {genres.map((genre: genre) => (
                     <Button key={genre.id + genre.name} onClick={() => toggleGenre(genre)}>
                         {genre.name}
                     </Button>
                 ))}
-            </DivGenres>
-        </Div>
+            </Genres>
+        </Wrapper>
     )
 }
 
 export default Genre
 
-const Div = styled.div({
+const Wrapper = styled.div({
     margin: '0 auto 10px auto',
     textAlign: 'center',
 })
 
-const DivSelected = styled.div({
+const GenreSelected = styled.div({
     fontWeight: 600,
     fontSize: '18px',
     padding: '12px',
@@ -52,7 +52,7 @@ const DivSelected = styled.div({
     marginBottom: '1em',
 })
 
-const DivGenres = styled.div({
+const Genres = styled.div({
     display: 'flex',
     flexWrap: 'wrap',
     padding: '0.4em',

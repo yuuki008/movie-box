@@ -10,69 +10,6 @@ import styled from 'styled-components'
 import { CardActionArea } from '@material-ui/core'
 import RatingStar from '../UIkit/RatingStar'
 
-const Img = styled.img({
-    width: 250,
-    height: 375,
-})
-
-const H5 = styled.h5({
-    height: '40px',
-    overflowY: 'scroll',
-})
-
-const SPAN = styled.span({
-    fontSize: '15px',
-    fontWeight: 600,
-    paddingRight: '20px',
-})
-
-const Div = styled.div({
-    width: '300px',
-    marginLeft: '45px',
-    justifyContent: 'center',
-    alignItems: 'center',
-    '&:hover': {
-        transform: 'scale(1.06) translate(0, 20px)',
-    },
-})
-
-const P = styled.p({
-    fontSize: '14px',
-    position: 'absolute',
-    fontWeight: 400,
-    right: 8,
-    bottom: 55,
-})
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        width: '250px',
-        borderRadius: '20px',
-    },
-    content: {
-        height: '110px',
-        width: '220px',
-        fontSize: '20px',
-        flexWrap: 'wrap',
-        overflowY: 'scroll',
-        position: 'relative',
-        display: 'flex',
-        padding: '16 8',
-        textAlign: 'left',
-        '&:last-child': {
-            paddingBottom: 16,
-        },
-    },
-    media: {
-        backgroundSize: 'cover',
-        paddingTop: '120%',
-    },
-    info: {
-        display: 'flex',
-        flexDirection: 'column',
-    },
-}))
-
 interface Props {
     info: boolean
     path: string
@@ -107,7 +44,7 @@ const DefaultCard: React.FC<Props> = ({
             const month = release[1]
             const date = release[2]
             const releaseDate = `${year}/${month}/${date} 00:00:00`
-            let today: any = new Date()
+            const today: any = new Date()
             const data: number = Date.parse(releaseDate)
             if (data < today) {
                 setReleased(true)
@@ -118,34 +55,93 @@ const DefaultCard: React.FC<Props> = ({
     }, [])
 
     return (
-        <Div>
+        <Wrapper>
             <Card className={classes.root} onClick={() => dispatch(push('/movie/' + id))}>
                 <CardActionArea>
-                    <Img src={path === null ? NoImage : URL_IMG + 'w600_and_h900_bestv2' + path} alt={title} />
+                    <MovieImage src={path === null ? NoImage : URL_IMG + 'w600_and_h900_bestv2' + path} alt={title} />
                     <CardContent className={classes.content}>
                         {info && (
-                            <div>
-                                <H5>{title === undefined ? name : title}</H5>
+                            <>
+                                <MovieTitle>{title === undefined ? name : title}</MovieTitle>
                                 {voteCount === 0 ? (
                                     <></>
                                 ) : (
                                     <RatingStar voteAverage={voteAverage} voteCount={voteCount} />
                                 )}
-                                {release_date !== undefined ? (
-                                    <P>
-                                        {!released && <SPAN>未公開</SPAN>}
-                                        {release_date}
-                                    </P>
-                                ) : (
-                                    <P>{first_air_date}</P>
-                                )}
-                            </div>
+                                <ReleaseText>
+                                    {!released && <span>未公開</span>} {release_date || first_air_date}
+                                </ReleaseText>
+                            </>
                         )}
                     </CardContent>
                 </CardActionArea>
             </Card>
-        </Div>
+        </Wrapper>
     )
 }
 
 export default DefaultCard
+
+const MovieImage = styled.img({
+    width: 250,
+    height: 375,
+})
+
+const MovieTitle = styled.div({
+    height: '40px',
+    overflowY: 'scroll',
+    fontSize: '15px',
+    fontWeight: 550,
+})
+
+const Wrapper = styled.div({
+    width: '300px',
+    marginLeft: '45px',
+    justifyContent: 'center',
+    alignItems: 'center',
+    '&:hover': {
+        transform: 'scale(1.06) translate(0, 20px)',
+    },
+})
+
+const ReleaseText = styled.div({
+    fontSize: '14px',
+    position: 'absolute',
+    fontWeight: 400,
+    right: 8,
+    bottom: 55,
+    span: {
+        fontSize: '15px',
+        fontWeight: 600,
+        paddingRight: '20px',
+    },
+})
+
+const useStyles = makeStyles({
+    root: {
+        width: '250px',
+        borderRadius: '20px',
+    },
+    content: {
+        height: '110px',
+        width: '220px',
+        fontSize: '20px',
+        flexWrap: 'wrap',
+        overflowY: 'scroll',
+        position: 'relative',
+        display: 'flex',
+        padding: '16 8',
+        textAlign: 'left',
+        '&:last-child': {
+            paddingBottom: 16,
+        },
+    },
+    media: {
+        backgroundSize: 'cover',
+        paddingTop: '120%',
+    },
+    info: {
+        display: 'flex',
+        flexDirection: 'column',
+    },
+})

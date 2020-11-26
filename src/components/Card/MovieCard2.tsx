@@ -6,26 +6,7 @@ import NoImage from '../../assets/images/no_image.png'
 import { useDispatch } from 'react-redux'
 import { push } from 'connected-react-router'
 import { LightTooltip } from '../UIkit'
-
-const useStyles = makeStyles({
-    root: {
-        width: 130,
-    },
-    media: {
-        width: '130px',
-        height: '195px',
-        borderRadius: '10px',
-    },
-    content: {
-        height: '30px',
-        overflowY: 'scroll',
-        padding: '10px',
-    },
-    title: {
-        fontSize: '13px',
-        fontWeight: 600,
-    },
-})
+import styled from 'styled-components'
 
 interface Props {
     movie: {
@@ -48,7 +29,7 @@ const MovieCard2: React.FC<Props> = ({ movie }) => {
         }
     }
     return (
-        <div style={{ width: 130, margin: '10px' }}>
+        <Wrapper>
             <LightTooltip title={release()}>
                 <CardActionArea onClick={() => dispatch(push('/movie/' + movie.id))}>
                     <Card className={classes.root}>
@@ -66,8 +47,33 @@ const MovieCard2: React.FC<Props> = ({ movie }) => {
                     </CardContent>
                 </CardActionArea>
             </LightTooltip>
-        </div>
+        </Wrapper>
     )
 }
 
 export default MovieCard2
+
+const Wrapper = styled.div({
+    width: '130px',
+    margin: '10px',
+})
+
+const useStyles = makeStyles({
+    root: {
+        width: 130,
+    },
+    media: {
+        width: '130px',
+        height: '195px',
+        borderRadius: '10px',
+    },
+    content: {
+        height: '30px',
+        overflowY: 'scroll',
+        padding: '10px',
+    },
+    title: {
+        fontSize: '13px',
+        fontWeight: 600,
+    },
+})

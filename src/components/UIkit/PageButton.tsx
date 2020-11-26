@@ -12,7 +12,7 @@ const PageButton: React.FC<Props> = ({ changePage, page, total_pages }) => {
     const prevPage = page - 1 <= 0 ? 1 : page - 1
     const nextPage = page + 1 > total_pages ? total_pages : parseInt(Page, 10) + parseInt('1', 10)
     return (
-        <Div>
+        <Wrapper>
             <button type="button" title="Previous 20 movies" onClick={() => changePage(prevPage)}>
                 Prev
             </button>
@@ -24,13 +24,13 @@ const PageButton: React.FC<Props> = ({ changePage, page, total_pages }) => {
             <button type="button" title="Next 20 movies" onClick={() => changePage(nextPage)}>
                 Next
             </button>
-        </Div>
+        </Wrapper>
     )
 }
 
 export default PageButton
 
-const Div = styled.div({
+const Wrapper = styled.div({
     margin: '20px auto 50px auto',
     div: {
         display: 'inline-block',

@@ -2,22 +2,9 @@ import React, { useState, useCallback, useEffect } from 'react'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 import { makeStyles } from '@material-ui/styles'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchFolderMovie } from '../../redux/folder/operations'
-import { getFolderMovies, getMovieDetail } from '../../redux/selectors'
+import { useSelector } from 'react-redux'
+import { getMovieDetail } from '../../redux/selectors'
 import { db } from '../../firebase'
-
-const useStyles = makeStyles({
-    check: {
-        display: 'flex',
-        width: '100%',
-        textAlign: 'center',
-        padding: '5px',
-    },
-    box: {
-        display: 'flex',
-    },
-})
 
 interface Props {
     folder: { name: string; id: string }
@@ -26,7 +13,6 @@ interface Props {
 
 const FormControl: React.FC<Props> = ({ folder, func }) => {
     const classes = useStyles()
-    const dispatch = useDispatch()
     const selector = useSelector((state) => state)
 
     const movie = getMovieDetail(selector)
@@ -87,3 +73,15 @@ const FormControl: React.FC<Props> = ({ folder, func }) => {
 }
 
 export default FormControl
+
+const useStyles = makeStyles({
+    check: {
+        display: 'flex',
+        width: '100%',
+        textAlign: 'center',
+        padding: '5px',
+    },
+    box: {
+        display: 'flex',
+    },
+})

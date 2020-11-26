@@ -6,30 +6,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import { IconButton } from '@material-ui/core'
 import { Notification, LightTooltip } from '../'
 
-const useStyles = makeStyles({
-    iconButton: {
-        height: 30,
-        lineHeight: 30,
-        width: 30,
-        marginTop: '5px',
-        backgroundColor: 'rgb(3,37,65)',
-        marginRight: '10px',
-    },
-    color: {
-        color: 'red',
-        width: '15px',
-        height: '15px',
-    },
-    tooltip: {
-        backgroundColor: 'white',
-        color: 'black',
-    },
-    icon: {
-        width: '15px',
-        height: '15px',
-        color: 'lightgray',
-    },
-})
 interface movie {
     id: number
     title: string
@@ -112,3 +88,28 @@ const Favorite: React.FC<Props> = ({ movie, favorites }) => {
 }
 
 export default Favorite
+
+const useStyles = makeStyles({
+    iconButton: {
+        height: 30,
+        lineHeight: 30,
+        width: 30,
+        marginTop: '5px',
+        backgroundColor: 'rgb(3,37,65)',
+        marginRight: '10px',
+    },
+    color: {
+        color: 'red',
+        width: '15px',
+        height: '15px',
+    },
+    tooltip: {
+        backgroundColor: 'white',
+        color: 'black',
+    },
+    icon: {
+        width: '15px',
+        height: '15px',
+        color: 'lightgray',
+    },
+})

@@ -5,6 +5,51 @@ import { push } from 'connected-react-router'
 import { URL_IMG } from '../../api'
 import NoImage from '../../assets/images/no_image.png'
 import LightTooltip from '../UIkit/LightTooltip'
+import styled from 'styled-components'
+
+interface Props {
+    movie: {
+        id: number
+        poster_path: string
+        title: string
+        release_date: string
+        backdrop_path: string
+    }
+}
+const MovieCard: React.FC<Props> = ({ movie }) => {
+    const classes = useStyles()
+    const dispatch = useDispatch()
+
+    return (
+        <Wrapper>
+            <LightTooltip title={movie.title}>
+                <CardActionArea className={classes.action}>
+                    <Card className={classes.root} onClick={() => dispatch(push('/movie/' + movie.id))}>
+                        <CardMedia
+                            className={classes.media}
+                            image={
+                                movie.backdrop_path !== null
+                                    ? URL_IMG + 'w250_and_h141_face/' + movie.backdrop_path
+                                    : NoImage
+                            }
+                        />
+                    </Card>
+                    <CardContent className={classes.content}>
+                        <Typography className={classes.name}>{movie.title}</Typography>
+                        <Typography className={classes.date}>{movie.release_date}</Typography>
+                    </CardContent>
+                </CardActionArea>
+            </LightTooltip>
+        </Wrapper>
+    )
+}
+
+export default MovieCard
+
+const Wrapper = styled.div({
+    width: '250px',
+    padding: '15px',
+})
 
 const useStyles = makeStyles({
     root: {
@@ -31,42 +76,3 @@ const useStyles = makeStyles({
         borderRadius: '10px',
     },
 })
-
-interface Props {
-    movie: {
-        id: number
-        poster_path: string
-        title: string
-        release_date: string
-        backdrop_path: string
-    }
-}
-const MovieCard: React.FC<Props> = ({ movie }) => {
-    const classes = useStyles()
-    const dispatch = useDispatch()
-
-    return (
-        <div style={{ width: '250px', padding: '15px' }}>
-            <LightTooltip title={movie.title}>
-                <CardActionArea className={classes.action}>
-                    <Card className={classes.root} onClick={() => dispatch(push('/movie/' + movie.id))}>
-                        <CardMedia
-                            className={classes.media}
-                            image={
-                                movie.backdrop_path !== null
-                                    ? URL_IMG + 'w250_and_h141_face/' + movie.backdrop_path
-                                    : NoImage
-                            }
-                        />
-                    </Card>
-                    <CardContent className={classes.content}>
-                        <Typography className={classes.name}>{movie.title}</Typography>
-                        <Typography className={classes.date}>{movie.release_date}</Typography>
-                    </CardContent>
-                </CardActionArea>
-            </LightTooltip>
-        </div>
-    )
-}
-
-export default MovieCard

@@ -4,25 +4,6 @@ import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import { makeStyles } from '@material-ui/styles'
 
-const useStyles = makeStyles({
-    button: {
-        color: 'white',
-        fontSize: '18px',
-        fontWeight: 600,
-        marginRight: '8px',
-    },
-    menu: {
-        marginTop: '30px',
-        display: 'flex',
-        alignItems: 'baseline',
-        flexWrap: 'wrap',
-    },
-    list: {
-        width: '100%',
-        fontWeight: 600,
-    },
-})
-
 interface Props {
     menu: { title: string; path: string; func: (path: string) => void }[]
     label: string
@@ -75,3 +56,22 @@ const MenuButton: React.FC<Props> = ({ menu, label }) => {
 }
 
 export default MenuButton
+
+const useStyles = makeStyles({
+    button: {
+        color: 'white',
+        fontSize: '18px',
+        fontWeight: 600,
+        marginRight: '8px',
+    },
+    menu: {
+        marginTop: '30px',
+        display: 'flex',
+        alignItems: 'baseline',
+        flexWrap: 'wrap',
+    },
+    list: {
+        width: '100%',
+        fontWeight: 600,
+    },
+})

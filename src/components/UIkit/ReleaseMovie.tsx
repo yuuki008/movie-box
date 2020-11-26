@@ -9,33 +9,6 @@ import { makeStyles } from '@material-ui/styles'
 import { db } from '../../firebase/index'
 import { getUid } from '../../redux/selectors'
 
-const useStyles = makeStyles({
-    notification: {
-        display: 'flex',
-    },
-})
-
-const Div = styled.div({
-    color: 'black',
-    lineHeight: '30px',
-    fontWeight: 600,
-    width: '200px',
-    overflowX: 'scroll',
-    paddingLeft: '10px',
-    whiteSpace: 'nowrap',
-    textAlign: 'left',
-})
-
-const Img = styled.img({
-    width: '40px',
-    height: '50px',
-    overflow: 'hidden',
-    textAlign: 'left',
-    padding: '5px',
-    borderRadius: '10px',
-    whiteSpace: 'nowrap',
-})
-
 interface Props {
     movie: {
         poster_path: string
@@ -52,8 +25,8 @@ const ReleaseMovie: React.FC<Props> = ({ movie }) => {
     const selector = useSelector((state) => state)
 
     const displayUid = getUid(selector)
-    const [message, setMessage] = useState(''),
-        [upcoming, setSpan] = useState(0)
+    const [message, setMessage] = useState('')
+    const [upcoming, setSpan] = useState(0)
 
     useEffect(() => {
         const release = movie.release_date.split('-')
@@ -61,7 +34,7 @@ const ReleaseMovie: React.FC<Props> = ({ movie }) => {
         const month = release[1]
         const date = release[2]
         const releaseDate = `${year}/${month}/${date} 00:00:00`
-        let today: any = new Date()
+        const today: any = new Date()
         const data: any = Date.parse(releaseDate)
         const item = data - today
         setSpan(item)
@@ -95,11 +68,13 @@ const ReleaseMovie: React.FC<Props> = ({ movie }) => {
         <>
             {upcoming < 604800000 && (
                 <Button className={classes.notification} onClick={() => dispatch(push('/movie/' + movie.id))}>
-                    <Img src={movie.poster_path === null ? logo : URL_IMG + IMG_SIZE_XSMALL + movie.poster_path} />
-                    <Div>
+                    <MovieImage
+                        src={movie.poster_path === null ? logo : URL_IMG + IMG_SIZE_XSMALL + movie.poster_path}
+                    />
+                    <MovieTitle>
                         {movie.title}
                         <p>{message}</p>
-                    </Div>
+                    </MovieTitle>
                 </Button>
             )}
         </>
@@ -107,3 +82,30 @@ const ReleaseMovie: React.FC<Props> = ({ movie }) => {
 }
 
 export default ReleaseMovie
+
+const useStyles = makeStyles({
+    notification: {
+        display: 'flex',
+    },
+})
+
+const MovieTitle = styled.div({
+    color: 'black',
+    lineHeight: '30px',
+    fontWeight: 600,
+    width: '200px',
+    overflowX: 'scroll',
+    paddingLeft: '10px',
+    whiteSpace: 'nowrap',
+    textAlign: 'left',
+})
+
+const MovieImage = styled.img({
+    width: '40px',
+    height: '50px',
+    overflow: 'hidden',
+    textAlign: 'left',
+    padding: '5px',
+    borderRadius: '10px',
+    whiteSpace: 'nowrap',
+})

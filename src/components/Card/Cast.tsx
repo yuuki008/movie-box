@@ -11,31 +11,6 @@ import { push } from 'connected-react-router'
 import NoImage from '../../assets/images/no_image.png'
 import { LightTooltip } from '../UIkit'
 
-const useStyles = makeStyles({
-    root: {
-        width: '138px',
-        borderRadius: '10px',
-    },
-    media: {
-        height: 175,
-        width: 135,
-        backgroundSize: 'contain',
-        backgroundColor: 'lightgray',
-        borderRadius: '10px',
-    },
-    name: {
-        fontSize: '14px',
-    },
-    character: {
-        fontSize: '10px',
-        fontWeight: 300,
-    },
-    content: {
-        overflowY: 'scroll',
-        height: '40px',
-    },
-})
-
 interface Props {
     cast: {
         name: string
@@ -76,3 +51,28 @@ const Cast: React.FC<Props> = ({ cast }) => {
 }
 
 export default Cast
+
+const useStyles = makeStyles({
+    root: {
+        width: '138px',
+        borderRadius: '10px',
+    },
+    media: {
+        height: 175,
+        width: 135,
+        backgroundSize: 'contain',
+        backgroundColor: 'lightgray',
+        borderRadius: '10px',
+    },
+    name: {
+        fontSize: '14px',
+    },
+    character: {
+        fontSize: '10px',
+        fontWeight: 300,
+    },
+    content: {
+        overflowY: 'scroll',
+        height: '40px',
+    },
+})

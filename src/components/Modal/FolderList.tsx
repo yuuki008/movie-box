@@ -25,56 +25,6 @@ function getModalStyle() {
         transform: `translate(-${top}%, -${left}%)`,
     }
 }
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        paper: {
-            position: 'absolute',
-            top: '50%',
-            left: '30%',
-            width: 250,
-            backgroundColor: 'white',
-            border: '2px solid #000',
-            boxShadow: theme.shadows[5],
-            padding: theme.spacing(2, 4, 3),
-        },
-        icon: {
-            position: 'absolute',
-            right: 0,
-            top: '-4px',
-        },
-        check: {
-            display: 'flex',
-            width: '100%',
-            textAlign: 'center',
-            padding: '5px',
-        },
-        title: {
-            height: '40px',
-            lineHeight: '30px',
-            borderBottom: '1px solid lightgray',
-        },
-        box: {
-            display: 'flex',
-        },
-        submit: {
-            fontSize: '18px',
-            width: '100%',
-        },
-        defaultIcon: {
-            height: 30,
-            lineHeight: 30,
-            width: 30,
-            backgroundColor: 'rgb(3,37,65)',
-            marginTop: '5px',
-        },
-        listIcon: {
-            color: 'lightgray',
-            width: '20px',
-            height: '20px',
-        },
-    }),
-)
-
 interface Props {
     movie: {
         id: number
@@ -184,3 +134,53 @@ const FolderList: React.FC<Props> = ({ movie }) => {
 }
 
 export default FolderList
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        paper: {
+            position: 'absolute',
+            top: '50%',
+            left: '30%',
+            width: 250,
+            backgroundColor: 'white',
+            border: '2px solid #000',
+            boxShadow: theme.shadows[5],
+            padding: theme.spacing(2, 4, 3),
+        },
+        icon: {
+            position: 'absolute',
+            right: 0,
+            top: '-4px',
+        },
+        check: {
+            display: 'flex',
+            width: '100%',
+            textAlign: 'center',
+            padding: '5px',
+        },
+        title: {
+            height: '40px',
+            lineHeight: '30px',
+            borderBottom: '1px solid lightgray',
+        },
+        box: {
+            display: 'flex',
+        },
+        submit: {
+            fontSize: '18px',
+            width: '100%',
+        },
+        defaultIcon: {
+            height: 30,
+            lineHeight: 30,
+            width: 30,
+            backgroundColor: 'rgb(3,37,65)',
+            marginTop: '5px',
+        },
+        listIcon: {
+            color: 'lightgray',
+            width: '20px',
+            height: '20px',
+        },
+    }),
+)

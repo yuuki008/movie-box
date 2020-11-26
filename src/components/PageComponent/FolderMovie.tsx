@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components'
 import { LightTooltip } from '../UIkit'
 import { db } from '../../firebase/index'
 import MovieCard from '../Card/MovieCard'
@@ -9,28 +8,7 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import { makeStyles } from '@material-ui/styles'
 import { deleteFolder, fetchFolders } from '../../redux/user/operations'
 import { getUid } from '../../redux/selectors'
-
-const useStyles = makeStyles({
-    icon: {
-        width: '40px',
-        height: '40px',
-        position: 'absolute',
-        bottom: 12,
-    },
-})
-
-const Div = styled.div({
-    width: '100%',
-    borderRadius: '10px',
-})
-
-const H3 = styled.h3({
-    textAlign: 'center',
-    height: '80px',
-    lineHeight: '80px',
-    color: 'black',
-    fontSize: '24px',
-})
+import styled from 'styled-components'
 
 interface Props {
     folder: { id: string; name: string }
@@ -65,7 +43,7 @@ const FolderMovie: React.FC<Props> = ({ folder }) => {
     return (
         <>
             {movies.length === 0 ? (
-                <div style={{ height: '40px', position: 'relative', display: 'flex' }}>
+                <NonWrapper>
                     <LightTooltip title="作品がまだありません" placement="left">
                         <h3 style={{ height: '40px', lineHeight: '40px' }}>{folder.name}</h3>
                     </LightTooltip>
@@ -74,28 +52,67 @@ const FolderMovie: React.FC<Props> = ({ folder }) => {
                             <DeleteIcon />
                         </LightTooltip>
                     </IconButton>
-                </div>
+                </NonWrapper>
             ) : (
-                <div style={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ width: '100%', display: 'flex', position: 'relative' }}>
-                        <h2 style={{ padding: '10px' }}>{folder.name}</h2>
-                        <div style={{ height: '60px', position: 'relative' }}>
+                <Wrapper>
+                    <TitleWrapper>
+                        <h2>{folder.name}</h2>
+                        <div>
                             <IconButton className={classes.icon} onClick={() => handleDelete()}>
                                 <LightTooltip title={`${folder.name}を削除`}>
                                     <DeleteIcon />
                                 </LightTooltip>
                             </IconButton>
                         </div>
-                    </div>
-                    <div style={{ display: 'flex', overflowX: 'scroll', width: '100%' }}>
+                    </TitleWrapper>
+                    <MovieWrapper>
                         {movies.map((movie: any) => (
                             <MovieCard movie={movie} key={movie.id} />
                         ))}
-                    </div>
-                </div>
+                    </MovieWrapper>
+                </Wrapper>
             )}
         </>
     )
 }
 
 export default FolderMovie
+
+const NonWrapper = styled.div({
+    height: '40px',
+    position: 'relative',
+    display: 'flex',
+})
+
+const Wrapper = styled.div({
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+})
+
+const TitleWrapper = styled.div({
+    width: '100%',
+    display: 'flex',
+    position: 'relative',
+    h2: {
+        padding: '10px',
+    },
+    div: {
+        height: '60px',
+        position: 'relative',
+    },
+})
+const MovieWrapper = styled.div({
+    display: 'flex',
+    overflowY: 'scroll',
+    width: '100%',
+})
+
+const useStyles = makeStyles({
+    icon: {
+        width: '40px',
+        height: '40px',
+        position: 'absolute',
+        bottom: 12,
+    },
+})

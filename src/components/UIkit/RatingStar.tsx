@@ -4,12 +4,6 @@ import Typography from '@material-ui/core/Typography'
 import Rating from '@material-ui/lab/Rating'
 import { makeStyles } from '@material-ui/styles'
 
-const useStyles = makeStyles({
-    star: {
-        margin: 0,
-    },
-})
-
 interface Props {
     voteAverage: number
     voteCount: number
@@ -29,3 +23,9 @@ const RatingStar: React.FC<Props> = ({ voteAverage, voteCount }) => {
 }
 
 export default RatingStar
+
+const useStyles = makeStyles({
+    star: {
+        margin: 0,
+    },
+})

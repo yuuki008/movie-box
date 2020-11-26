@@ -1,31 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { IconButton, makeStyles } from '@material-ui/core'
 import NotificationsIcon from '@material-ui/icons/Notifications'
-import { addNotification, fetchNotification, deleteNotification } from '../../redux/user/operations'
+import { addNotification, deleteNotification } from '../../redux/user/operations'
 import { LightTooltip } from '../'
-import { useSelector, useDispatch } from 'react-redux'
-import { getNotifications, getUid } from '../../redux/selectors'
-
-const useStyles = makeStyles({
-    notification: {
-        height: 30,
-        lineHeight: 30,
-        width: 30,
-        marginLeft: '10px',
-        backgroundColor: 'rgb(3, 37, 65)',
-        marginTop: '5px',
-    },
-    icon: {
-        color: 'lightgray',
-        width: '20px',
-        height: '20px',
-    },
-    color: {
-        widht: '20px',
-        height: '20px',
-        color: 'yellow',
-    },
-})
+import { useDispatch } from 'react-redux'
 
 interface Props {
     movie: any
@@ -33,7 +11,6 @@ interface Props {
 }
 const Release: React.FC<Props> = ({ movie, notifications }) => {
     const classes = useStyles()
-    const selector = useSelector((state) => state)
     const dispatch = useDispatch()
 
     const [notification, setNotification] = useState(false)
@@ -86,3 +63,24 @@ const Release: React.FC<Props> = ({ movie, notifications }) => {
 }
 
 export default Release
+
+const useStyles = makeStyles({
+    notification: {
+        height: 30,
+        lineHeight: 30,
+        width: 30,
+        marginLeft: '10px',
+        backgroundColor: 'rgb(3, 37, 65)',
+        marginTop: '5px',
+    },
+    icon: {
+        color: 'lightgray',
+        width: '20px',
+        height: '20px',
+    },
+    color: {
+        widht: '20px',
+        height: '20px',
+        color: 'yellow',
+    },
+})

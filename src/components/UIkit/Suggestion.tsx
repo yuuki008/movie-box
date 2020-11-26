@@ -33,7 +33,7 @@ const Suggestion = () => {
     const onSuggestionsFetchRequested = () => {
         const trimValue = value.trim()
         if (trimValue.length > 0) {
-            let url = URL_SEARCH + trimValue + API_KEY_ALT
+            const url = URL_SEARCH + trimValue + API_KEY_ALT
             fetch(url)
                 .then((response) => response.json())
                 .then((json) => json.results)
@@ -49,7 +49,7 @@ const Suggestion = () => {
                     })
                     setSuggestions(results)
                 })
-                .catch((error) => console.log('該当の作品はありません'))
+                .catch(() => console.log('該当の作品はありません'))
         } else {
             setSuggestions([])
         }
@@ -62,11 +62,11 @@ const Suggestion = () => {
     const renderSuggestion = (suggestion: any) => {
         return (
             <div>
-                <Img alt="" src={suggestion.img === null ? logo : URL_IMG + IMG_SIZE_XSMALL + suggestion.img} />
-                <DivText>
+                <MovieImage alt="" src={suggestion.img === null ? logo : URL_IMG + IMG_SIZE_XSMALL + suggestion.img} />
+                <MovieTitle>
                     <div>{suggestion.title}</div>
                     {suggestion.year}
-                </DivText>
+                </MovieTitle>
             </div>
         )
     }
@@ -100,7 +100,7 @@ const Suggestion = () => {
 
 export default Suggestion
 
-const Img = styled.img({
+const MovieImage = styled.img({
     width: '40px',
     height: '50px',
     float: 'left',
@@ -108,7 +108,7 @@ const Img = styled.img({
     borderRadius: '3px',
 })
 
-const DivText = styled.div({
+const MovieTitle = styled.div({
     color: 'black',
     lineHeight: '21px',
     overflow: 'hidden',
