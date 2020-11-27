@@ -1,15 +1,3 @@
-interface movie {
-    id: number
-    title: string
-    poster_path: string
-    backdrop_path: string
-    release_date: string
-    genres: { id: number; name: string }[]
-    overview: string
-    timestamp: string
-    vote_average: number
-}
-
 export const FETCH_MOVIE_DETAIL = 'FETCH_MOVIE_DETAIL'
 export const fetchMovieDetailAction = () => {
     return {
@@ -18,7 +6,7 @@ export const fetchMovieDetailAction = () => {
 }
 
 export const FETCH_MOVIE_DETAIL_SUCCESS = 'FETCH_MOVIE_DETAIL_SUCCESS'
-export const fetchMovieDetailSuccess = (data: movie) => {
+export const fetchMovieDetailSuccess = (data: Movie) => {
     return {
         type: FETCH_MOVIE_DETAIL_SUCCESS,
         data,

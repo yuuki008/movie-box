@@ -1,15 +1,3 @@
-interface actor {
-    biography: string
-    birthday: string
-    gender: number
-    name: string
-    profile_path: string
-    place_of_birth: string
-    id: number
-    popularity: number
-    known_for_department: string
-}
-
 export const FETCH_CASTS = 'FETCH_CASTS'
 export const fetchCasts = () => {
     return {
@@ -17,7 +5,7 @@ export const fetchCasts = () => {
     }
 }
 export const FETCH_CASTS_SUCCESS = 'FETCH_CASTS_SUCCESS'
-export const fetchCastsSuccess = (data: any) => {
+export const fetchCastsSuccess = (data: Cast[]) => {
     return {
         type: FETCH_CASTS_SUCCESS,
         data,

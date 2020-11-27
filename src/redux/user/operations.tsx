@@ -44,7 +44,6 @@ export const deleteNotification = (id: number) => {
 export const fetchNotification = () => {
     return async (dispatch: any, getState: any) => {
         const uid = getState().user.uid
-        const today = new Date()
         usersRef
             .doc(uid)
             .collection('notification')

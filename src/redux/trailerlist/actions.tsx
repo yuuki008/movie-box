@@ -1,6 +1,3 @@
-interface trailer {
-    key: string
-}
 export const FETCH_TRAILERS = 'FETCH_TRAILERS'
 export const fetchTrailers = () => {
     return {
@@ -8,7 +5,7 @@ export const fetchTrailers = () => {
     }
 }
 export const FETCH_TRAILERS_SUCCESS = 'FETCH_TRAILERS_SUCCESS'
-export const fetchTrailersSuccess = (data: trailer[]) => {
+export const fetchTrailersSuccess = (data: Trailer[]) => {
     return {
         type: FETCH_TRAILERS_SUCCESS,
         data,

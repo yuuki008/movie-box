@@ -4,19 +4,7 @@ import { fethcFolderMovieAction } from './actions'
 const folderRef = db.collection('folder')
 const usersRef = db.collection('user')
 
-interface movie {
-    id: number
-    title: string
-    poster_path: string
-    backdrop_path: string
-    release_date: string
-    genres: { id: number; name: string }[]
-    overview: string
-    timestamp: string
-    vote_average: number
-}
-
-export const deleteFolderMovie = (folderId: string, movie: movie) => {
+export const deleteFolderMovie = (folderId: string, movie: Movie) => {
     return async (dispatch: any) => {
         folderRef
             .doc(folderId)
@@ -39,7 +27,7 @@ export const deleteFolderMovie = (folderId: string, movie: movie) => {
     }
 }
 
-export const addFolderMovie = (folderId: string, movie: movie) => {
+export const addFolderMovie = (folderId: string, movie: Movie) => {
     return async (dispatch: any) => {
         folderRef
             .doc(folderId)

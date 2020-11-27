@@ -1,23 +1,5 @@
-interface movie {
-    id: string
-    title: string
-    poster_path: string
-    backdrop_path: string
-    release_date: string
-    genres: { id: number; name: string }[]
-    overview: string
-    timestamp: string
-    vote_average: number
-}
-
-interface folder {
-    created_at: string
-    id: string
-    name: string
-}
-
 export const FETCH_NOTIFICATION = 'FETCH_NOTIFICATION'
-export const fetchNotificationAction = (notifications: movie[]) => {
+export const fetchNotificationAction = (notifications: Movie[]) => {
     return {
         type: 'FETCH_NOTIFICATION',
         payload: notifications,
@@ -25,7 +7,7 @@ export const fetchNotificationAction = (notifications: movie[]) => {
 }
 
 export const FETCH_FOLDER = 'FETCH_FOLDER'
-export const fetchFolderAction = (folders: folder[]) => {
+export const fetchFolderAction = (folders: Folder[]) => {
     return {
         type: 'FETCH_FOLDER',
         payload: folders,
@@ -33,7 +15,7 @@ export const fetchFolderAction = (folders: folder[]) => {
 }
 
 export const FETCH_FAVORITE = 'FETCH_FAVORITE'
-export const fetchFavoriteAction = (favorites: movie[]) => {
+export const fetchFavoriteAction = (favorites: Movie[]) => {
     return {
         type: 'FETCH_FAVORITE',
         payload: favorites,
@@ -41,12 +23,7 @@ export const fetchFavoriteAction = (favorites: movie[]) => {
 }
 
 export const SIGN_IN = 'SIGN_IN'
-export const signInAction = (user: {
-    isSignedIn: boolean
-    username: string
-    uid: string
-    genres: Array<{ id: number; name: string }>
-}) => {
+export const signInAction = (user: User) => {
     return {
         type: 'SIGN_IN',
         payload: {

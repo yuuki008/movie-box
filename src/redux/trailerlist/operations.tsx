@@ -9,7 +9,7 @@ export const fetchTrailerList = (id: string) => {
             .then((response) => response.json())
             .then((json) => json.results)
             .then((data) => {
-                let youtubeTrailers = data.filter((trailer: any) => {
+                const youtubeTrailers = data.filter((trailer: any) => {
                     return trailer.site === 'YouTube'
                 })
                 dispatch(fetchTrailersSuccess(youtubeTrailers))

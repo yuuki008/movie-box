@@ -1,15 +1,3 @@
-interface movie {
-    id: number
-    title: string
-    poster_path: string
-    backdrop_path: string
-    release_date: string
-    genres: { id: number; name: string }[]
-    overview: string
-    timestamp: string
-    vote_average: number
-}
-
 export const FETCH_MOVIE = 'FETCH_MOVIE'
 export const fetchMovie = () => {
     return {
@@ -18,7 +6,7 @@ export const fetchMovie = () => {
 }
 
 export const FETCH_MOVIE_SUCCESS = 'FETCH_MOVIE_SUCCESS'
-export const fetchMovieSuccess = (data: object, page: number, total_pages: number) => {
+export const fetchMovieSuccess = (data: Movie, page: number, total_pages: number) => {
     return {
         type: FETCH_MOVIE_SUCCESS,
         data,
@@ -28,7 +16,7 @@ export const fetchMovieSuccess = (data: object, page: number, total_pages: numbe
 }
 
 export const FETCH_MOVIE_FAILURE = 'FETCH_MOVIE_FAILURE'
-export const fetchMovieFailure = (error: object) => {
+export const fetchMovieFailure = (error: any) => {
     return {
         type: FETCH_MOVIE_FAILURE,
     }
@@ -42,7 +30,7 @@ export const searchMovie = (searchText: string) => {
     }
 }
 export const SEARCH_MOVIE_SUCCESS = 'SEARCH_MOVIE_SUCCESS'
-export const searchMovieSuccess = (data: movie[], keyword: string) => {
+export const searchMovieSuccess = (data: Movie[], keyword: string) => {
     return {
         type: SEARCH_MOVIE_SUCCESS,
         data,

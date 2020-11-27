@@ -30,7 +30,7 @@ export const fetchMovieList = (API_GET_MOVIE_BY = API_GET_MOVIE_POPULAR, genreID
 }
 
 export const searchMovieList = (keyword: string) => {
-    let url = URL_SEARCH + keyword + API_KEY_ALT
+    const url = URL_SEARCH + keyword + API_KEY_ALT
     return async (dispatch: any) => {
         dispatch(searchMovie(keyword))
         return fetch(url)
@@ -56,7 +56,7 @@ export const fetchActorMovieList = (id: string) => {
 }
 
 export const fetchSimilarMovies = (movieID: string) => {
-    let url = URL + API_GET_MOVIE_SIMILAR(movieID) + API_KEY
+    const url = URL + API_GET_MOVIE_SIMILAR(movieID) + API_KEY
     return async (dispatch: any) => {
         dispatch(fetchMovie())
         return fetch(url)
