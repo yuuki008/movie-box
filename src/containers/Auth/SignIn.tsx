@@ -11,15 +11,15 @@ const SignIn = () => {
     const [password, setPassword] = useState('')
 
     const inputEmail = useCallback(
-        (event: React.ChangeEvent<HTMLInputElement>) => {
-            setEmail(event.target.value)
+        (value: string) => {
+            setEmail(value)
         },
         [setEmail],
     )
 
     const inputPassword = useCallback(
-        (event: React.ChangeEvent<HTMLInputElement>) => {
-            setPassword(event.target.value)
+        (value: string) => {
+            setPassword(value)
         },
         [setPassword],
     )

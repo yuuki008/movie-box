@@ -9,7 +9,7 @@ type Props = {
     rows: number
     value: string
     type: string
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+    onChange: (value: string) => void
 }
 
 const TextInput: React.FC<Props> = (props: Props) => {
@@ -23,7 +23,7 @@ const TextInput: React.FC<Props> = (props: Props) => {
             rows={props.rows}
             value={props.value}
             type={props.type}
-            onChange={props.onChange}
+            onChange={(event) => props.onChange(event.target.value)}
         />
     )
 }

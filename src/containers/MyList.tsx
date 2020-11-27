@@ -20,8 +20,8 @@ const MyList = () => {
     const folders = getFolders(selector)
 
     const inputName = useCallback(
-        (event) => {
-            setName(event.target.value)
+        (value: string) => {
+            setName(value)
         },
         [setName],
     )

@@ -10,8 +10,8 @@ const Reset = () => {
     const [email, setEmail] = useState('')
 
     const inputEmail = useCallback(
-        (event: React.ChangeEvent<HTMLInputElement>) => {
-            setEmail(event.target.value)
+        (value: string) => {
+            setEmail(value)
         },
         [setEmail],
     )

@@ -8,8 +8,8 @@ import styled from 'styled-components'
 
 const Suggestion = () => {
     const dispatch = useDispatch()
-    const [value, setValue] = useState(''),
-        [suggestions, setSuggestions] = useState([])
+    const [value, setValue] = useState('')
+    const [suggestions, setSuggestions] = useState([])
 
     const inputValue = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value)

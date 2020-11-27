@@ -17,7 +17,7 @@ const SignUp = () => {
     //mapとfilterしたときにわざわざ型定義しなくていい
 
     const selectGenre = (genre: Genre, setCheck: React.Dispatch<React.SetStateAction<boolean>>) => {
-        const filteredGenres = myGenres.filter(g => g.id !== genre.id)
+        const filteredGenres = myGenres.filter((g) => g.id !== genre.id)
         if (filteredGenres.length === myGenres.length) {
             setMyGenres([...filteredGenres, genre])
             setCheck(true)
@@ -28,29 +28,29 @@ const SignUp = () => {
     }
 
     const inputUsername = useCallback(
-        (event) => {
-            setUsername(event.target.value)
+        (value: string) => {
+            setUsername(value)
         },
         [setUsername],
     )
 
     const inputEmail = useCallback(
-        (event) => {
-            setEmail(event.target.value)
+        (value: string) => {
+            setEmail(value)
         },
         [setEmail],
     )
 
     const inputPassword = useCallback(
-        (event) => {
-            setPassword(event.target.value)
+        (value: string) => {
+            setPassword(value)
         },
         [setPassword],
     )
 
     const inputConfirmPassword = useCallback(
-        (event) => {
-            setConfirmPassword(event.target.value)
+        (value: string) => {
+            setConfirmPassword(value)
         },
         [setConfirmPassword],
     )

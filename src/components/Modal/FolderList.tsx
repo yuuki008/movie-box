@@ -47,8 +47,8 @@ const FolderList: React.FC<Props> = (props: Props) => {
     }, [setOpen])
 
     const inputName = useCallback(
-        (event) => {
-            setName(event.target.value)
+        (value: string) => {
+            setName(value)
         },
         [setName],
     )
