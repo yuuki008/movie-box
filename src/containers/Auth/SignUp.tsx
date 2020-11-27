@@ -7,26 +7,22 @@ import { signUp } from '../../redux/user/operations'
 
 const SignUp = () => {
     const dispatch = useDispatch()
-    interface genre {
-        id: number
-        name: string
-    }
 
-    const [username, setUsername] = useState(''),
-        [email, setEmail] = useState(''),
-        [password, setPassword] = useState(''),
-        [confirmPassword, setConfirmPassword] = useState(''),
-        [genres, setGenres] = useState<genre[]>([]),
-        [selected, setSelectedGenre] = useState<genre[]>([])
+    const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [genres, setGenres] = useState<Genre[]>([])
+    const [myGenres, setMyGenres] = useState<Genre[]>([])
+    //mapとfilterしたときにわざわざ型定義しなくていい
 
-    const selectGenre = (e: any, setCheck: any) => {
-        const Genre = { name: e.target.name, id: e.target.id }
-        const filteredGenres = selected.filter((g: genre) => g.id !== Genre.id)
-        if (filteredGenres.length === selected.length) {
-            setSelectedGenre([...filteredGenres, Genre])
+    const selectGenre = (genre: Genre, setCheck: React.Dispatch<React.SetStateAction<boolean>>) => {
+        const filteredGenres = myGenres.filter(g => g.id !== genre.id)
+        if (filteredGenres.length === myGenres.length) {
+            setMyGenres([...filteredGenres, genre])
             setCheck(true)
         } else {
-            setSelectedGenre([...filteredGenres])
+            setMyGenres([...filteredGenres])
             setCheck(false)
         }
     }
@@ -93,7 +89,7 @@ const SignUp = () => {
                 label="好きなジャンル"
                 genres={genres}
                 required={false}
-                selected={selected}
+                selected={myGenres}
                 select={selectGenre}
             />
             <TextInput
@@ -120,7 +116,7 @@ const SignUp = () => {
             <div className="center">
                 <PrimaryButton
                     label="ユーザー登録"
-                    onClick={() => dispatch(signUp(username, email, selected, password, confirmPassword))}
+                    onClick={() => dispatch(signUp(username, email, myGenres, password, confirmPassword))}
                 />
                 <div className="module-spacer--medium" />
                 <p onClick={() => dispatch(push('/signin'))}>アカウントをお持ちの方はこちら</p>

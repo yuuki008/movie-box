@@ -1,26 +1,24 @@
-import React, { useState, useCallback, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState, useCallback } from 'react'
+import { useDispatch } from 'react-redux'
 import { TextInput, PrimaryButton } from '../../components'
 import { signIn } from '../../redux/user/operations'
 import { push } from 'connected-react-router'
-import { getIsSignedIn } from '../../redux/selectors'
 
 const SignIn = () => {
     const dispatch = useDispatch()
-    const selector = useSelector((state) => state)
 
-    const [email, setEmail] = useState(''),
-        [password, setPassword] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
     const inputEmail = useCallback(
-        (event) => {
+        (event: React.ChangeEvent<HTMLInputElement>) => {
             setEmail(event.target.value)
         },
         [setEmail],
     )
 
     const inputPassword = useCallback(
-        (event) => {
+        (event: React.ChangeEvent<HTMLInputElement>) => {
             setPassword(event.target.value)
         },
         [setPassword],

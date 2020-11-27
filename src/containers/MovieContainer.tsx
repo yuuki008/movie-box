@@ -12,10 +12,6 @@ import {
 import { PageButton, DefaultCard, Genre } from '../components'
 
 const MovieContainer = () => {
-    type genre = {
-        id: number
-        name: string
-    }
     const selector = useSelector((state) => state)
     const dispatch = useDispatch()
     const movielist = getMovieList(selector)
@@ -23,7 +19,7 @@ const MovieContainer = () => {
     const isFetching = movielist.isFetching
     const total_pages = movielist.total_pages
     const page = movielist.page
-    const [selectGenre, setSelectGenre] = useState<genre[]>([])
+    const [selectGenre, setSelectGenre] = useState<Genre[]>([])
     const path = window.location.pathname
     const keyword = path.split('/search/')[1]
 
@@ -41,8 +37,8 @@ const MovieContainer = () => {
                 return null
         }
     }
-    const toggleGenre = (genre: genre) => {
-        const filteredGenres = selectGenre.filter((g: genre) => g.id !== genre.id)
+    const toggleGenre = (genre: Genre) => {
+        const filteredGenres = selectGenre.filter((g: Genre) => g.id !== genre.id)
         if (filteredGenres.length === selectGenre.length) {
             setSelectGenre([...filteredGenres, genre])
         } else {
@@ -62,7 +58,7 @@ const MovieContainer = () => {
             if (typeof Storage !== 'undefined') {
                 localStorage.setItem('currentPage', JSON.stringify(page))
             }
-            const GenresID = selectGenre.map((g: genre) => g.id)
+            const GenresID = selectGenre.map((g: Genre) => g.id)
             if (path === '/') {
                 dispatch(fetchMovieList(API_GET_MOVIE_POPULAR, GenresID, page))
             } else if (path === '/upcoming') {
@@ -82,7 +78,7 @@ const MovieContainer = () => {
     }, [keyword])
 
     useEffect(() => {
-        const genreIDs = selectGenre.map((g: genre): number => {
+        const genreIDs = selectGenre.map((g: Genre): number => {
             return g.id
         })
         if (path === '/') {
@@ -98,7 +94,7 @@ const MovieContainer = () => {
 
     return (
         <Wrapper>
-            <h2 style={{ position: 'fixed', top: 90, left: 80 }}>{pageTitle(path)}</h2>
+            <h2>{pageTitle(path)}</h2>
             {!keyword ? (
                 <Genre selectGenre={selectGenre} toggleGenre={toggleGenre} />
             ) : (
@@ -111,7 +107,7 @@ const MovieContainer = () => {
                     <>
                         <MovieWrapper>
                             <MovieWrapper2>
-                                {movies.map((movie: any) => (
+                                {movies.map((movie: Movie) => (
                                     <DefaultCard
                                         info
                                         key={movie.id}
@@ -148,6 +144,11 @@ const Wrapper = styled.div({
     flexDirection: 'column',
     position: 'relative',
     paddingTop: '60px',
+    h2: {
+        position: 'fixed',
+        top: 90,
+        left: 80,
+    },
 })
 
 const Head = styled.div({

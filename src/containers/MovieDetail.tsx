@@ -20,30 +20,6 @@ import styled from 'styled-components'
 import { fetchFavoriteMovie, fetchNotification } from '../redux/user/operations'
 import { MovieCard, RatingStar, Cast, Trailer, FolderList, Favorite, Release } from '../components'
 
-export interface Image {
-    backdropImage: string
-}
-
-interface movie {
-    id: number
-    title: string
-    poster_path: string
-    backdrop_path: string
-    release_date: string
-    genres: { id: number; name: string }[]
-    overview: string
-    timestamp: string
-    vote_average: number
-}
-
-interface cast {
-    name: string
-    content: string
-    id: number
-    profile_path: string
-    character: string
-}
-
 const MovieDetail = () => {
     const selector = useSelector((state) => state)
     const dispatch = useDispatch()
@@ -67,14 +43,14 @@ const MovieDetail = () => {
         year = movie.item.release_date.split('-')[0]
     }
 
-    const stringmethod = (str: any) => {
+    const stringmethod = (str: string) => {
         if (str !== undefined) {
             const date = str.substr(0, 4) + '年' + str.substr(5, 2) + '月' + str.substr(8, 2) + '日'
             return date
         }
     }
 
-    const usePrevious = (value: any) => {
+    const usePrevious = (value: string) => {
         const ref = useRef<string>()
         useEffect(() => {
             ref.current = value
@@ -97,6 +73,8 @@ const MovieDetail = () => {
             dispatch(fetchNotification())
         }
     }, [uid])
+
+    console.log(movie)
 
     useEffect(() => {
         if (movie.item.release_date !== undefined) {
@@ -156,11 +134,11 @@ const MovieDetail = () => {
                                         {stringmethod(movie.item.release_date)}
                                         {movie.item.production_countries !== undefined &&
                                             `(${movie.item.production_countries.map(
-                                                (item: any) => `${item.iso_3166_1},`,
+                                                (item: Country) => `${item.iso_3166_1},`,
                                             )})`}
                                         ・
                                         {movie.item.genres !== undefined &&
-                                            movie.item.genres.map((item: any) => (
+                                            movie.item.genres.map((item: Genre) => (
                                                 <span
                                                     key={item.id}
                                                     style={{
@@ -181,9 +159,9 @@ const MovieDetail = () => {
                                     <p>{movie.item.overview}</p>
                                 </MovieOverview>
                                 <MovieCompany>
-                                    {movie.item.production_companies !== undefined &&
+                                    {!!movie.item.production_companies &&
                                         movie.item.production_companies.map(
-                                            (item: any, index: number) =>
+                                            (item: Company, index: number) =>
                                                 item.logo_path !== null && (
                                                     <img
                                                         key={index}
@@ -201,7 +179,7 @@ const MovieDetail = () => {
                 <MovieCastWrapper>
                     <h2>主な出演者</h2>
                     <MovieCastWrapper2>
-                        {casts.items.slice(0, 20).map((cast: cast, index: number) => (
+                        {casts.items.slice(0, 20).map((cast: Cast, index: number) => (
                             <Cast cast={cast} key={index} />
                         ))}
                     </MovieCastWrapper2>
@@ -222,7 +200,7 @@ const MovieDetail = () => {
                             <>
                                 <h2>おすすめ</h2>
                                 <MovieSimilarWrapper2>
-                                    {movies.items.slice(0, 10).map((movie: movie) => (
+                                    {movies.items.slice(0, 10).map((movie: Movie) => (
                                         <MovieCard movie={movie} key={movie.id} />
                                     ))}
                                 </MovieSimilarWrapper2>
@@ -237,14 +215,15 @@ const MovieDetail = () => {
 
 export default MovieDetail
 
-const MovieWrapper: any = styled.div((props: { backdropImage: string }) => ({
+const MovieWrapper = styled.div((props: { backdropImage: string }) => ({
     backgroundImage: props.backdropImage,
     backgroundSize: 'cover',
     paddingTop: '60px',
 }))
 
 const MovieWrapper2 = styled.div({
-    backgroundImage: 'linear-gradient(to right, rgba(5.88%, 27.45%, 27.06%, 0.6) 150px, rgba(10.59%, 36.47%, 36.08%, 0.84) 100%) !important',
+    backgroundImage:
+        'linear-gradient(to right, rgba(5.88%, 27.45%, 27.06%, 0.6) 150px, rgba(10.59%, 36.47%, 36.08%, 0.84) 100%) !important',
 })
 
 const MovieDescription = styled.div({

@@ -81,10 +81,11 @@ const MyList = () => {
                 <LikesWrapper>
                     <h2>お気に入り</h2>
                     <Likes>
-                        {favorites.length > 0 && favorites.map((item: any) => <MovieCard movie={item} key={item.id} />)}
+                        {favorites.length > 0 &&
+                            favorites.map((item: Movie) => <MovieCard movie={item} key={item.id} />)}
                     </Likes>
                 </LikesWrapper>
-                {folders.map((folder: any) => (
+                {folders.map((folder: Folder) => (
                     <LikesWrapper key={folder.id}>
                         <FolderMovie folder={folder} />
                     </LikesWrapper>
@@ -122,7 +123,6 @@ const Wrapper = styled.div({
 const Wrapper2 = styled.div({
     width: '100%',
 })
-
 
 // const DivImage: any = styled.div((props: { background: string }) => ({
 //     backgroundImage: `url('https://image.tmdb.org/t/p/w1920_and_h800_multi_faces_filter(duotone,032541,01b4e4)${props.background}`,
@@ -173,4 +173,3 @@ const Likes = styled.div({
     overflowX: 'scroll',
     width: '100%',
 })
-

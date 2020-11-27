@@ -8,18 +8,6 @@ import NoImage from '../assets/images/no_image.png'
 import { MovieCard2 } from '../components'
 import styled from 'styled-components'
 
-interface movie {
-    id: number
-    title: string
-    poster_path: string
-    backdrop_path: string
-    release_date: string
-    genres: { id: number; name: string }[]
-    overview: string
-    timestamp: string
-    vote_average: number
-}
-
 const Actor = () => {
     const dispatch = useDispatch()
     const selector = useSelector((state) => state)
@@ -92,7 +80,7 @@ const Actor = () => {
                     <ActorMovies>
                         <h3>作品</h3>
                         <ActorMovies2>
-                            {movies.items.map((movie: movie) => (
+                            {movies.items.map((movie: Movie) => (
                                 <MovieCard2 movie={movie} key={movie.id} />
                             ))}
                         </ActorMovies2>
