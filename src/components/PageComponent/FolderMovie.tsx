@@ -10,10 +10,10 @@ import { deleteFolder, fetchFolders } from '../../redux/user/operations'
 import { getUid } from '../../redux/selectors'
 import styled from 'styled-components'
 
-interface Props {
-    folder: { id: string; name: string }
+type Props = {
+    folder: Folder
 }
-const FolderMovie: React.FC<Props> = ({ folder }) => {
+const FolderMovie: React.FC<Props> = (props: Props) => {
     const dispatch = useDispatch()
     const classes = useStyles()
     const selector = useSelector((state) => state)
@@ -25,30 +25,30 @@ const FolderMovie: React.FC<Props> = ({ folder }) => {
     const handleDelete = () => {
         const ref = window.confirm('このフォルダを削除しますか?')
         if (ref) {
-            dispatch(deleteFolder(uid, folder.id))
+            dispatch(deleteFolder(uid, props.folder.id))
             dispatch(fetchFolders(uid))
         }
     }
 
     useEffect(() => {
-        if (folder.id) {
+        if (props.folder.id) {
             db.collection('folder')
-                .doc(folder.id)
+                .doc(props.folder.id)
                 .collection('movie')
                 .get()
                 .then((snapshot: any) => setMovies(snapshot.docs.map((doc: any) => doc.data())))
         }
-    }, [folder.id])
+    }, [props.folder.id])
 
     return (
         <>
             {movies.length === 0 ? (
                 <NonWrapper>
                     <LightTooltip title="作品がまだありません" placement="left">
-                        <h3 style={{ height: '40px', lineHeight: '40px' }}>{folder.name}</h3>
+                        <h3 style={{ height: '40px', lineHeight: '40px' }}>{props.folder.name}</h3>
                     </LightTooltip>
                     <IconButton onClick={() => handleDelete()}>
-                        <LightTooltip title={`${folder.name}を削除`}>
+                        <LightTooltip title={`${props.folder.name}を削除`}>
                             <DeleteIcon />
                         </LightTooltip>
                     </IconButton>
@@ -56,10 +56,10 @@ const FolderMovie: React.FC<Props> = ({ folder }) => {
             ) : (
                 <Wrapper>
                     <TitleWrapper>
-                        <h2>{folder.name}</h2>
+                        <h2>{props.folder.name}</h2>
                         <div>
                             <IconButton className={classes.icon} onClick={() => handleDelete()}>
-                                <LightTooltip title={`${folder.name}を削除`}>
+                                <LightTooltip title={`${props.folder.name}を削除`}>
                                     <DeleteIcon />
                                 </LightTooltip>
                             </IconButton>

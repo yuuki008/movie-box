@@ -6,35 +6,30 @@ import Select from '@material-ui/core/Select'
 import BoxLabel from './BoxLabel'
 import Chip from '@material-ui/core/Chip'
 
-interface genre {
-    id: number
-    name: string
-}
-
-interface Props {
+type Props = {
     label: string
-    genres: genre[]
-    select: (e: any, setCheck: any) => void
+    genres: Genre[]
+    select: (genre: Genre, setCheck: React.Dispatch<React.SetStateAction<boolean>>) => void
     required: boolean
-    selected: genre[]
+    selected: Genre[]
 }
 
-const SelectBox: React.FC<Props> = ({ label, genres, select, required, selected }) => {
+const SelectBox: React.FC<Props> = (props: Props) => {
     const classes = useStyles()
-    const name = selected.map((g: any) => g.name).join(' | ')
+    const name = props.selected.map((g: any) => g.name).join(' | ')
     return (
         <FormControl className={classes.formControl}>
-            <InputLabel>{label}</InputLabel>
+            <InputLabel>{props.label}</InputLabel>
             <Select
-                required={required}
+                required={props.required}
                 value={name}
                 renderValue={() => (
                     <div className={classes.chips}>
                         <Chip label={name} className={classes.chip} />
                     </div>
                 )}>
-                {genres.map((genre: genre) => (
-                    <BoxLabel key={genre.id} genre={genre} selected={selected} select={select} />
+                {props.genres.map((genre: Genre) => (
+                    <BoxLabel key={genre.id} genre={genre} selected={props.selected} select={props.select} />
                 ))}
             </Select>
         </FormControl>

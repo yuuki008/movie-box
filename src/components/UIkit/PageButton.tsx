@@ -1,27 +1,27 @@
 import React from 'react'
 import styled from 'styled-components'
 
-interface Props {
+type Props = {
     changePage: (page: number) => void
     page: number
     total_pages: number
 }
 
-const PageButton: React.FC<Props> = ({ changePage, page, total_pages }) => {
-    const Page = page.toString()
-    const prevPage = page - 1 <= 0 ? 1 : page - 1
-    const nextPage = page + 1 > total_pages ? total_pages : parseInt(Page, 10) + parseInt('1', 10)
+const PageButton: React.FC<Props> = (props: Props) => {
+    const Page = props.page.toString()
+    const prevPage = props.page - 1 <= 0 ? 1 : props.page - 1
+    const nextPage = props.page + 1 > props.total_pages ? props.total_pages : parseInt(Page, 10) + parseInt('1', 10)
     return (
         <Wrapper>
-            <button type="button" title="Previous 20 movies" onClick={() => changePage(prevPage)}>
+            <button type="button" title="Previous 20 movies" onClick={() => props.changePage(prevPage)}>
                 Prev
             </button>
             <div>
-                {page}
+                {props.page}
                 <span> / </span>
-                {total_pages}
+                {props.total_pages}
             </div>
-            <button type="button" title="Next 20 movies" onClick={() => changePage(nextPage)}>
+            <button type="button" title="Next 20 movies" onClick={() => props.changePage(nextPage)}>
                 Next
             </button>
         </Wrapper>

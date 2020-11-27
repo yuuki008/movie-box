@@ -10,7 +10,7 @@ import styled from 'styled-components'
 import { CardActionArea } from '@material-ui/core'
 import RatingStar from '../UIkit/RatingStar'
 
-interface Props {
+type Props = {
     info: boolean
     path: string
     id: number
@@ -22,30 +22,20 @@ interface Props {
     first_air_date: string
 }
 
-const DefaultCard: React.FC<Props> = ({
-    info,
-    path,
-    id,
-    title,
-    voteAverage,
-    release_date,
-    voteCount,
-    name,
-    first_air_date,
-}) => {
+const DefaultCard: React.FC<Props> = (props: Props) => {
     const classes = useStyles()
     const dispatch = useDispatch()
     const [released, setReleased] = useState(true)
 
     useEffect(() => {
-        if (release_date !== undefined) {
-            const release = release_date.split('-')
+        if (!!props.release_date) {
+            const release = props.release_date.split('-')
             const year = release[0]
             const month = release[1]
             const date = release[2]
             const releaseDate = `${year}/${month}/${date} 00:00:00`
-            const today: any = new Date()
-            const data: number = Date.parse(releaseDate)
+            const today = Number(new Date())
+            const data = Number(Date.parse(releaseDate))
             if (data < today) {
                 setReleased(true)
             } else {
@@ -56,20 +46,23 @@ const DefaultCard: React.FC<Props> = ({
 
     return (
         <Wrapper>
-            <Card className={classes.root} onClick={() => dispatch(push('/movie/' + id))}>
+            <Card className={classes.root} onClick={() => dispatch(push('/movie/' + props.id))}>
                 <CardActionArea>
-                    <MovieImage src={path === null ? NoImage : URL_IMG + 'w600_and_h900_bestv2' + path} alt={title} />
+                    <MovieImage
+                        src={props.path === null ? NoImage : URL_IMG + 'w600_and_h900_bestv2' + props.path}
+                        alt={props.title}
+                    />
                     <CardContent className={classes.content}>
-                        {info && (
+                        {props.info && (
                             <>
-                                <MovieTitle>{title === undefined ? name : title}</MovieTitle>
-                                {voteCount === 0 ? (
+                                <MovieTitle>{props.title === undefined ? props.name : props.title}</MovieTitle>
+                                {props.voteCount === 0 ? (
                                     <></>
                                 ) : (
-                                    <RatingStar voteAverage={voteAverage} voteCount={voteCount} />
+                                    <RatingStar voteAverage={props.voteAverage} voteCount={props.voteCount} />
                                 )}
                                 <ReleaseText>
-                                    {!released && <span>未公開</span>} {release_date || first_air_date}
+                                    {!released && <span>未公開</span>} {props.release_date || props.first_air_date}
                                 </ReleaseText>
                             </>
                         )}

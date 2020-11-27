@@ -1,18 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from '@material-ui/core/Button'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import { makeStyles } from '@material-ui/styles'
+import styled from 'styled-components'
 
-interface Props {
+type Props = {
     menu: { title: string; path: string; func: (path: string) => void }[]
     label: string
 }
-const MenuButton: React.FC<Props> = ({ menu, label }) => {
-    const [anchorEl, setAnchorEl] = React.useState(null)
+const MenuButton: React.FC<Props> = (props: Props) => {
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
     const classes = useStyles()
 
-    function handleClick(event: any) {
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         if (anchorEl !== event.currentTarget) {
             setAnchorEl(event.currentTarget)
         }
@@ -23,14 +24,14 @@ const MenuButton: React.FC<Props> = ({ menu, label }) => {
     }
 
     return (
-        <div>
+        <Wrapper>
             <Button
                 className={classes.button}
                 aria-owns={anchorEl ? 'simple-menu' : undefined}
                 aria-haspopup="true"
                 onClick={handleClick}
                 onMouseOver={handleClick}>
-                {label}
+                {props.label}
             </Button>
             <Menu
                 id="simple-menu"
@@ -39,7 +40,7 @@ const MenuButton: React.FC<Props> = ({ menu, label }) => {
                 onClose={handleClose}
                 MenuListProps={{ onMouseLeave: handleClose }}
                 className={classes.menu}>
-                {menu.map((item: any) => (
+                {props.menu.map((item: any) => (
                     <MenuItem
                         className={classes.list}
                         key={item.path}
@@ -51,11 +52,15 @@ const MenuButton: React.FC<Props> = ({ menu, label }) => {
                     </MenuItem>
                 ))}
             </Menu>
-        </div>
+        </Wrapper>
     )
 }
 
 export default MenuButton
+
+const Wrapper = styled.div({
+    height: 'auto',
+})
 
 const useStyles = makeStyles({
     button: {

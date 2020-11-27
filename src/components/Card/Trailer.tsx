@@ -2,16 +2,16 @@ import React from 'react'
 import { URL_YOUTUBE } from '../../api'
 import styled from 'styled-components'
 
-interface Props {
+type Props = {
     trailer: {
         key: number
     }
 }
 
-const Trailer: React.FC<Props> = ({ trailer }) => {
+const Trailer: React.FC<Props> = (props: Props) => {
     return (
         <Wrapper>
-            <Iframe title={URL_YOUTUBE + trailer.key} src={URL_YOUTUBE + trailer.key} allowFullScreen />
+            <Iframe title={URL_YOUTUBE + props.trailer.key} src={URL_YOUTUBE + props.trailer.key} allowFullScreen />
         </Wrapper>
     )
 }

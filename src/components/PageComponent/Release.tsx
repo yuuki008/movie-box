@@ -5,11 +5,11 @@ import { addNotification, deleteNotification } from '../../redux/user/operations
 import { LightTooltip } from '../'
 import { useDispatch } from 'react-redux'
 
-interface Props {
-    movie: any
-    notifications: any
+type Props = {
+    movie: Movie
+    notifications: Movie[]
 }
-const Release: React.FC<Props> = ({ movie, notifications }) => {
+const Release: React.FC<Props> = (props: Props) => {
     const classes = useStyles()
     const dispatch = useDispatch()
 
@@ -23,10 +23,10 @@ const Release: React.FC<Props> = ({ movie, notifications }) => {
     )
 
     useEffect(() => {
-        if (notifications.length > 0) {
-            const list: any = []
-            notifications.map((item: any) => {
-                if (item.id === movie.id) {
+        if (props.notifications.length > 0) {
+            const list = []
+            props.notifications.map((item: Movie) => {
+                if (item.id === props.movie.id) {
                     list.push(item)
                 }
             })
@@ -36,14 +36,14 @@ const Release: React.FC<Props> = ({ movie, notifications }) => {
                 setNotification(false)
             }
         }
-    }, [notifications])
+    }, [props.notifications])
     return !notification ? (
         <LightTooltip title="公開間際に通知" placement="top">
             <IconButton
                 className={classes.notification}
                 onClick={() => {
                     notificationToggle(notification)
-                    dispatch(addNotification(movie))
+                    dispatch(addNotification(props.movie))
                 }}>
                 <NotificationsIcon className={classes.icon} />
             </IconButton>
@@ -54,7 +54,7 @@ const Release: React.FC<Props> = ({ movie, notifications }) => {
                 className={classes.notification}
                 onClick={() => {
                     notificationToggle(notification)
-                    dispatch(deleteNotification(movie.id))
+                    dispatch(deleteNotification(props.movie.id))
                 }}>
                 <NotificationsIcon className={classes.color} />
             </IconButton>

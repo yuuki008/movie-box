@@ -6,12 +6,12 @@ import { useSelector } from 'react-redux'
 import { getMovieDetail } from '../../redux/selectors'
 import { db } from '../../firebase'
 
-interface Props {
+type Props = {
     folder: { name: string; id: string }
-    func: any
+    func: (id: string, check: boolean, name: string) => void
 }
 
-const FormControl: React.FC<Props> = ({ folder, func }) => {
+const FormControl: React.FC<Props> = (props: Props) => {
     const classes = useStyles()
     const selector = useSelector((state) => state)
 
@@ -20,8 +20,8 @@ const FormControl: React.FC<Props> = ({ folder, func }) => {
     const [movies, setMovies] = useState([])
 
     const toggleCheck = useCallback(
-        (check) => {
-            func(folder.id, check, folder)
+        (check: boolean) => {
+            props.func(props.folder.id, check, props.folder.name)
             setCheck(!check)
         },
         [setCheck, check],
@@ -29,7 +29,7 @@ const FormControl: React.FC<Props> = ({ folder, func }) => {
 
     useEffect(() => {
         db.collection('folder')
-            .doc(folder.id)
+            .doc(props.folder.id)
             .collection('movie')
             .get()
             .then((snapshot: any) => {
@@ -56,12 +56,12 @@ const FormControl: React.FC<Props> = ({ folder, func }) => {
 
     return (
         <FormControlLabel
-            label={folder.name}
+            label={props.folder.name}
             className={classes.check}
             control={
                 <Checkbox
-                    name={folder.name}
-                    id={folder.id}
+                    name={props.folder.name}
+                    id={props.folder.id}
                     color="default"
                     className={classes.box}
                     checked={check}

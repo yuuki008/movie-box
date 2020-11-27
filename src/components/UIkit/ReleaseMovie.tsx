@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/styles'
 import { db } from '../../firebase/index'
 import { getUid } from '../../redux/selectors'
 
-interface Props {
+type Props = {
     movie: {
         poster_path: string
         release_date: string
@@ -19,7 +19,7 @@ interface Props {
     }
 }
 
-const ReleaseMovie: React.FC<Props> = ({ movie }) => {
+const ReleaseMovie: React.FC<Props> = (props: Props) => {
     const dispatch = useDispatch()
     const classes = useStyles()
     const selector = useSelector((state) => state)
@@ -29,13 +29,13 @@ const ReleaseMovie: React.FC<Props> = ({ movie }) => {
     const [upcoming, setSpan] = useState(0)
 
     useEffect(() => {
-        const release = movie.release_date.split('-')
+        const release = props.movie.release_date.split('-')
         const year = release[0]
         const month = release[1]
         const date = release[2]
         const releaseDate = `${year}/${month}/${date} 00:00:00`
-        const today: any = new Date()
-        const data: any = Date.parse(releaseDate)
+        const today = Number(new Date())
+        const data = Number(Date.parse(releaseDate))
         const item = data - today
         setSpan(item)
         console.log(item)
@@ -59,7 +59,7 @@ const ReleaseMovie: React.FC<Props> = ({ movie }) => {
             if (item > -604800000) {
                 setMessage('公開中')
             } else {
-                db.collection('user').doc(displayUid).collection('notification').doc(movie.movieId).delete()
+                db.collection('user').doc(displayUid).collection('notification').doc(props.movie.movieId).delete()
             }
         }
     }, [])
@@ -67,12 +67,16 @@ const ReleaseMovie: React.FC<Props> = ({ movie }) => {
     return (
         <>
             {upcoming < 604800000 && (
-                <Button className={classes.notification} onClick={() => dispatch(push('/movie/' + movie.id))}>
+                <Button className={classes.notification} onClick={() => dispatch(push('/movie/' + props.movie.id))}>
                     <MovieImage
-                        src={movie.poster_path === null ? logo : URL_IMG + IMG_SIZE_XSMALL + movie.poster_path}
+                        src={
+                            props.movie.poster_path === null
+                                ? logo
+                                : URL_IMG + IMG_SIZE_XSMALL + props.movie.poster_path
+                        }
                     />
                     <MovieTitle>
-                        {movie.title}
+                        {props.movie.title}
                         <p>{message}</p>
                     </MovieTitle>
                 </Button>

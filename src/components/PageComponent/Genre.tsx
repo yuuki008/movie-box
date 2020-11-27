@@ -2,18 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { API_KEY, URL_GENRE } from '../../api'
 import styled from 'styled-components'
 
-interface genre {
-    id: number
-    name: string
+type Props = {
+    selectGenre: Genre[]
+    toggleGenre: (genre: Genre) => void
 }
 
-interface Props {
-    selectGenre: genre[]
-    toggleGenre: (genre: genre) => void
-}
-
-const Genre: React.FC<Props> = ({ selectGenre, toggleGenre }) => {
-    const [genres, setGenres] = useState<genre[]>([])
+const Genre: React.FC<Props> = (props: Props) => {
+    const [genres, setGenres] = useState<Genre[]>([])
 
     useEffect(() => {
         const url = `${URL_GENRE}${API_KEY}&language=ja-JP`
@@ -24,10 +19,10 @@ const Genre: React.FC<Props> = ({ selectGenre, toggleGenre }) => {
     return (
         <Wrapper>
             <div className="module-spacer--medium" />
-            <GenreSelected>{selectGenre.map((g: genre) => g.name).join(' | ')}</GenreSelected>
+            <GenreSelected>{props.selectGenre.map((g: Genre) => g.name).join(' | ')}</GenreSelected>
             <Genres>
-                {genres.map((genre: genre) => (
-                    <Button key={genre.id + genre.name} onClick={() => toggleGenre(genre)}>
+                {genres.map((genre: Genre) => (
+                    <Button key={genre.id + genre.name} onClick={() => props.toggleGenre(genre)}>
                         {genre.name}
                     </Button>
                 ))}

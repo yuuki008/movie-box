@@ -11,11 +11,11 @@ const Suggestion = () => {
     const [value, setValue] = useState(''),
         [suggestions, setSuggestions] = useState([])
 
-    const inputValue = useCallback((event) => {
+    const inputValue = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.value)
     }, [])
 
-    const handleKeyDown = (event: any) => {
+    const handleKeyDown = (event: React.KeyboardEvent) => {
         if (event.key === 'Enter') {
             return handleSubmit(value)
         }
@@ -26,7 +26,7 @@ const Suggestion = () => {
         setValue('')
     }
 
-    const getSuggestionValue = (suggestion: any): string => {
+    const getSuggestionValue = (suggestion: Movie): string => {
         return suggestion.title
     }
 
@@ -38,12 +38,12 @@ const Suggestion = () => {
                 .then((response) => response.json())
                 .then((json) => json.results)
                 .then((data) => {
-                    const results = data.map((movie: any) => {
+                    const results = data.map((movie: Movie) => {
                         const temp = {
                             id: movie.id,
                             title: movie.title,
-                            img: movie.poster_path,
-                            year: movie.release_date === '' ? '0000' : movie.release_date.substring(0, 4),
+                            poster_path: movie.poster_path,
+                            release_date: movie.release_date === '' ? '0000' : movie.release_date.substring(0, 4),
                         }
                         return temp
                     })
@@ -59,22 +59,25 @@ const Suggestion = () => {
         setSuggestions([])
     }
 
-    const renderSuggestion = (suggestion: any) => {
+    const renderSuggestion = (suggestion: Movie) => {
         return (
             <div>
-                <MovieImage alt="" src={suggestion.img === null ? logo : URL_IMG + IMG_SIZE_XSMALL + suggestion.img} />
+                <MovieImage
+                    alt=""
+                    src={suggestion.poster_path === null ? logo : URL_IMG + IMG_SIZE_XSMALL + suggestion.poster_path}
+                />
                 <MovieTitle>
                     <div>{suggestion.title}</div>
-                    {suggestion.year}
+                    {suggestion.release_date}
                 </MovieTitle>
             </div>
         )
     }
 
-    const onSuggestionSelected = (event: any, { suggestion, method }: any) => {
-        if (method === 'enter' || method === 'click') {
+    const onSuggestionSelected = (event: React.FormEvent<any>, data: any) => {
+        if (data.method === 'enter' || data.method === 'click') {
             event.preventDefault()
-            dispatch(push('/movie/' + suggestion.id))
+            dispatch(push('/movie/' + data.suggestion.id))
             setValue('')
         }
     }

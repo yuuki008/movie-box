@@ -25,20 +25,10 @@ function getModalStyle() {
         transform: `translate(-${top}%, -${left}%)`,
     }
 }
-interface Props {
-    movie: {
-        id: number
-        title: string
-        poster_path: string
-        backdrop_path: string
-        release_date: string
-        genres: { id: number; name: string }[]
-        overview: string
-        timestamp: string
-        vote_average: number
-    }
+type Props = {
+    movie: Movie
 }
-const FolderList: React.FC<Props> = ({ movie }) => {
+const FolderList: React.FC<Props> = (props: Props) => {
     const classes = useStyles()
     const dispatch = useDispatch()
     const selector = useSelector((state) => state)
@@ -79,13 +69,13 @@ const FolderList: React.FC<Props> = ({ movie }) => {
         }
     }
 
-    const addMovie = (id: string, check: boolean, folder: any) => {
+    const addMovie = (id: string, check: boolean, name: string) => {
         if (!check) {
-            setLabel(folder.name)
-            dispatch(addFolderMovie(id, movie))
+            setLabel(name)
+            dispatch(addFolderMovie(id, props.movie))
             setOpen(true)
         } else {
-            dispatch(deleteFolderMovie(id, movie))
+            dispatch(deleteFolderMovie(id, props.movie))
         }
     }
 

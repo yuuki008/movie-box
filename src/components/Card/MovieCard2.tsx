@@ -8,7 +8,7 @@ import { push } from 'connected-react-router'
 import { LightTooltip } from '../UIkit'
 import styled from 'styled-components'
 
-interface Props {
+type Props = {
     movie: {
         id: number
         poster_path: string
@@ -17,33 +17,33 @@ interface Props {
     }
 }
 
-const MovieCard2: React.FC<Props> = ({ movie }) => {
+const MovieCard2: React.FC<Props> = (props: Props) => {
     const classes = useStyles()
     const dispatch = useDispatch()
 
     const release = () => {
-        if (movie.release_date === '') {
+        if (props.movie.release_date === '') {
             return '未公開'
         } else {
-            return `${movie.release_date}リリース`
+            return `${props.movie.release_date}リリース`
         }
     }
     return (
         <Wrapper>
             <LightTooltip title={release()}>
-                <CardActionArea onClick={() => dispatch(push('/movie/' + movie.id))}>
+                <CardActionArea onClick={() => dispatch(push('/movie/' + props.movie.id))}>
                     <Card className={classes.root}>
                         <CardMedia
                             className={classes.media}
                             image={
-                                movie.poster_path !== null
-                                    ? URL_IMG + 'w150_and_h225_bestv2' + movie.poster_path
+                                props.movie.poster_path !== null
+                                    ? URL_IMG + 'w150_and_h225_bestv2' + props.movie.poster_path
                                     : NoImage
                             }
                         />
                     </Card>
                     <CardContent className={classes.content}>
-                        <Typography className={classes.title}>{movie.title}</Typography>
+                        <Typography className={classes.title}>{props.movie.title}</Typography>
                     </CardContent>
                 </CardActionArea>
             </LightTooltip>

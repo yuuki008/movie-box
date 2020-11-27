@@ -7,7 +7,7 @@ import NoImage from '../../assets/images/no_image.png'
 import LightTooltip from '../UIkit/LightTooltip'
 import styled from 'styled-components'
 
-interface Props {
+type Props = {
     movie: {
         id: number
         poster_path: string
@@ -16,27 +16,27 @@ interface Props {
         backdrop_path: string
     }
 }
-const MovieCard: React.FC<Props> = ({ movie }) => {
+const MovieCard: React.FC<Props> = (props: Props) => {
     const classes = useStyles()
     const dispatch = useDispatch()
 
     return (
         <Wrapper>
-            <LightTooltip title={movie.title}>
+            <LightTooltip title={props.movie.title}>
                 <CardActionArea className={classes.action}>
-                    <Card className={classes.root} onClick={() => dispatch(push('/movie/' + movie.id))}>
+                    <Card className={classes.root} onClick={() => dispatch(push('/movie/' + props.movie.id))}>
                         <CardMedia
                             className={classes.media}
                             image={
-                                movie.backdrop_path !== null
-                                    ? URL_IMG + 'w250_and_h141_face/' + movie.backdrop_path
+                                props.movie.backdrop_path !== null
+                                    ? URL_IMG + 'w250_and_h141_face/' + props.movie.backdrop_path
                                     : NoImage
                             }
                         />
                     </Card>
                     <CardContent className={classes.content}>
-                        <Typography className={classes.name}>{movie.title}</Typography>
-                        <Typography className={classes.date}>{movie.release_date}</Typography>
+                        <Typography className={classes.name}>{props.movie.title}</Typography>
+                        <Typography className={classes.date}>{props.movie.release_date}</Typography>
                     </CardContent>
                 </CardActionArea>
             </LightTooltip>

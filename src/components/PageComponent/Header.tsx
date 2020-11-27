@@ -19,11 +19,11 @@ const Header = () => {
     const classes = useStyles()
     const selector = useSelector((state) => state)
 
-    const [anchorEl, setAnchorEl] = useState(null)
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
     const isSignedIn = getIsSignedIn(selector)
     const notifications = getNotifications(selector)
 
-    const handleClick = (event: any) => {
+    const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         if (anchorEl !== event.currentTarget) {
             setAnchorEl(event.currentTarget)
         }
@@ -67,14 +67,14 @@ const Header = () => {
         }
     }, [isSignedIn])
 
-    const list: Array<any> = []
+    const list = []
     useEffect(() => {
-        const today: any = new Date()
+        const today = Number(new Date())
         if (isSignedIn) {
-            notifications.map((item: any) => {
+            notifications.map((item: Movie) => {
                 const release = item.release_date.split('-')
                 const releaseDate = `${release[0]}/${release[1]}/${release[2]} 00:00:00`
-                const data: any = Date.parse(releaseDate)
+                const data = Number(Date.parse(releaseDate))
                 const milliSecond = data - today
                 if (milliSecond < 604800000) {
                     list.push(item)
@@ -111,7 +111,7 @@ const Header = () => {
                                 MenuListProps={{ onMouseLeave: handleClose }}
                                 className={classes.menu}>
                                 {notifications.length > 0 ? (
-                                    notifications.map((item: any) => <ReleaseMovie key={item.movieId} movie={item} />)
+                                    notifications.map((item: Movie) => <ReleaseMovie key={item.movieId} movie={item} />)
                                 ) : (
                                     <div style={{ padding: '5px' }}>公開間際の作品はありません！</div>
                                 )}

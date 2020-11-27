@@ -2,16 +2,16 @@ import React from 'react'
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/styles'
 
-interface Props {
+type Props = {
     label: string
     onClick: () => void
 }
 
-const PrimaryButton: React.FC<Props> = ({ label, onClick }) => {
+const PrimaryButton: React.FC<Props> = (props: Props) => {
     const classes = useStyles()
     return (
-        <Button className={classes.button} variant="contained" onClick={() => onClick()}>
-            {label}
+        <Button className={classes.button} variant="contained" onClick={() => props.onClick()}>
+            {props.label}
         </Button>
     )
 }

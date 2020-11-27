@@ -11,7 +11,7 @@ import { push } from 'connected-react-router'
 import NoImage from '../../assets/images/no_image.png'
 import { LightTooltip } from '../UIkit'
 
-interface Props {
+type Props = {
     cast: {
         name: string
         content: string
@@ -21,27 +21,27 @@ interface Props {
     }
 }
 
-const Cast: React.FC<Props> = ({ cast }) => {
+const Cast: React.FC<Props> = (props: Props) => {
     const classes = useStyles()
     const dispatch = useDispatch()
 
     return (
         <div style={{ width: '138px', margin: '10px' }}>
             <Card className={classes.root}>
-                <LightTooltip title={cast.name}>
-                    <CardActionArea onClick={() => dispatch(push('/actor/' + cast.id))}>
+                <LightTooltip title={props.cast.name}>
+                    <CardActionArea onClick={() => dispatch(push('/actor/' + props.cast.id))}>
                         <CardMedia
                             className={classes.media}
                             image={
-                                cast.profile_path !== null
-                                    ? URL_IMG + 'w138_and_h175_face/' + cast.profile_path.slice(1)
+                                props.cast.profile_path !== null
+                                    ? URL_IMG + 'w138_and_h175_face/' + props.cast.profile_path.slice(1)
                                     : NoImage
                             }
-                            title={cast.character}
+                            title={props.cast.character}
                         />
                         <CardContent className={classes.content}>
-                            <Typography className={classes.name}>{cast.name}</Typography>
-                            <Typography className={classes.character}>{cast.character}</Typography>
+                            <Typography className={classes.name}>{props.cast.name}</Typography>
+                            <Typography className={classes.character}>{props.cast.character}</Typography>
                         </CardContent>
                     </CardActionArea>
                 </LightTooltip>

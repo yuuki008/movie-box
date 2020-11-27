@@ -6,45 +6,33 @@ import { makeStyles } from '@material-ui/core/styles'
 import { IconButton } from '@material-ui/core'
 import { Notification, LightTooltip } from '../'
 
-interface movie {
-    id: number
-    title: string
-    poster_path: string
-    backdrop_path: string
-    release_date: string
-    genres: { id: number; name: string }[]
-    overview: string
-    timestamp: string
-    vote_average: number
+type Props = {
+    movie: Movie
+    favorites: Movie[]
 }
 
-interface Props {
-    movie: movie
-    favorites: movie[]
-}
-
-const Favorite: React.FC<Props> = ({ movie, favorites }) => {
+const Favorite: React.FC<Props> = (props: Props) => {
     const classes = useStyles()
     const dispatch = useDispatch()
-    const [favorite, setFavorite] = useState(false),
-        [open, setOpen] = useState(false)
+    const [favorite, setFavorite] = useState(false)
+    const [open, setOpen] = useState(false)
 
     const handleClose = useCallback(() => {
         setOpen(false)
     }, [setOpen])
 
     const favoriteToggle = useCallback(
-        (favorite) => {
+        (favorite: boolean) => {
             setFavorite(!favorite)
         },
         [setFavorite, favorite],
     )
 
     useEffect(() => {
-        if (favorites.length > 0) {
-            const list: any = []
-            favorites.map((item: any) => {
-                if (item.id === movie.id) {
+        if (props.favorites.length > 0) {
+            const list = []
+            props.favorites.map((item: Movie) => {
+                if (item.id === props.movie.id) {
                     list.push(item)
                 }
             })
@@ -54,7 +42,7 @@ const Favorite: React.FC<Props> = ({ movie, favorites }) => {
                 setFavorite(false)
             }
         }
-    }, [favorites])
+    }, [props.favorites])
 
     return (
         <div className="movie__favorite">
@@ -64,7 +52,7 @@ const Favorite: React.FC<Props> = ({ movie, favorites }) => {
                         className={classes.iconButton}
                         onClick={() => {
                             favoriteToggle(favorite)
-                            dispatch(deleteFavoriteMovie(movie.id))
+                            dispatch(deleteFavoriteMovie(props.movie.id))
                         }}>
                         <FavoriteIcon className={classes.color} />
                     </IconButton>
@@ -76,7 +64,7 @@ const Favorite: React.FC<Props> = ({ movie, favorites }) => {
                         onClick={() => {
                             favoriteToggle(favorite)
                             setOpen(true)
-                            dispatch(addFavoriteMovie(movie))
+                            dispatch(addFavoriteMovie(props.movie))
                         }}>
                         <FavoriteIcon className={classes.icon} />
                     </IconButton>

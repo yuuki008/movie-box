@@ -1,7 +1,7 @@
 import { TextField } from '@material-ui/core'
 import React from 'react'
 
-interface Props {
+type Props = {
     fullWidth: boolean
     label: string
     multiline: boolean
@@ -9,22 +9,21 @@ interface Props {
     rows: number
     value: string
     type: string
-    onChange: (event: any) => void
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const TextInput: React.FC<Props> = ({ fullWidth, label, multiline, required, rows, value, type, onChange }) => {
+const TextInput: React.FC<Props> = (props: Props) => {
     return (
         <TextField
-            fullWidth={fullWidth}
-            label={label}
+            fullWidth={props.fullWidth}
+            label={props.label}
             margin="dense"
-            multiline={multiline}
-            required={required}
-            rows={rows}
-            value={value}
-            type={type}
-            onChange={onChange}
-            onKeyDown={onChange}
+            multiline={props.multiline}
+            required={props.required}
+            rows={props.rows}
+            value={props.value}
+            type={props.type}
+            onChange={props.onChange}
         />
     )
 }

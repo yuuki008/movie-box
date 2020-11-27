@@ -3,23 +3,18 @@ import { FormControlLabel } from '@material-ui/core'
 import Checkbox from '@material-ui/core/Checkbox'
 import { makeStyles } from '@material-ui/styles'
 
-interface genre {
-    id: number
-    name: string
+type Props = {
+    genre: Genre
+    select: (genre: Genre, setCheck: React.Dispatch<React.SetStateAction<boolean>>) => void
+    selected: Genre[]
 }
 
-interface Props {
-    genre: any
-    select: (e: any, setCheck: any) => void
-    selected: genre[]
-}
-
-const BoxLabel: React.FC<Props> = ({ genre, selected, select }) => {
+const BoxLabel: React.FC<Props> = (props: Props) => {
     const [check, setCheck] = useState(false)
     const classes = useStyles()
     useEffect(() => {
-        if (selected.length > 0) {
-            const checkItem = selected.filter((item: any) => item.id === genre.id)
+        if (props.selected.length > 0) {
+            const checkItem = props.selected.filter((item: Genre) => item.id === props.genre.id)
             if (checkItem.length > 0) {
                 setCheck(true)
             } else setCheck(false)
@@ -31,14 +26,14 @@ const BoxLabel: React.FC<Props> = ({ genre, selected, select }) => {
     return (
         <FormControlLabel
             className={classes.check}
-            label={genre.name}
+            label={props.genre.name}
             control={
                 <Checkbox
-                    name={genre.name}
-                    id={genre.id}
+                    name={props.genre.name}
+                    id={props.genre.id.toString()}
                     color="default"
                     className={classes.box}
-                    onChange={(e) => select(e, setCheck)}
+                    onChange={() => props.select(props.genre, setCheck)}
                     checked={check}
                 />
             }
