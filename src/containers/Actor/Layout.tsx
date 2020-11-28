@@ -9,7 +9,7 @@ type Props = {
   movies: MovieList
   gender: (gender: number) => string
 }
-const Layout = ({ actor, movies, gender }: Props) => {
+export const Layout = ({ actor, movies, gender }: Props) => {
   return movies.isFetching || actor.isFetching ? (
     <ActorSectionTitle style={{ padding: '30px' }}>LOADING</ActorSectionTitle>
   ) : (
@@ -68,8 +68,6 @@ const Layout = ({ actor, movies, gender }: Props) => {
     </Wrapper>
   )
 }
-
-export default Layout
 
 const ActorSectionTitle = styled.div({
   fontWeight: 600,

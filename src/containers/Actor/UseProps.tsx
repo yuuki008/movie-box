@@ -4,7 +4,7 @@ import { getActorDetail, getMovieList } from '../../redux/selectors'
 import { fetchActorDetail } from '../../redux/actor/operations'
 import { fetchActorMovieList } from '../../redux/movielist/operations'
 
-const useProps = () => {
+export const useProps = () => {
   const dispatch = useDispatch()
   const selector = useSelector((state) => state)
   const actor = getActorDetail(selector)
@@ -34,5 +34,3 @@ const useProps = () => {
     gender: gender,
   }
 }
-
-export default useProps
