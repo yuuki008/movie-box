@@ -4,7 +4,8 @@ import './index.css'
 import * as serviceWorker from './serviceWorker'
 import { Provider } from 'react-redux'
 import * as History from 'history'
-import { MovieContainer, MovieDetail, Actor, MyList } from './containers'
+import { MovieContainer, MovieDetail, MyList } from './containers'
+import { Actor } from './containers/Actor/index'
 import { createStore } from './redux/store'
 import { Route, Switch } from 'react-router'
 import { ConnectedRouter } from 'connected-react-router'
@@ -23,15 +24,17 @@ ReactDOM.render(
         <Route exact path="/signin" component={SignIn} />
         <Route exact path="/reset" component={Reset} />
         <AuthWrapper>
-          <Header />
-          <Route exact path="/" component={MovieContainer} />
-          <Route exact path="/upcoming" component={MovieContainer} />
-          <Route exact path="/now_playing" component={MovieContainer} />
-          <Route exact path="/top_rated" component={MovieContainer} />
-          <Route path="/search(/:keyword)?" component={MovieContainer} />
-          <Route path="/movie(/:id)?" component={MovieDetail} />
-          <Route path="/actor(/:id)?" component={Actor} />
-          <Route exact path="/mylist" component={MyList} />
+          <>
+            <Header />
+            <Route exact path="/" component={MovieContainer} />
+            <Route exact path="/upcoming" component={MovieContainer} />
+            <Route exact path="/now_playing" component={MovieContainer} />
+            <Route exact path="/top_rated" component={MovieContainer} />
+            <Route path="/search(/:keyword)?" component={MovieContainer} />
+            <Route path="/movie(/:id)?" component={MovieDetail} />
+            <Route path="/actor(/:id)?" component={Actor} />
+            <Route exact path="/mylist" component={MyList} />
+          </>
         </AuthWrapper>
       </Switch>
     </ConnectedRouter>
