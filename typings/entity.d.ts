@@ -18,6 +18,9 @@ type Movie = {
   backdrop_path: string
   vote_count: number
   first_air_date: string
+  production_countries: Country[]
+  runtime: number
+  production_companies: Company[]
 }
 
 type Cast = {
@@ -59,7 +62,7 @@ type Actor = {
 }
 
 type Trailer = {
-  key: string
+  key: number
 }
 
 type DefaultRootState = {
