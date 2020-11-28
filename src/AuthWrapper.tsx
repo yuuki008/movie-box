@@ -5,7 +5,7 @@ import { listenAuthState } from './redux/user/operations'
 import { push } from 'connected-react-router'
 
 type Props = {
-  children: any
+  children: JSX.Element
 }
 const AuthWrapper = (props: Props) => {
   const dispatch = useDispatch()
@@ -19,18 +19,11 @@ const AuthWrapper = (props: Props) => {
     }
   }, [])
 
-  if (!isSignedIn) {
-    if (path === '/mylist') {
-      dispatch(push('/'))
-      return props.children
-    }
-    return props.children
-  } else {
-    if (path === '/signin') {
-      dispatch(push('/'))
-    }
-    return props.children
+  if ((!isSignedIn && path === '/mylist') || path === '/signin') {
+    dispatch(push('/'))
   }
+
+  return props.children
 }
 
 export default AuthWrapper
