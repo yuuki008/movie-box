@@ -13,17 +13,15 @@ const PageButton: React.FC<Props> = (props: Props) => {
   const nextPage = props.page + 1 > props.total_pages ? props.total_pages : parseInt(Page, 10) + parseInt('1', 10)
   return (
     <Wrapper>
-      <button type="button" title="Previous 20 movies" onClick={() => props.changePage(prevPage)}>
+      <Button type="button" title="Previous 20 movies" onClick={() => props.changePage(prevPage)}>
         Prev
-      </button>
-      <div>
-        {props.page}
-        <span> / </span>
-        {props.total_pages}
-      </div>
-      <button type="button" title="Next 20 movies" onClick={() => props.changePage(nextPage)}>
+      </Button>
+      <PageNumber>
+        {props.page}/{props.total_pages}
+      </PageNumber>
+      <Button type="button" title="Next 20 movies" onClick={() => props.changePage(nextPage)}>
         Next
-      </button>
+      </Button>
     </Wrapper>
   )
 }
@@ -32,29 +30,31 @@ export default PageButton
 
 const Wrapper = styled.div({
   margin: '20px auto 50px auto',
-  div: {
-    display: 'inline-block',
-    widhth: '120px',
-    textAlign: 'center',
-    fontSize: '20px',
-    ':nth-child(2)': {
-      marginRight: '12px',
-    },
+})
+
+const PageNumber = styled.div({
+  display: 'inline-block',
+  widhth: '120px',
+  textAlign: 'center',
+  fontSize: '16px',
+  ':nth-child(2)': {
+    marginRight: '12px',
   },
-  button: {
-    display: 'inline-block',
-    fontSize: '16px',
-    padding: '8px 16px',
-    backgroundColor: 'rgb(3,37,65) !important',
-    border: '1px solid black',
-    borderRadius: '0.2em',
-    width: '70px',
-    ':nth-child(1)': {
-      color: '#b3b3b3',
-      marginRight: '12px',
-    },
-    ':nth-child(3)': {
-      color: '#ffffff',
-    },
+})
+
+const Button = styled.button({
+  display: 'inline-block',
+  fontSize: '16px',
+  padding: '8px 16px',
+  backgroundColor: 'rgb(3,37,65) !important',
+  border: '1px solid black',
+  borderRadius: '0.2em',
+  width: '70px',
+  ':nth-child(1)': {
+    color: '#b3b3b3',
+    marginRight: '12px',
+  },
+  ':nth-child(3)': {
+    color: '#ffffff',
   },
 })

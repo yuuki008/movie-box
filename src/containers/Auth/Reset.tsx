@@ -2,6 +2,7 @@ import React, { useState, useCallback } from 'react'
 import { push } from 'connected-react-router'
 import { useDispatch } from 'react-redux'
 import { TextInput, PrimaryButton } from '../../components'
+import styled from 'styled-components'
 import { resetPassword } from '../../redux/user/operations'
 
 const Reset = () => {
@@ -17,8 +18,8 @@ const Reset = () => {
   )
 
   return (
-    <div className="c-section-container">
-      <h2 className="u-text-center u-text__headline">Movie Box</h2>
+    <Wrapper className="c-section-container">
+      <ResetTitle className="u-text-center u-text__headline">Movie Box</ResetTitle>
 
       <TextInput
         fullWidth={true}
@@ -30,16 +31,24 @@ const Reset = () => {
         type={'text'}
         onChange={inputEmail}
       />
-      <div className="module-spacer--medium" />
-      <div className="center">
+      <SpaceMedium className="module-spacer--medium" />
+      <WrapperCenter className="center">
         <PrimaryButton label="リセットメール送信" onClick={() => dispatch(resetPassword(email))} />
-        <div className="module-spacer--medium" />
-        <p onClick={() => dispatch(push('/signup'))}>ユーザー登録がお済み出ない方はこちら</p>
-        <div className="module-spacer--medium" />
-        <p onClick={() => dispatch(push('/signin'))}>サインインはこちら</p>
-      </div>
-    </div>
+        <SpaceMedium className="module-spacer--medium" />
+        <PageJump onClick={() => dispatch(push('/signup'))}>ユーザー登録がお済み出ない方はこちら</PageJump>
+        <SpaceMedium className="module-spacer--medium" />
+        <PageJump onClick={() => dispatch(push('/signin'))}>サインインはこちら</PageJump>
+      </WrapperCenter>
+    </Wrapper>
   )
 }
 
 export default Reset
+
+const Wrapper = styled.div``
+const ResetTitle = styled.div({
+  fontWeight: 600,
+})
+const SpaceMedium = styled.div``
+const WrapperCenter = styled.div``
+const PageJump = styled.div``

@@ -62,7 +62,7 @@ const DefaultCard: React.FC<Props> = (props: Props) => {
                   <RatingStar voteAverage={props.voteAverage} voteCount={props.voteCount} />
                 )}
                 <ReleaseText>
-                  {!released && <span>未公開</span>} {props.release_date || props.first_air_date}
+                  {!released && <Release>未公開</Release>} {props.release_date || props.first_air_date}
                 </ReleaseText>
               </>
             )}
@@ -103,11 +103,13 @@ const ReleaseText = styled.div({
   fontWeight: 400,
   right: 8,
   bottom: 55,
-  span: {
-    fontSize: '15px',
-    fontWeight: 600,
-    paddingRight: '20px',
-  },
+  display: 'flex',
+})
+
+const Release = styled.div({
+  fontSize: '15px',
+  fontWeight: 600,
+  paddingRight: '20px',
 })
 
 const useStyles = makeStyles({

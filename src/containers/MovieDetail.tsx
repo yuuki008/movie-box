@@ -97,7 +97,7 @@ const MovieDetail = () => {
   }, [movie])
 
   return movie.isFetching || casts.isFetching || trailers.isFetching ? (
-    <h2 style={{ padding: '40px' }}>LOADING</h2>
+    <MovieSectionTitle>LOADING</MovieSectionTitle>
   ) : (
     <>
       <MovieWrapper backdropImage={backdropImage}>
@@ -111,11 +111,11 @@ const MovieDetail = () => {
             <MovieInfoWrapper>
               <MovieInfoLabel>
                 <MovieTitleWrapper>
-                  <MovieTitle>
-                    <h3>
+                  <MovieTitleWrapper2>
+                    <MovieTitle>
                       {movie.item.title}
-                      <span>({year})</span>
-                    </h3>
+                      <MovieTitleYear>({year})</MovieTitleYear>
+                    </MovieTitle>
                     {isSignedIn && (
                       <>
                         <Favorite movie={movie.item} favorites={favorites} />
@@ -123,7 +123,7 @@ const MovieDetail = () => {
                         {!released && <Release movie={movie.item} notifications={notifications} />}
                       </>
                     )}
-                  </MovieTitle>
+                  </MovieTitleWrapper2>
                   <MovieInfo>
                     {stringmethod(movie.item.release_date)}
                     {movie.item.production_countries !== undefined &&
@@ -131,7 +131,7 @@ const MovieDetail = () => {
                     ・
                     {movie.item.genres !== undefined &&
                       movie.item.genres.map((item: Genre) => (
-                        <span
+                        <MovieSectionSpan
                           key={item.id}
                           style={{
                             paddingLeft: '5px',
@@ -140,22 +140,22 @@ const MovieDetail = () => {
                             lineHeight: '24px',
                           }}>
                           {item.name}
-                        </span>
+                        </MovieSectionSpan>
                       ))}
-                    <span>{movie.item.runtime}分</span>
+                    <MovieRunTime>{movie.item.runtime}分</MovieRunTime>
                   </MovieInfo>
                 </MovieTitleWrapper>
                 <RatingStar voteAverage={movie.item.vote_average} voteCount={movie.item.vote_count} />
-                <MovieOverview>
-                  <h3>概要</h3>
-                  <p>{movie.item.overview}</p>
-                </MovieOverview>
+                <MovieOverviewWrapper>
+                  <MovieSectionTitle>概要</MovieSectionTitle>
+                  <MovieOverview>{movie.item.overview}</MovieOverview>
+                </MovieOverviewWrapper>
                 <MovieCompany>
                   {!!movie.item.production_companies &&
                     movie.item.production_companies.map(
                       (item: Company, index: number) =>
                         item.logo_path !== null && (
-                          <img key={index} src={`https://image.tmdb.org/t/p/original${item.logo_path}`} />
+                          <MovieCompanyImg key={index} src={`https://image.tmdb.org/t/p/original${item.logo_path}`} />
                         ),
                     )}
                 </MovieCompany>
@@ -166,7 +166,7 @@ const MovieDetail = () => {
       </MovieWrapper>
       <MovieSubWrapper>
         <MovieCastWrapper>
-          <h2>主な出演者</h2>
+          <MovieSectionTitle>主な出演者</MovieSectionTitle>
           <MovieCastWrapper2>
             {casts.items.slice(0, 20).map((cast: Cast, index: number) => (
               <Cast cast={cast} key={index} />
@@ -175,7 +175,7 @@ const MovieDetail = () => {
         </MovieCastWrapper>
         {trailers.items.length !== 0 && (
           <MovieTrailWrapper>
-            <h3>動画</h3>
+            <MovieSectionTitle>動画</MovieSectionTitle>
             <MovieTrailWrapper2>
               {trailers.items.map((trailer: { key: number }, index: number) => (
                 <Trailer trailer={trailer} key={index} />
@@ -187,7 +187,7 @@ const MovieDetail = () => {
           <MovieSimilarWrapper>
             {movies.items !== undefined && movies.items.length > 0 && (
               <>
-                <h2>おすすめ</h2>
+                <MovieSectionTitle>おすすめ</MovieSectionTitle>
                 <MovieSimilarWrapper2>
                   {movies.items.slice(0, 10).map((movie: Movie) => (
                     <MovieCard movie={movie} key={movie.id} />
@@ -258,20 +258,23 @@ const MovieTitleWrapper = styled.div({
   width: '100%',
 })
 
-const MovieTitle = styled.div({
+const MovieTitleWrapper2 = styled.div({
   width: '100%',
   display: 'flex',
-  h3: {
-    fontWeight: 800,
-    fontSize: '25px',
-    height: '40px',
-    lineHeight: '40px',
-    span: {
-      fontWeight: 300,
-      fontSize: '25px',
-      margin: '0 10px',
-    },
-  },
+})
+
+const MovieTitle = styled.div({
+  fontWeight: 800,
+  display: 'flex',
+  fontSize: '25px',
+  lineHeight: '40px',
+  height: '40px',
+})
+
+const MovieTitleYear = styled.div({
+  fontWeight: 300,
+  fontSize: '25px',
+  margin: '0 10px',
 })
 
 const MovieInfo = styled.div({
@@ -283,17 +286,29 @@ const MovieInfo = styled.div({
   },
 })
 
-const MovieOverview = styled.div({
+const MovieSectionSpan = styled.div({
+  paddingLeft: '5px',
+  margin: 0,
+  height: '24px',
+  lineHeight: '24px',
+})
+
+const MovieRunTime = styled.div({
+  paddingLeft: '10px',
+})
+
+const MovieOverviewWrapper = styled.div({
   maxHeight: '180px',
   marginBottom: '30px',
   width: '85%',
-  p: {
-    padding: '20px',
-    borderRadius: '10px',
-    height: '130px',
-    lineHeight: '30px',
-    overflowY: 'scroll',
-  },
+})
+
+const MovieOverview = styled.div({
+  padding: '20px',
+  borderRadius: '10px',
+  height: '130px',
+  lineHeight: '30px',
+  overviewY: 'scroll',
 })
 
 const MovieCompany = styled.div({
@@ -319,6 +334,13 @@ const MovieCastWrapper = styled.div({
   flexDirection: 'column',
   padding: '20px 40px',
 })
+
+const MovieSectionTitle = styled.div({
+  fontSize: '20px',
+  fontWeight: 600,
+})
+
+const MovieCompanyImg = styled.img``
 
 const MovieCastWrapper2 = styled.div({
   borderTop: '2px solid lightgray',

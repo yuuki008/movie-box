@@ -5,6 +5,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite'
 import { makeStyles } from '@material-ui/core/styles'
 import { IconButton } from '@material-ui/core'
 import { Notification, LightTooltip } from '../'
+import styled from 'styled-components'
 
 type Props = {
   movie: Movie
@@ -45,7 +46,7 @@ const Favorite: React.FC<Props> = (props: Props) => {
   }, [props.favorites])
 
   return (
-    <div className="movie__favorite">
+    <Wrapper className="movie__favorite">
       {favorite ? (
         <LightTooltip placement="top" title="お気に入りから削除">
           <IconButton
@@ -71,7 +72,7 @@ const Favorite: React.FC<Props> = (props: Props) => {
         </LightTooltip>
       )}
       <Notification open={open} handleClose={handleClose} label="お気に入りへ追加しました。" />
-    </div>
+    </Wrapper>
   )
 }
 
@@ -101,3 +102,5 @@ const useStyles = makeStyles({
     color: 'lightgray',
   },
 })
+
+const Wrapper = styled.div``

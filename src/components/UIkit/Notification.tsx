@@ -2,6 +2,7 @@ import React from 'react'
 import Snackbar from '@material-ui/core/Snackbar'
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
+import styled from 'styled-components'
 
 type Props = {
   handleClose: () => void
@@ -11,7 +12,7 @@ type Props = {
 
 const Notification: React.FC<Props> = (props: Props) => {
   return (
-    <div>
+    <Wrapper>
       <Snackbar
         anchorOrigin={{
           vertical: 'bottom',
@@ -29,8 +30,10 @@ const Notification: React.FC<Props> = (props: Props) => {
           </>
         }
       />
-    </div>
+    </Wrapper>
   )
 }
 
 export default Notification
+
+const Wrapper = styled.div``

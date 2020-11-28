@@ -33,7 +33,7 @@ const Actor = () => {
   }, [])
 
   return movies.isFetching || actor.isFetching ? (
-    <h3 style={{ padding: '30px' }}>LOADING</h3>
+    <ActorSectionTitle style={{ padding: '30px' }}>LOADING</ActorSectionTitle>
   ) : (
     <Wrapper>
       <WrapperSub>
@@ -43,19 +43,19 @@ const Actor = () => {
             <ActorInfo>
               {actor.item.place_of_birth !== null && (
                 <>
-                  <h4>出生地</h4>
+                  <ActorSubTitle>出生地</ActorSubTitle>
                   {actor.item.place_of_birth}
                 </>
               )}
             </ActorInfo>
             <ActorInfo>
-              <h4>性別</h4>
+              <ActorSubTitle>性別</ActorSubTitle>
               {gender(actor.item.gender)}
             </ActorInfo>
             <ActorInfo>
               {actor.item.birthday !== null && (
                 <>
-                  <h4>誕生日</h4>
+                  <ActorSubTitle>誕生日</ActorSubTitle>
                   {actor.item.birthday}
                 </>
               )}
@@ -65,20 +65,20 @@ const Actor = () => {
         <ActorDescription>
           <ActorTitle>
             {actor.item.name}
-            {actor.item.gender !== 0 && <span>{actor.item.gender === 1 ? 'female' : 'male'}</span>}
+            {actor.item.gender !== 0 && <ActorGender>{actor.item.gender === 1 ? 'female' : 'male'}</ActorGender>}
           </ActorTitle>
           <ActorBiography>
             {actor.item.biography !== '' && (
               <>
-                <h3>経歴</h3>
+                <ActorSectionTitle>経歴</ActorSectionTitle>
                 <ActorBiography2>
-                  <p>{actor.item.biography}</p>
+                  <ActorBiographyDescription>{actor.item.biography}</ActorBiographyDescription>
                 </ActorBiography2>
               </>
             )}
           </ActorBiography>
           <ActorMovies>
-            <h3>作品</h3>
+            <ActorSectionTitle>作品</ActorSectionTitle>
             <ActorMovies2>
               {movies.items.map((movie: Movie) => (
                 <MovieCard2 movie={movie} key={movie.id} />
@@ -92,6 +92,16 @@ const Actor = () => {
 }
 
 export default Actor
+
+const ActorSectionTitle = styled.div({
+  fontWeight: 600,
+  fontSize: '18px',
+})
+
+const ActorSubTitle = styled.div({
+  fontWeight: 550,
+  fontSize: '14px',
+})
 
 const Wrapper = styled.div({
   paddingTop: '60px',
@@ -140,15 +150,17 @@ const ActorTitle = styled.div({
   width: '100%',
   fontSize: '20px',
   fontWeight: 600,
-  span: {
-    fontWeight: 400,
-    fontSize: '20px',
-    color: 'gray',
-    paddingLeft: '20px',
-    height: '33px',
-    lineHeight: '33px',
-    flexWrap: 'wrap',
-  },
+  display: 'flex',
+})
+
+const ActorGender = styled.div({
+  fontWeight: 400,
+  fontSize: '18px',
+  lineHeight: '23px',
+  color: 'gray',
+  paddingLeft: '20px',
+  height: '33px',
+  flexWrap: 'wrap',
 })
 
 const ActorBiography = styled.div({
@@ -164,6 +176,8 @@ const ActorBiography2 = styled.div({
   lineHeight: '1.4rem',
   flexWrap: 'wrap',
 })
+
+const ActorBiographyDescription = styled.div``
 
 const ActorMovies = styled.div({
   width: '100%',

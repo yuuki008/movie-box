@@ -5,6 +5,7 @@ import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import BoxLabel from './BoxLabel'
 import Chip from '@material-ui/core/Chip'
+import styled from 'styled-components'
 
 type Props = {
   label: string
@@ -24,9 +25,9 @@ const SelectBox: React.FC<Props> = (props: Props) => {
         required={props.required}
         value={name}
         renderValue={() => (
-          <div className={classes.chips}>
+          <ChipsWrapper>
             <Chip label={name} className={classes.chip} />
-          </div>
+          </ChipsWrapper>
         )}>
         {props.genres.map((genre: Genre) => (
           <BoxLabel key={genre.id} genre={genre} selected={props.selected} select={props.select} />
@@ -45,11 +46,12 @@ const useStyles = makeStyles({
     maxWidth: '1200px',
     width: '100%',
   },
-  chips: {
-    display: 'flex',
-    overflowX: 'scroll',
-  },
   chip: {
     margin: 2,
   },
+})
+
+const ChipsWrapper = styled.div({
+  display: 'flex',
+  overflowX: 'scroll',
 })

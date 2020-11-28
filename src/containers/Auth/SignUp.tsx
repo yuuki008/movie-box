@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { API_KEY, URL_GENRE } from '../../api'
 import { SelectBox, PrimaryButton, TextInput } from '../../components'
 import { signUp } from '../../redux/user/operations'
+import styled from 'styled-components'
 
 const SignUp = () => {
   const dispatch = useDispatch()
@@ -14,7 +15,6 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [genres, setGenres] = useState<Genre[]>([])
   const [myGenres, setMyGenres] = useState<Genre[]>([])
-  //mapとfilterしたときにわざわざ型定義しなくていい
 
   const selectGenre = (genre: Genre, setCheck: React.Dispatch<React.SetStateAction<boolean>>) => {
     const filteredGenres = myGenres.filter((g) => g.id !== genre.id)
@@ -63,8 +63,8 @@ const SignUp = () => {
   }, [])
 
   return (
-    <div className="c-section-container">
-      <h2 className="u-text-center u-text__headline">Movie Box</h2>
+    <Wrapper className="c-section-container">
+      <SignUpTitle className="u-text-center u-text__headline">Movie Box</SignUpTitle>
       <TextInput
         fullWidth={true}
         label={'ユーザー名'}
@@ -106,17 +106,25 @@ const SignUp = () => {
         type={'password'}
         onChange={inputConfirmPassword}
       />
-      <div className="module-spacer--medium" />
-      <div className="center">
+      <SpaceMedium className="module-spacer--medium" />
+      <WrapperCenter className="center">
         <PrimaryButton
           label="ユーザー登録"
           onClick={() => dispatch(signUp(username, email, myGenres, password, confirmPassword))}
         />
-        <div className="module-spacer--medium" />
-        <p onClick={() => dispatch(push('/signin'))}>アカウントをお持ちの方はこちら</p>
-      </div>
-    </div>
+        <SpaceMedium className="module-spacer--medium" />
+        <PageJump onClick={() => dispatch(push('/signin'))}>アカウントをお持ちの方はこちら</PageJump>
+      </WrapperCenter>
+    </Wrapper>
   )
 }
 
 export default SignUp
+
+const SignUpTitle = styled.div({
+  fontWeight: 600,
+})
+const Wrapper = styled.div``
+const WrapperCenter = styled.div``
+const SpaceMedium = styled.div``
+const PageJump = styled.div``

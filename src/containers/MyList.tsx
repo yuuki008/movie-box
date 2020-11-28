@@ -50,16 +50,16 @@ const MyList = () => {
   return (
     <Wrapper>
       <Wrapper2>
-        <div
+        <HeaderWrapper
           style={{
             backgroundImage: `url('https://image.tmdb.org/t/p/w1920_and_h800_multi_faces_filter(duotone,032541,01b4e4)${background}`,
             backgroundPosition: 'center center',
             backgroundSize: 'cover',
             backgroundRepeat: 'no-repeat',
           }}>
-          <HeaderWrapper>
+          <HeaderWrapper2>
             <Header>
-              <h3>自分だけのプレイリストを作ろう！</h3>
+              <HeaderTitle>自分だけのプレイリストを作ろう！</HeaderTitle>
               <MakeFolder>
                 <TextInput
                   label="new playlist..."
@@ -76,10 +76,10 @@ const MyList = () => {
                 </Button>
               </MakeFolder>
             </Header>
-          </HeaderWrapper>
-        </div>
+          </HeaderWrapper2>
+        </HeaderWrapper>
         <LikesWrapper>
-          <h2>お気に入り</h2>
+          <SectionTitle>お気に入り</SectionTitle>
           <Likes>
             {favorites.length > 0 && favorites.map((item: Movie) => <MovieCard movie={item} key={item.id} />)}
           </Likes>
@@ -123,14 +123,9 @@ const Wrapper2 = styled.div({
   width: '100%',
 })
 
-// const DivImage: any = styled.div((props: { background: string }) => ({
-//     backgroundImage: `url('https://image.tmdb.org/t/p/w1920_and_h800_multi_faces_filter(duotone,032541,01b4e4)${props.background}`,
-//     backgroundPosition: 'center center',
-//     backgroundSize: 'cover',
-//     backgroundRepeat: 'no-repeat',
-// }))
+const HeaderWrapper: any = styled.div``
 
-const HeaderWrapper = styled.div({
+const HeaderWrapper2 = styled.div({
   background: 'linear-gradient(to right, rgba(var(--tmdbDarkBlue), 0.8) 0%, rgba(var(--tmdbDarkBlue), 0) 100%)',
   width: '100%',
   height: '300px',
@@ -146,6 +141,15 @@ const Header = styled.div({
     margin: '0 auto',
     color: 'white',
   },
+})
+
+const HeaderTitle = styled.div({
+  paddingTop: '70px',
+  paddingLeft: '70px',
+  fontWeight: 700,
+  fontSize: '27px',
+  margin: '0 auto',
+  color: 'white',
 })
 
 const MakeFolder = styled.div({
@@ -165,6 +169,12 @@ const LikesWrapper = styled.div({
   h2: {
     paddingTop: '20px',
   },
+})
+
+const SectionTitle = styled.div({
+  paddingTop: '20px',
+  fontWeight: 600,
+  fontSize: '18px',
 })
 
 const Likes = styled.div({

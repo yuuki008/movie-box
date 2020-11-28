@@ -10,6 +10,7 @@ import { addFolderMovie, deleteFolderMovie } from '../../redux/folder/operations
 import { getUid, getFolders } from '../../redux/selectors'
 import { fetchFolders, makeFolder } from '../../redux/user/operations'
 import { Notification } from '../'
+import styled from 'styled-components'
 
 function rand() {
   return Math.round(Math.random() * 20) - 10
@@ -87,16 +88,16 @@ const FolderList: React.FC<Props> = (props: Props) => {
 
   return (
     <>
-      <div>
+      <IconWrapper>
         <IconButton aria-haspopup="true" onClick={handleOpen} className={classes.defaultIcon}>
           <LightTooltip title="マイプレイリストに追加" placement="top">
             <ListIcon className={classes.listIcon} />
           </LightTooltip>
         </IconButton>
-      </div>
+      </IconWrapper>
       <Modal aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description" open={FolderOpen}>
-        <div className={classes.paper} style={modalStyles}>
-          <p className={classes.title}>保存先...</p>
+        <ModalWrapper className={classes.paper} style={modalStyles}>
+          <ModalTitle>保存先...</ModalTitle>
           <IconButton onClick={() => handleFolderClose()} className={classes.icon}>
             <ClearIcon />
           </IconButton>
@@ -116,7 +117,7 @@ const FolderList: React.FC<Props> = (props: Props) => {
           <Button onClick={() => handleFolder()} className={classes.submit}>
             作成
           </Button>
-        </div>
+        </ModalWrapper>
       </Modal>
       <Notification open={open} handleClose={handleClose} label={`${label}へ追加しました。`} />
     </>
@@ -148,11 +149,6 @@ const useStyles = makeStyles((theme: Theme) =>
       textAlign: 'center',
       padding: '5px',
     },
-    title: {
-      height: '40px',
-      lineHeight: '30px',
-      borderBottom: '1px solid lightgray',
-    },
     box: {
       display: 'flex',
     },
@@ -174,3 +170,15 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   }),
 )
+
+const IconWrapper = styled.div``
+
+const ModalWrapper = styled.div``
+
+const ModalTitle = styled.div({
+  height: '40px',
+  lineHeight: '30px',
+  borderBottom: '1px solid lightgray',
+  fontWeight: 550,
+  fontSize: '15px',
+})

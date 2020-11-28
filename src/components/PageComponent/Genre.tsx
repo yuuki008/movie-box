@@ -18,7 +18,7 @@ const Genre: React.FC<Props> = (props: Props) => {
   }, [])
   return (
     <Wrapper>
-      <div className="module-spacer--medium" />
+      <SpaceMedium className="module-spacer--medium" />
       <GenreSelected>{props.selectGenre.map((g: Genre) => g.name).join(' | ')}</GenreSelected>
       <Genres>
         {genres.map((genre: Genre) => (
@@ -37,6 +37,8 @@ const Wrapper = styled.div({
   margin: '0 auto 10px auto',
   textAlign: 'center',
 })
+
+const SpaceMedium = styled.div``
 
 const GenreSelected = styled.div({
   fontWeight: 600,

@@ -73,7 +73,7 @@ const ReleaseMovie: React.FC<Props> = (props: Props) => {
           />
           <MovieTitle>
             {props.movie.title}
-            <p>{message}</p>
+            <MovieMessage>{message}</MovieMessage>
           </MovieTitle>
         </Button>
       )}
@@ -99,6 +99,8 @@ const MovieTitle = styled.div({
   whiteSpace: 'nowrap',
   textAlign: 'left',
 })
+
+const MovieMessage = styled.div``
 
 const MovieImage = styled.img({
   width: '40px',

@@ -45,7 +45,7 @@ const FolderMovie: React.FC<Props> = (props: Props) => {
       {movies.length === 0 ? (
         <NonWrapper>
           <LightTooltip title="作品がまだありません" placement="left">
-            <h3 style={{ height: '40px', lineHeight: '40px' }}>{props.folder.name}</h3>
+            <SectionTitle style={{ height: '40px', lineHeight: '40px' }}>{props.folder.name}</SectionTitle>
           </LightTooltip>
           <IconButton onClick={() => handleDelete()}>
             <LightTooltip title={`${props.folder.name}を削除`}>
@@ -56,14 +56,14 @@ const FolderMovie: React.FC<Props> = (props: Props) => {
       ) : (
         <Wrapper>
           <TitleWrapper>
-            <h2>{props.folder.name}</h2>
-            <div>
+            <SectionTitle>{props.folder.name}</SectionTitle>
+            <TitleWrapper2>
               <IconButton className={classes.icon} onClick={() => handleDelete()}>
                 <LightTooltip title={`${props.folder.name}を削除`}>
                   <DeleteIcon />
                 </LightTooltip>
               </IconButton>
-            </div>
+            </TitleWrapper2>
           </TitleWrapper>
           <MovieWrapper>
             {movies.map((movie: any) => (
@@ -77,6 +77,12 @@ const FolderMovie: React.FC<Props> = (props: Props) => {
 }
 
 export default FolderMovie
+
+const SectionTitle = styled.div({
+  fontWeight: 600,
+  fontSize: '18px',
+  padding: '10px',
+})
 
 const NonWrapper = styled.div({
   height: '40px',
@@ -94,13 +100,11 @@ const TitleWrapper = styled.div({
   width: '100%',
   display: 'flex',
   position: 'relative',
-  h2: {
-    padding: '10px',
-  },
-  div: {
-    height: '60px',
-    position: 'relative',
-  },
+})
+
+const TitleWrapper2 = styled.div({
+  height: '60px',
+  position: 'relative',
 })
 const MovieWrapper = styled.div({
   display: 'flex',

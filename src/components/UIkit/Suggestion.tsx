@@ -61,16 +61,16 @@ const Suggestion = () => {
 
   const renderSuggestion = (suggestion: Movie) => {
     return (
-      <div>
+      <SuggestionWrapper>
         <MovieImage
           alt=""
           src={suggestion.poster_path === null ? logo : URL_IMG + IMG_SIZE_XSMALL + suggestion.poster_path}
         />
-        <MovieTitle>
-          <div>{suggestion.title}</div>
+        <MovieTitleWrapper>
+          <MovieTitle>{suggestion.title}</MovieTitle>
           {suggestion.release_date}
-        </MovieTitle>
-      </div>
+        </MovieTitleWrapper>
+      </SuggestionWrapper>
     )
   }
 
@@ -111,13 +111,16 @@ const MovieImage = styled.img({
   borderRadius: '3px',
 })
 
-const MovieTitle = styled.div({
+const MovieTitleWrapper = styled.div({
   color: 'black',
   lineHeight: '21px',
   overflow: 'hidden',
   textAlign: 'left',
   whiteSpace: 'nowrap',
-  div: {
-    fontWeight: 'bold',
-  },
 })
+
+const MovieTitle = styled.div({
+  fontWeight: 600,
+})
+
+const SuggestionWrapper = styled.div``

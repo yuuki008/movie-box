@@ -94,7 +94,7 @@ const MovieContainer = () => {
 
   return (
     <Wrapper>
-      <h2>{pageTitle(path)}</h2>
+      <MoviesCategoryTitle>{pageTitle(path)}</MoviesCategoryTitle>
       {!keyword ? (
         <Genre selectGenre={selectGenre} toggleGenre={toggleGenre} />
       ) : (
@@ -144,11 +144,14 @@ const Wrapper = styled.div({
   flexDirection: 'column',
   position: 'relative',
   paddingTop: '60px',
-  h2: {
-    position: 'fixed',
-    top: 90,
-    left: 80,
-  },
+})
+
+const MoviesCategoryTitle = styled.div({
+  fontWeight: 600,
+  fontSize: '18px',
+  position: 'fixed',
+  top: 90,
+  left: 80,
 })
 
 const Head = styled.div({

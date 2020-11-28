@@ -13,6 +13,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications'
 import { IconButton, Badge } from '@material-ui/core'
 import ReleaseMovie from '../UIkit/ReleaseMovie'
 import Menu from '@material-ui/core/Menu'
+import styled from 'styled-components'
 
 const Header = () => {
   const dispatch = useDispatch()
@@ -84,7 +85,7 @@ const Header = () => {
   }, [notifications])
 
   return (
-    <div className={classes.root}>
+    <Wrapper>
       <AppBar position="fixed">
         <Toolbar>
           <Typography className={classes.title} variant="h6" noWrap>
@@ -113,32 +114,28 @@ const Header = () => {
                 {notifications.length > 0 ? (
                   notifications.map((item: Movie) => <ReleaseMovie key={item.movieId} movie={item} />)
                 ) : (
-                  <div style={{ padding: '5px' }}>公開間際の作品はありません！</div>
+                  <NonMovie>公開間際の作品はありません！</NonMovie>
                 )}
               </Menu>
               <MenuButton menu={signInMenu} label="アカウント" />
             </>
           )}
           <MenuButton menu={menu} label="映画" />
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
+          <SearchWrapper className={classes.search}>
+            <SearchIconWrapper className={classes.searchIcon}>
               <SearchIcon />
-            </div>
+            </SearchIconWrapper>
             <Suggestion />
-          </div>
+          </SearchWrapper>
         </Toolbar>
       </AppBar>
-    </div>
+    </Wrapper>
   )
 }
 
 export default Header
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: 'rgb(3,37,65) !important',
-  },
   menuButton: {
     marginRight: theme.spacing(2),
     fontSize: 14,
@@ -204,3 +201,16 @@ const useStyles = makeStyles((theme) => ({
     minHeight: '28px',
   },
 }))
+
+const Wrapper = styled.div({
+  flexGrow: 1,
+  backgroundColor: 'rgb(3,37,65) !important',
+})
+
+const SearchWrapper = styled.div``
+
+const SearchIconWrapper = styled.div``
+
+const NonMovie = styled.div({
+  padding: '5px',
+})

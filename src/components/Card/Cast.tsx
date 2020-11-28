@@ -10,6 +10,7 @@ import { URL_IMG } from '../../api'
 import { push } from 'connected-react-router'
 import NoImage from '../../assets/images/no_image.png'
 import { LightTooltip } from '../UIkit'
+import styled from 'styled-components'
 
 type Props = {
   cast: {
@@ -26,7 +27,7 @@ const Cast: React.FC<Props> = (props: Props) => {
   const dispatch = useDispatch()
 
   return (
-    <div style={{ width: '138px', margin: '10px' }}>
+    <Wrapper>
       <Card className={classes.root}>
         <LightTooltip title={props.cast.name}>
           <CardActionArea onClick={() => dispatch(push('/actor/' + props.cast.id))}>
@@ -46,7 +47,7 @@ const Cast: React.FC<Props> = (props: Props) => {
           </CardActionArea>
         </LightTooltip>
       </Card>
-    </div>
+    </Wrapper>
   )
 }
 
@@ -75,4 +76,9 @@ const useStyles = makeStyles({
     overflowY: 'scroll',
     height: '40px',
   },
+})
+
+const Wrapper = styled.div({
+  width: '138px',
+  margin: '10px',
 })
