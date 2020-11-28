@@ -15,192 +15,192 @@ import ReleaseMovie from '../UIkit/ReleaseMovie'
 import Menu from '@material-ui/core/Menu'
 
 const Header = () => {
-    const dispatch = useDispatch()
-    const classes = useStyles()
-    const selector = useSelector((state) => state)
+  const dispatch = useDispatch()
+  const classes = useStyles()
+  const selector = useSelector((state) => state)
 
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-    const isSignedIn = getIsSignedIn(selector)
-    const notifications = getNotifications(selector)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+  const isSignedIn = getIsSignedIn(selector)
+  const notifications = getNotifications(selector)
 
-    const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-        if (anchorEl !== event.currentTarget) {
-            setAnchorEl(event.currentTarget)
-        }
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    if (anchorEl !== event.currentTarget) {
+      setAnchorEl(event.currentTarget)
     }
+  }
 
-    const handleClose = () => {
-        setAnchorEl(null)
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  const selectMenu = (path: string) => {
+    dispatch(push(path))
+  }
+
+  const signoutAction = () => {
+    const ret = window.confirm('サインアウトしますか?')
+    if (ret) {
+      dispatch(signOut())
     }
+  }
 
-    const selectMenu = (path: string) => {
-        dispatch(push(path))
+  const menu = [
+    { func: selectMenu, title: '新作公開', path: '/upcoming' },
+    { func: selectMenu, title: '公開中', path: '/now_playing' },
+    { func: selectMenu, title: '人気', path: '/' },
+    { func: selectMenu, title: '高評価', path: '/top_rated' },
+  ]
+
+  const notSignInMenu = [
+    { func: selectMenu, title: 'アカウント作成', path: '/signup' },
+    { func: selectMenu, title: 'サインイン', path: '/signin' },
+  ]
+
+  const signInMenu = [
+    { func: selectMenu, title: 'マイリスト', path: '/mylist' },
+    { func: signoutAction, title: 'サインアウト', path: '/' },
+  ]
+
+  useEffect(() => {
+    if (isSignedIn) {
+      dispatch(fetchNotification())
     }
+  }, [isSignedIn])
 
-    const signoutAction = () => {
-        const ret = window.confirm('サインアウトしますか?')
-        if (ret) {
-            dispatch(signOut())
+  const list = []
+  useEffect(() => {
+    const today = Number(new Date())
+    if (isSignedIn) {
+      notifications.map((item: Movie) => {
+        const release = item.release_date.split('-')
+        const releaseDate = `${release[0]}/${release[1]}/${release[2]} 00:00:00`
+        const data = Number(Date.parse(releaseDate))
+        const milliSecond = data - today
+        if (milliSecond < 604800000) {
+          list.push(item)
         }
+      })
     }
+  }, [notifications])
 
-    const menu = [
-        { func: selectMenu, title: '新作公開', path: '/upcoming' },
-        { func: selectMenu, title: '公開中', path: '/now_playing' },
-        { func: selectMenu, title: '人気', path: '/' },
-        { func: selectMenu, title: '高評価', path: '/top_rated' },
-    ]
-
-    const notSignInMenu = [
-        { func: selectMenu, title: 'アカウント作成', path: '/signup' },
-        { func: selectMenu, title: 'サインイン', path: '/signin' },
-    ]
-
-    const signInMenu = [
-        { func: selectMenu, title: 'マイリスト', path: '/mylist' },
-        { func: signoutAction, title: 'サインアウト', path: '/' },
-    ]
-
-    useEffect(() => {
-        if (isSignedIn) {
-            dispatch(fetchNotification())
-        }
-    }, [isSignedIn])
-
-    const list = []
-    useEffect(() => {
-        const today = Number(new Date())
-        if (isSignedIn) {
-            notifications.map((item: Movie) => {
-                const release = item.release_date.split('-')
-                const releaseDate = `${release[0]}/${release[1]}/${release[2]} 00:00:00`
-                const data = Number(Date.parse(releaseDate))
-                const milliSecond = data - today
-                if (milliSecond < 604800000) {
-                    list.push(item)
-                }
-            })
-        }
-    }, [notifications])
-
-    return (
-        <div className={classes.root}>
-            <AppBar position="fixed">
-                <Toolbar>
-                    <Typography className={classes.title} variant="h6" noWrap>
-                        Movie Box
-                    </Typography>
-                    {!isSignedIn ? (
-                        <MenuButton menu={notSignInMenu} label="サインイン" />
-                    ) : (
-                        <>
-                            <IconButton
-                                aria-owns={anchorEl ? 'simple-menu' : undefined}
-                                aria-haspopup="true"
-                                onClick={handleClick}
-                                onMouseOver={handleClick}>
-                                <Badge badgeContent={'!'} color="primary">
-                                    <NotificationsIcon className={classes.icon} />
-                                </Badge>
-                            </IconButton>
-                            <Menu
-                                id="simple-menu"
-                                anchorEl={anchorEl}
-                                open={Boolean(anchorEl)}
-                                onClose={handleClose}
-                                MenuListProps={{ onMouseLeave: handleClose }}
-                                className={classes.menu}>
-                                {notifications.length > 0 ? (
-                                    notifications.map((item: Movie) => <ReleaseMovie key={item.movieId} movie={item} />)
-                                ) : (
-                                    <div style={{ padding: '5px' }}>公開間際の作品はありません！</div>
-                                )}
-                            </Menu>
-                            <MenuButton menu={signInMenu} label="アカウント" />
-                        </>
-                    )}
-                    <MenuButton menu={menu} label="映画" />
-                    <div className={classes.search}>
-                        <div className={classes.searchIcon}>
-                            <SearchIcon />
-                        </div>
-                        <Suggestion />
-                    </div>
-                </Toolbar>
-            </AppBar>
-        </div>
-    )
+  return (
+    <div className={classes.root}>
+      <AppBar position="fixed">
+        <Toolbar>
+          <Typography className={classes.title} variant="h6" noWrap>
+            Movie Box
+          </Typography>
+          {!isSignedIn ? (
+            <MenuButton menu={notSignInMenu} label="サインイン" />
+          ) : (
+            <>
+              <IconButton
+                aria-owns={anchorEl ? 'simple-menu' : undefined}
+                aria-haspopup="true"
+                onClick={handleClick}
+                onMouseOver={handleClick}>
+                <Badge badgeContent={'!'} color="primary">
+                  <NotificationsIcon className={classes.icon} />
+                </Badge>
+              </IconButton>
+              <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+                MenuListProps={{ onMouseLeave: handleClose }}
+                className={classes.menu}>
+                {notifications.length > 0 ? (
+                  notifications.map((item: Movie) => <ReleaseMovie key={item.movieId} movie={item} />)
+                ) : (
+                  <div style={{ padding: '5px' }}>公開間際の作品はありません！</div>
+                )}
+              </Menu>
+              <MenuButton menu={signInMenu} label="アカウント" />
+            </>
+          )}
+          <MenuButton menu={menu} label="映画" />
+          <div className={classes.search}>
+            <div className={classes.searchIcon}>
+              <SearchIcon />
+            </div>
+            <Suggestion />
+          </div>
+        </Toolbar>
+      </AppBar>
+    </div>
+  )
 }
 
 export default Header
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        backgroundColor: 'rgb(3,37,65) !important',
+  root: {
+    flexGrow: 1,
+    backgroundColor: 'rgb(3,37,65) !important',
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+    fontSize: 14,
+    fontWeight: 700,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 600,
+    flexGrow: 1,
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
     },
-    menuButton: {
-        marginRight: theme.spacing(2),
-        fontSize: 14,
-        fontWeight: 700,
+  },
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    title: {
-        fontSize: 18,
-        fontWeight: 600,
-        flexGrow: 1,
-        display: 'none',
-        [theme.breakpoints.up('sm')]: {
-            display: 'block',
-        },
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(1),
+      width: 'auto',
     },
-    search: {
-        position: 'relative',
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: fade(theme.palette.common.white, 0.15),
-        '&:hover': {
-            backgroundColor: fade(theme.palette.common.white, 0.25),
-        },
-        marginLeft: 0,
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            marginLeft: theme.spacing(1),
-            width: 'auto',
-        },
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputRoot: {
+    color: 'inherit',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: '12ch',
+      '&:focus': {
+        width: '20ch',
+      },
     },
-    searchIcon: {
-        padding: theme.spacing(0, 2),
-        height: '100%',
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    inputRoot: {
-        color: 'inherit',
-    },
-    inputInput: {
-        padding: theme.spacing(1, 1, 1, 0),
-        paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            width: '12ch',
-            '&:focus': {
-                width: '20ch',
-            },
-        },
-    },
-    icon: {
-        color: 'white',
-        width: '23px',
-        height: '23px',
-    },
-    menu: {
-        marginTop: '30px',
-        display: 'flex',
-        alignItem: 'baseline',
-        flexWrap: 'wrap',
-        minHeight: '28px',
-    },
+  },
+  icon: {
+    color: 'white',
+    width: '23px',
+    height: '23px',
+  },
+  menu: {
+    marginTop: '30px',
+    display: 'flex',
+    alignItem: 'baseline',
+    flexWrap: 'wrap',
+    minHeight: '28px',
+  },
 }))

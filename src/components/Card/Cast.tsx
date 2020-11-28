@@ -12,67 +12,67 @@ import NoImage from '../../assets/images/no_image.png'
 import { LightTooltip } from '../UIkit'
 
 type Props = {
-    cast: {
-        name: string
-        content: string
-        id: number
-        profile_path: string
-        character: string
-    }
+  cast: {
+    name: string
+    content: string
+    id: number
+    profile_path: string
+    character: string
+  }
 }
 
 const Cast: React.FC<Props> = (props: Props) => {
-    const classes = useStyles()
-    const dispatch = useDispatch()
+  const classes = useStyles()
+  const dispatch = useDispatch()
 
-    return (
-        <div style={{ width: '138px', margin: '10px' }}>
-            <Card className={classes.root}>
-                <LightTooltip title={props.cast.name}>
-                    <CardActionArea onClick={() => dispatch(push('/actor/' + props.cast.id))}>
-                        <CardMedia
-                            className={classes.media}
-                            image={
-                                props.cast.profile_path !== null
-                                    ? URL_IMG + 'w138_and_h175_face/' + props.cast.profile_path.slice(1)
-                                    : NoImage
-                            }
-                            title={props.cast.character}
-                        />
-                        <CardContent className={classes.content}>
-                            <Typography className={classes.name}>{props.cast.name}</Typography>
-                            <Typography className={classes.character}>{props.cast.character}</Typography>
-                        </CardContent>
-                    </CardActionArea>
-                </LightTooltip>
-            </Card>
-        </div>
-    )
+  return (
+    <div style={{ width: '138px', margin: '10px' }}>
+      <Card className={classes.root}>
+        <LightTooltip title={props.cast.name}>
+          <CardActionArea onClick={() => dispatch(push('/actor/' + props.cast.id))}>
+            <CardMedia
+              className={classes.media}
+              image={
+                props.cast.profile_path !== null
+                  ? URL_IMG + 'w138_and_h175_face/' + props.cast.profile_path.slice(1)
+                  : NoImage
+              }
+              title={props.cast.character}
+            />
+            <CardContent className={classes.content}>
+              <Typography className={classes.name}>{props.cast.name}</Typography>
+              <Typography className={classes.character}>{props.cast.character}</Typography>
+            </CardContent>
+          </CardActionArea>
+        </LightTooltip>
+      </Card>
+    </div>
+  )
 }
 
 export default Cast
 
 const useStyles = makeStyles({
-    root: {
-        width: '138px',
-        borderRadius: '10px',
-    },
-    media: {
-        height: 175,
-        width: 135,
-        backgroundSize: 'contain',
-        backgroundColor: 'lightgray',
-        borderRadius: '10px',
-    },
-    name: {
-        fontSize: '14px',
-    },
-    character: {
-        fontSize: '10px',
-        fontWeight: 300,
-    },
-    content: {
-        overflowY: 'scroll',
-        height: '40px',
-    },
+  root: {
+    width: '138px',
+    borderRadius: '10px',
+  },
+  media: {
+    height: 175,
+    width: 135,
+    backgroundSize: 'contain',
+    backgroundColor: 'lightgray',
+    borderRadius: '10px',
+  },
+  name: {
+    fontSize: '14px',
+  },
+  character: {
+    fontSize: '10px',
+    fontWeight: 300,
+  },
+  content: {
+    overflowY: 'scroll',
+    height: '40px',
+  },
 })

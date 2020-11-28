@@ -16,27 +16,27 @@ const history = History.createBrowserHistory()
 export const store = createStore(history)
 
 ReactDOM.render(
-    <Provider store={store}>
-        <ConnectedRouter history={history}>
-            <Switch>
-                <Route exact path="/signup" component={SignUp} />
-                <Route exact path="/signin" component={SignIn} />
-                <Route exact path="/reset" component={Reset} />
-                <AuthWrapper>
-                    <Header />
-                    <Route exact path="/" component={MovieContainer} />
-                    <Route exact path="/upcoming" component={MovieContainer} />
-                    <Route exact path="/now_playing" component={MovieContainer} />
-                    <Route exact path="/top_rated" component={MovieContainer} />
-                    <Route path="/search(/:keyword)?" component={MovieContainer} />
-                    <Route path="/movie(/:id)?" component={MovieDetail} />
-                    <Route path="/actor(/:id)?" component={Actor} />
-                    <Route exact path="/mylist" component={MyList} />
-                </AuthWrapper>
-            </Switch>
-        </ConnectedRouter>
-    </Provider>,
-    document.getElementById('root'),
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
+      <Switch>
+        <Route exact path="/signup" component={SignUp} />
+        <Route exact path="/signin" component={SignIn} />
+        <Route exact path="/reset" component={Reset} />
+        <AuthWrapper>
+          <Header />
+          <Route exact path="/" component={MovieContainer} />
+          <Route exact path="/upcoming" component={MovieContainer} />
+          <Route exact path="/now_playing" component={MovieContainer} />
+          <Route exact path="/top_rated" component={MovieContainer} />
+          <Route path="/search(/:keyword)?" component={MovieContainer} />
+          <Route path="/movie(/:id)?" component={MovieDetail} />
+          <Route path="/actor(/:id)?" component={Actor} />
+          <Route exact path="/mylist" component={MyList} />
+        </AuthWrapper>
+      </Switch>
+    </ConnectedRouter>
+  </Provider>,
+  document.getElementById('root'),
 )
 
 // If you want your app to work offline and load faster, you can change
