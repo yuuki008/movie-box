@@ -5,7 +5,7 @@ import { URL_IMG } from '../../api'
 import NoImage from '../../assets/images/no_image.png'
 import { useDispatch } from 'react-redux'
 import { push } from 'connected-react-router'
-import { LightTooltip } from '../UIkit'
+import { LightTooltip } from '../'
 import styled from 'styled-components'
 
 type Props = {
