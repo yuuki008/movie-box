@@ -13,13 +13,7 @@ import { LightTooltip } from '../'
 import styled from 'styled-components'
 
 type Props = {
-  cast: {
-    name: string
-    content: string
-    id: number
-    profile_path: string
-    character: string
-  }
+  cast: Cast
 }
 
 const Cast: React.FC<Props> = (props: Props) => {

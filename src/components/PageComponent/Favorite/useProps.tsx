@@ -1,11 +1,11 @@
 import { useState, useCallback, useEffect } from 'react'
 
-type Props = {
+type Params = {
   movie: Movie
   favorites: Movie[]
 }
 
-export const useProps = (props: Props) => {
+export const useProps = (params: Params) => {
   const [favorite, setFavorite] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -21,10 +21,10 @@ export const useProps = (props: Props) => {
   )
 
   useEffect(() => {
-    if (props.favorites.length > 0) {
+    if (params.favorites.length > 0) {
       const list = []
-      props.favorites.map((item: Movie) => {
-        if (item.id === props.movie.id) {
+      params.favorites.map((item: Movie) => {
+        if (item.id === params.movie.id) {
           list.push(item)
         }
       })
@@ -34,15 +34,15 @@ export const useProps = (props: Props) => {
         setFavorite(false)
       }
     }
-  }, [props.favorites])
+  }, [params.favorites])
 
   return {
     favorite: favorite,
     open: open,
     handleClose: handleClose,
     favoriteToggle: favoriteToggle,
-    movie: props.movie,
-    favorites: props.favorites,
-    setOpen: setOpen,
+    setOpen,
+    movie: params.movie,
+    favorites: params.favorites,
   }
 }

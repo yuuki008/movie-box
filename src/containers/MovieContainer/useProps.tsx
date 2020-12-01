@@ -91,15 +91,15 @@ export const useProps = () => {
   }, [selectGenre, path])
 
   return {
-    movies: movies,
-    selectGenre: selectGenre,
-    toggleGenre: toggleGenre,
-    keyword: keyword,
-    pageTitle: pageTitle,
-    changePage: changePage,
-    page: page,
-    total_pages: total_pages,
-    path: path,
-    isFetching: isFetching,
+    movies,
+    selectGenre,
+    toggleGenre,
+    keyword,
+    pageTitle,
+    changePage,
+    page,
+    total_pages,
+    path,
+    isFetching,
   }
 }

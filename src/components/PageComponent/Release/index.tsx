@@ -2,8 +2,8 @@ import React from 'react'
 import { Layout } from './Layout'
 import { useProps } from './useProps'
 
-type Props = {
+type Params = {
   movie: Movie
   notifications: Movie[]
 }
-export const Release = (props: Props) => <Layout {...useProps(props)} />
+export const Release = (params: Params) => <Layout {...useProps(params)} />

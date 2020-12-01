@@ -92,16 +92,16 @@ export const useProps = () => {
     }
   }, [movie])
   return {
-    movie: movie,
-    casts: casts,
-    trailers: trailers,
-    backdropImage: backdropImage,
-    isSignedIn: isSignedIn,
-    year: year,
-    released: released,
-    stringmethod: stringmethod,
-    notifications: notifications,
-    movies: movies,
-    favorites: favorites,
+    movie,
+    casts,
+    trailers,
+    backdropImage,
+    isSignedIn,
+    year,
+    released,
+    stringmethod,
+    notifications,
+    movies,
+    favorites,
   }
 }

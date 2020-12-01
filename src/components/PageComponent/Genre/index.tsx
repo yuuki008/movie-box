@@ -2,9 +2,9 @@ import React from 'react'
 import { useProps } from './useProps'
 import { Layout } from './Layout'
 
-type Props = {
+type Params = {
   selectGenre: Genre[]
   toggleGenre: (genre: Genre) => void
 }
 
-export const Genre = (props: Props) => <Layout {...useProps(props)} />
+export const Genre = (params: Params) => <Layout {...useProps(params)} />

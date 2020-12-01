@@ -15,10 +15,10 @@ export const useProps = () => {
     [setEmail],
   )
   return {
-    dispatch: dispatch,
-    email: email,
-    inputEmail: inputEmail,
-    push: push,
-    resetPassword: resetPassword,
+    dispatch,
+    email,
+    inputEmail,
+    push,
+    resetPassword,
   }
 }

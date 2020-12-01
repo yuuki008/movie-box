@@ -3,9 +3,7 @@ import { URL_YOUTUBE } from '../../api'
 import styled from 'styled-components'
 
 type Props = {
-  trailer: {
-    key: number
-  }
+  trailer: Trailer
 }
 
 const Trailer: React.FC<Props> = (props: Props) => {

@@ -14,6 +14,8 @@ export const useProps = () => {
   const favorites = getFavorite(selector)
   const folders = getFolders(selector)
 
+  console.log(folders[0])
+
   const inputName = useCallback(
     (value: string) => {
       setName(value)
@@ -42,11 +44,11 @@ export const useProps = () => {
     }
   }, [favorites])
   return {
-    handleMakeFolder: handleMakeFolder,
-    inputName: inputName,
-    background: background,
-    folders: folders,
-    name: name,
-    favorites: favorites,
+    handleMakeFolder,
+    inputName,
+    background,
+    folders,
+    name,
+    favorites,
   }
 }

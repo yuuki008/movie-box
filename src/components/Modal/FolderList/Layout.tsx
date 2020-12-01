@@ -14,7 +14,11 @@ type Props = {
   folders: Folder[]
   label: string
   name: string
-  modalStyle: any
+  modalStyle: {
+    top: string
+    left: string
+    transform: string
+  }
   handleClose: () => void
   inputName: (value: string) => void
   handleOpen: () => void

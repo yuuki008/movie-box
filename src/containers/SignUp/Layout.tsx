@@ -1,6 +1,7 @@
 import React from 'react'
 import { SelectBox, PrimaryButton, TextInput } from '../../components'
 import styled from 'styled-components'
+import { push } from 'connected-react-router'
 
 type Props = {
   inputUsername: (value: string) => void
@@ -13,9 +14,8 @@ type Props = {
   password: string
   confirmPassword: string
   genres: Genre[]
-  dispatch: any
+  dispatch: React.Dispatch<unknown>
   signUp: (username: string, email: string, password: string, confirmPassword: string, myGenres: Genre[]) => void
-  push: any
   myGenres: Genre[]
 }
 
@@ -81,7 +81,7 @@ export const Layout = (props: Props) => {
           }
         />
         <SpaceMedium className="module-spacer--medium" />
-        <PageJump onClick={() => props.dispatch(props.push('/signin'))}>アカウントをお持ちの方はこちら</PageJump>
+        <PageJump onClick={() => props.dispatch(push('/signin'))}>アカウントをお持ちの方はこちら</PageJump>
       </WrapperCenter>
     </Wrapper>
   )

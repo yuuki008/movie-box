@@ -23,12 +23,12 @@ export const useProps = () => {
     [setPassword],
   )
   return {
-    inputEmail: inputEmail,
-    inputPassword: inputPassword,
-    email: email,
+    inputEmail,
+    inputPassword,
+    email,
     password,
-    dispatch: dispatch,
-    push: push,
-    signIn: signIn,
+    dispatch,
+    push,
+    signIn,
   }
 }

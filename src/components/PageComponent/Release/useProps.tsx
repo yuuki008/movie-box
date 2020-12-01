@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from 'react'
 
-type Props = {
+type Params = {
   movie: Movie
   notifications: Movie[]
 }
 
-export const useProps = (props: Props) => {
+export const useProps = (params: Params) => {
   const [notification, setNotification] = useState(false)
 
   const notificationToggle = useCallback(
@@ -16,10 +16,10 @@ export const useProps = (props: Props) => {
   )
 
   useEffect(() => {
-    if (props.notifications.length > 0) {
+    if (params.notifications.length > 0) {
       const list = []
-      props.notifications.map((item: Movie) => {
-        if (item.id === props.movie.id) {
+      params.notifications.map((item: Movie) => {
+        if (item.id === params.movie.id) {
           list.push(item)
         }
       })
@@ -29,11 +29,11 @@ export const useProps = (props: Props) => {
         setNotification(false)
       }
     }
-  }, [props.notifications])
+  }, [params.notifications])
 
   return {
-    movie: props.movie,
-    notifications: props.notifications,
+    movie: params.movie,
+    notifications: params.notifications,
     notification: notification,
     notificationToggle: notificationToggle,
   }

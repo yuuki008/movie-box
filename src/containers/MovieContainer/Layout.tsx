@@ -8,12 +8,12 @@ type Props = {
   selectGenre: Genre[]
   toggleGenre: (genre: Genre) => void
   keyword: string
-  page: any
-  total_pages: any
+  page: number
+  total_pages: number
   pageTitle: (path: string) => string | null
   changePage: (page: number) => false | void
   path: string
-  isFetching: any
+  isFetching: boolean
 }
 export const Layout = (props: Props) => {
   return (

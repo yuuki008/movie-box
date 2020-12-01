@@ -2,7 +2,7 @@ import React from 'react'
 import { useProps } from './useProps'
 import { Layout } from './Layout'
 
-type Props = {
+type Params = {
   folder: Folder
 }
-export const FolderMovie = (props: Props) => <Layout {...useProps(props)} />
+export const FolderMovie = (Params: Params) => <Layout {...useProps(Params)} />

@@ -8,13 +8,7 @@ import LightTooltip from '../UIkit/LightTooltip'
 import styled from 'styled-components'
 
 type Props = {
-  movie: {
-    id: number
-    poster_path: string
-    title: string
-    release_date: string
-    backdrop_path: string
-  }
+  movie: Movie
 }
 const MovieCard: React.FC<Props> = (props: Props) => {
   const classes = useStyles()

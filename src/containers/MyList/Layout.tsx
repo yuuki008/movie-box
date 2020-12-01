@@ -49,7 +49,8 @@ export const Layout = (props: Props) => {
         <LikesWrapper>
           <SectionTitle>お気に入り</SectionTitle>
           <Likes>
-            {props.favorites.length > 0 && props.favorites.map((item: Movie) => <MovieCard movie={item} key={item.id} />)}
+            {props.favorites.length > 0 &&
+              props.favorites.map((item: Movie) => <MovieCard movie={item} key={item.id} />)}
           </Likes>
         </LikesWrapper>
         {props.folders.map((folder: Folder) => (

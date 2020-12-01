@@ -13,7 +13,7 @@ type Props = {
   released: boolean
   stringmethod: (str: string) => string | undefined
   backdropImage: string
-  notifications: any
+  notifications: Movie[]
   movies: MovieList
   favorites: Movie[]
 }

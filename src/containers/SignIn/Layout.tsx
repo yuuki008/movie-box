@@ -1,6 +1,7 @@
 import React from 'react'
 import { TextInput, PrimaryButton } from '../../components'
 import styled from 'styled-components'
+import { push } from 'connected-react-router'
 
 type Props = {
   inputEmail: (value: string) => void
@@ -8,8 +9,7 @@ type Props = {
   email: string
   password: string
   signIn: (email: string, password: string) => void
-  dispatch: any
-  push: any
+  dispatch: React.Dispatch<unknown>
 }
 
 export const Layout = (props: Props) => {
@@ -41,9 +41,9 @@ export const Layout = (props: Props) => {
       <WrapperCenter className="center">
         <PrimaryButton label="サインイン" onClick={() => props.dispatch(props.signIn(props.email, props.password))} />
         <SpaceMedium className="module-spacer--medium" />
-        <PageJump onClick={() => props.dispatch(props.push('/signup'))}>ユーザー登録がお済みでない方はこちら</PageJump>
+        <PageJump onClick={() => props.dispatch(push('/signup'))}>ユーザー登録がお済みでない方はこちら</PageJump>
         <SpaceMedium className="module-spacer--medium" />
-        <PageJump onClick={() => props.dispatch(props.push('/reset'))}>パスワードを忘れた方はこちら</PageJump>
+        <PageJump onClick={() => props.dispatch(push('/reset'))}>パスワードを忘れた方はこちら</PageJump>
       </WrapperCenter>
     </Wrapper>
   )

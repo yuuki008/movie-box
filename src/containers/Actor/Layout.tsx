@@ -9,32 +9,32 @@ type Props = {
   movies: MovieList
   gender: (gender: number) => string
 }
-export const Layout = ({ actor, movies, gender }: Props) => {
-  return movies.isFetching || actor.isFetching ? (
+export const Layout = (props: Props) => {
+  return props.movies.isFetching || props.actor.isFetching ? (
     <ActorSectionTitle style={{ padding: '30px' }}>LOADING</ActorSectionTitle>
   ) : (
     <Wrapper>
       <WrapperSub>
         <ActorInfoWrapper>
-          <ActorImage src={actor.item.profile_path ? URL_IMG + 'w342/' + actor.item.profile_path : NoImage} />
+          <ActorImage src={props.actor.item.profile_path ? URL_IMG + 'w342/' + props.actor.item.profile_path : NoImage} />
           <ActorInfoList>
             <ActorInfo>
-              {actor.item.place_of_birth !== null && (
+              {props.actor.item.place_of_birth !== null && (
                 <>
                   <ActorSubTitle>出生地</ActorSubTitle>
-                  {actor.item.place_of_birth}
+                  {props.actor.item.place_of_birth}
                 </>
               )}
             </ActorInfo>
             <ActorInfo>
               <ActorSubTitle>性別</ActorSubTitle>
-              {gender(actor.item.gender)}
+              {props.gender(props.actor.item.gender)}
             </ActorInfo>
             <ActorInfo>
-              {actor.item.birthday !== null && (
+              {props.actor.item.birthday !== null && (
                 <>
                   <ActorSubTitle>誕生日</ActorSubTitle>
-                  {actor.item.birthday}
+                  {props.actor.item.birthday}
                 </>
               )}
             </ActorInfo>
@@ -42,15 +42,15 @@ export const Layout = ({ actor, movies, gender }: Props) => {
         </ActorInfoWrapper>
         <ActorDescription>
           <ActorTitle>
-            {actor.item.name}
-            {actor.item.gender !== 0 && <ActorGender>{actor.item.gender === 1 ? 'female' : 'male'}</ActorGender>}
+            {props.actor.item.name}
+            {props.actor.item.gender !== 0 && <ActorGender>{props.actor.item.gender === 1 ? 'female' : 'male'}</ActorGender>}
           </ActorTitle>
           <ActorBiography>
-            {actor.item.biography !== '' && (
+            {props.actor.item.biography !== '' && (
               <>
                 <ActorSectionTitle>経歴</ActorSectionTitle>
                 <ActorBiography2>
-                  <ActorBiographyDescription>{actor.item.biography}</ActorBiographyDescription>
+                  <ActorBiographyDescription>{props.actor.item.biography}</ActorBiographyDescription>
                 </ActorBiography2>
               </>
             )}
@@ -58,7 +58,7 @@ export const Layout = ({ actor, movies, gender }: Props) => {
           <ActorMovies>
             <ActorSectionTitle>作品</ActorSectionTitle>
             <ActorMovies2>
-              {movies.items.map((movie: Movie) => (
+              {props.movies.items.map((movie: Movie) => (
                 <MovieCard2 movie={movie} key={movie.id} />
               ))}
             </ActorMovies2>

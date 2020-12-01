@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
 import { API_KEY, URL_GENRE } from '../../../api'
 
-type Props = {
+type Params = {
   selectGenre: Genre[]
   toggleGenre: (genre: Genre) => void
 }
 
-export const useProps = (props: Props) => {
+export const useProps = (params: Params) => {
   const [genres, setGenres] = useState<Genre[]>([])
 
   useEffect(() => {
@@ -17,8 +17,8 @@ export const useProps = (props: Props) => {
   }, [])
 
   return {
-    selectGenre: props.selectGenre,
-    toggleGenre: props.toggleGenre,
-    genres: genres
+    selectGenre: params.selectGenre,
+    toggleGenre: params.toggleGenre,
+    genres: genres,
   }
 }

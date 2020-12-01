@@ -29,8 +29,8 @@ export const useProps = () => {
   }, [])
 
   return {
-    actor: actor,
-    movies: movies,
-    gender: gender,
+    actor,
+    movies,
+    gender,
   }
 }

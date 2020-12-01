@@ -61,19 +61,19 @@ export const useProps = () => {
   }, [])
 
   return {
-    inputUsername: inputUsername,
-    inputEmail: inputEmail,
-    inputPassword: inputPassword,
-    inputConfirmPassword: inputConfirmPassword,
-    selectGenre: selectGenre,
-    username: username,
-    email: email,
-    password: password,
-    confirmPassword: confirmPassword,
-    genres: genres,
-    myGenres: myGenres,
-    dispatch: dispatch,
-    signUp: signUp,
-    push: push,
+    inputUsername,
+    inputEmail,
+    inputPassword,
+    inputConfirmPassword,
+    selectGenre,
+    username,
+    email,
+    password,
+    confirmPassword,
+    genres,
+    myGenres,
+    dispatch,
+    signUp,
+    push,
   }
 }

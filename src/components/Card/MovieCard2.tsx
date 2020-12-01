@@ -9,12 +9,7 @@ import { LightTooltip } from '../'
 import styled from 'styled-components'
 
 type Props = {
-  movie: {
-    id: number
-    poster_path: string
-    title: string
-    release_date: string
-  }
+  movie: Movie
 }
 
 const MovieCard2: React.FC<Props> = (props: Props) => {

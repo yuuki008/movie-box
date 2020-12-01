@@ -4,11 +4,11 @@ import { addFolderMovie, deleteFolderMovie } from '../../../redux/folder/operati
 import { getUid, getFolders } from '../../../redux/selectors'
 import { fetchFolders, makeFolder } from '../../../redux/user/operations'
 
-function rand() {
+const rand = () => {
   return Math.round(Math.random() * 20) - 10
 }
 
-function getModalStyle() {
+const getModalStyle = () => {
   const top = 50 + rand()
   const left = 50 + rand()
 
@@ -80,17 +80,17 @@ export const useProps = (props: Props) => {
   }, [uid])
 
   return {
-    open: open,
-    FolderOpen: FolderOpen,
-    label: label,
-    folders: folders,
-    name: name,
-    modalStyle: modalStyle,
-    handleClose: handleClose,
-    inputName: inputName,
-    handleOpen: handleOpen,
-    handleFolderClose: handleFolderClose,
-    handleFolder: handleFolder,
-    addMovie: addMovie,
+    open,
+    FolderOpen,
+    label,
+    folders,
+    name,
+    modalStyle,
+    handleClose,
+    inputName,
+    handleOpen,
+    handleFolderClose,
+    handleFolder,
+    addMovie,
   }
 }
