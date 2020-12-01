@@ -1,7 +1,13 @@
-import { initialState } from '../store'
+import { defaultState } from '../store'
 import * as Actions from './actions'
 
-export const actorDetail = (state = initialState.item, action: any) => {
+type Params = {
+  type: string
+  data: Actor
+  error: Error
+}
+
+export const actorDetail = (state = defaultState.actordetail, action: Params) => {
   switch (action.type) {
     case Actions.FETCH_ACTOR:
       return Object.assign({}, state, {

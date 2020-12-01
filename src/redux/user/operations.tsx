@@ -5,20 +5,8 @@ import { signInAction, signOutAction, fetchFavoriteAction, fetchFolderAction, fe
 const usersRef = db.collection('user')
 const folderRef = db.collection('folder')
 
-interface movie {
-  id: number
-  title: string
-  poster_path: string
-  backdrop_path: string
-  release_date: string
-  genres: { id: number; name: string }[]
-  overview: string
-  timestamp: string
-  vote_average: number
-}
-
 export const deleteNotification = (id: number) => {
-  return async (dispatch: any, getState: any) => {
+  return async (dispatch: React.Dispatch<unknown>, getState: () => StoreState) => {
     const uid = getState().user.uid
     usersRef
       .doc(uid)
@@ -42,7 +30,7 @@ export const deleteNotification = (id: number) => {
 }
 
 export const fetchNotification = () => {
-  return async (dispatch: any, getState: any) => {
+  return async (dispatch: React.Dispatch<unknown>, getState: () => StoreState) => {
     const uid = getState().user.uid
     usersRef
       .doc(uid)
@@ -60,8 +48,8 @@ export const fetchNotification = () => {
   }
 }
 
-export const addNotification = (movie: movie) => {
-  return async (dispatch: any, getState: any) => {
+export const addNotification = (movie: Movie) => {
+  return async (dispatch: React.Dispatch<unknown>, getState: () => StoreState) => {
     const uid = getState().user.uid
     usersRef
       .doc(uid)
@@ -99,14 +87,14 @@ export const addNotification = (movie: movie) => {
 }
 
 export const fetchFolders = (uid: string) => {
-  return async (dispatch: any) => {
+  return async (dispatch: React.Dispatch<unknown>) => {
     usersRef
       .doc(uid)
       .collection('folder')
       .orderBy('created_at', 'asc')
       .onSnapshot((snapshots) => {
         const list: any = []
-        snapshots.forEach((snapshot: any) => {
+        snapshots.forEach((snapshot) => {
           const data = snapshot.data()
           list.push(data)
         })
@@ -115,15 +103,15 @@ export const fetchFolders = (uid: string) => {
   }
 }
 
-export const deleteFolder = (uid: string, folderId: string) => {
-  return async (dispatch: any) => {
-    folderRef.doc(folderId).delete()
-    usersRef.doc(uid).collection('folder').doc(folderId).delete()
+export const deleteFolder = (uid: string, id: string) => {
+  return async () => {
+    folderRef.doc(id).delete()
+    usersRef.doc(uid).collection('folder').doc(id).delete()
   }
 }
 
 export const makeFolder = (uid: string, folderName: string) => {
-  return async (dispatch: any) => {
+  return async () => {
     const ref = folderRef.doc()
     const folderId = ref.id
     folderRef.doc(folderId).set({
@@ -139,14 +127,14 @@ export const makeFolder = (uid: string, folderName: string) => {
   }
 }
 
-export const fetchFavoriteMovie = (uid: any) => {
-  return async (dispatch: any) => {
+export const fetchFavoriteMovie = (uid: string) => {
+  return async (dispatch: React.Dispatch<unknown>) => {
     usersRef
       .doc(uid)
       .collection('favorite')
       .orderBy('timestamp', 'desc')
       .onSnapshot((snapshots) => {
-        const list: any = []
+        const list: any[] = []
         snapshots.forEach((doc) => {
           const data = doc.data()
           list.push(data)
@@ -157,7 +145,7 @@ export const fetchFavoriteMovie = (uid: any) => {
 }
 
 export const deleteFavoriteMovie = (id: number) => {
-  return async (dispatch: any, getState: any) => {
+  return async (dispatch: React.Dispatch<unknown>, getState: any) => {
     const uid = getState().user.uid
     usersRef
       .doc(uid)
@@ -181,8 +169,8 @@ export const deleteFavoriteMovie = (id: number) => {
   }
 }
 
-export const addFavoriteMovie = (movie: movie) => {
-  return async (dispatch: any, getState: any) => {
+export const addFavoriteMovie = (movie: Movie) => {
+  return async (dispatch: React.Dispatch<unknown>, getState: () => StoreState) => {
     const uid = getState().user.uid
     usersRef
       .doc(uid)
@@ -219,11 +207,11 @@ export const addFavoriteMovie = (movie: movie) => {
 export const signUp = (
   username: string,
   email: string,
-  genres: Array<{ id: number; name: string }>,
   password: string,
   confirmPassword: string,
+  myGenres: Genre[],
 ) => {
-  return async (dispatch: any) => {
+  return async (dispatch: React.Dispatch<unknown>) => {
     if (username === '' || email === '' || password === '') {
       alert('必須項目が未入力です')
       return false
@@ -239,7 +227,7 @@ export const signUp = (
         const timestamp = FirebaseTimestamp.now()
         const userData = {
           uid: uid,
-          genres: genres,
+          genres: myGenres,
           email: email,
           username: username,
           created_at: timestamp,
@@ -250,14 +238,14 @@ export const signUp = (
           .then(() => {
             dispatch(push('/signin'))
           })
-          .catch((error) => alert('通信環境を整えて再度試して下さい。'))
+          .catch(() => alert('通信環境を整えて再度試して下さい。'))
       }
     })
   }
 }
 
 export const signIn = (email: string, password: string) => {
-  return async (dispatch: any) => {
+  return async (dispatch: React.Dispatch<unknown>) => {
     if (email === '' || password === '') {
       alert('必須項目が未入力です')
       return false
@@ -287,7 +275,7 @@ export const signIn = (email: string, password: string) => {
 }
 
 export const listenAuthState = () => {
-  return async (dispatch: any) => {
+  return async (dispatch: React.Dispatch<unknown>) => {
     return auth.onAuthStateChanged((user) => {
       if (user) {
         const uid = user.uid
@@ -314,7 +302,7 @@ export const listenAuthState = () => {
 }
 
 export const signOut = () => {
-  return async (dispatch: any) => {
+  return async (dispatch: React.Dispatch<unknown>) => {
     auth
       .signOut()
       .then(() => {
@@ -327,7 +315,7 @@ export const signOut = () => {
 }
 
 export const resetPassword = (email: string) => {
-  return async (dispatch: any) => {
+  return async (dispatch: React.Dispatch<unknown>) => {
     if (email === '') {
       alert('必須項目が未入力です')
       return false

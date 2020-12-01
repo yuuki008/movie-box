@@ -3,7 +3,7 @@ import { fetchCasts, fetchCastsSuccess, fetchCastsFailure } from './actions'
 
 export const fetchCastList = (id: string) => {
   const url_casts = URL_DETAIL + id + URL_CAST + API_KEY
-  return async (dispatch: any) => {
+  return async (dispatch: React.Dispatch<unknown>) => {
     dispatch(fetchCasts())
     return fetch(url_casts)
       .then((response) => response.json())

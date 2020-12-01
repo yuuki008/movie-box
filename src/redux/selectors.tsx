@@ -1,6 +1,9 @@
 import { createSelector } from 'reselect'
 
-const movielist = (state: any) => state.movielist
+const movielist = (state: any) => {
+  console.log(state)
+  return state.movielist
+}
 const moviedetail = (state: any) => state.moviedetail
 const castlist = (state: any) => state.castlist
 const trailerlist = (state: any) => state.trailerlist
@@ -28,6 +31,6 @@ export const getUid = createSelector([user], (state) => state.uid)
 
 export const getFolders = createSelector([user], (state) => state.folder)
 
-export const getFolderMovies = createSelector([folder], (state) => state.list)
+export const getFolderMovies = createSelector([folder], (state) => state)
 
 export const getNotifications = createSelector([user], (state) => state.notifications)

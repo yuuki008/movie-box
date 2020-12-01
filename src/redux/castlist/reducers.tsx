@@ -1,7 +1,13 @@
-import { initialState } from '../store'
+import { defaultState } from '../store'
 import * as Actions from './actions'
 
-export const castlist = (state = initialState.list, action: any) => {
+type Params = {
+  type: string
+  data: Cast[]
+  error: Error
+}
+
+export const castlist = (state = defaultState.castlist, action: Params) => {
   switch (action.type) {
     case Actions.FETCH_CASTS:
       return Object.assign({}, state, {
@@ -15,7 +21,7 @@ export const castlist = (state = initialState.list, action: any) => {
     case Actions.FETCH_CASTS_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
-        error: action.data,
+        error: action.error,
       })
     default:
       return state

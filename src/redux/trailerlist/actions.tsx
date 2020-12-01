@@ -12,7 +12,7 @@ export const fetchTrailersSuccess = (data: Trailer[]) => {
   }
 }
 export const FETCH_TRAILERS_FAILURE = 'FETCH_TRAILERS_FAILURE'
-export const fetchTrailersFailure = (error: any) => {
+export const fetchTrailersFailure = (error: Error) => {
   return {
     type: FETCH_TRAILERS_FAILURE,
     error,

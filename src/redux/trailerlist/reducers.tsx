@@ -1,7 +1,13 @@
-import { initialState } from '../store'
+import { defaultState } from '../store'
 import * as Actions from './actions'
 
-export const trailerlist = (state = initialState.list, action: any) => {
+type Params = {
+  type: string
+  data: Trailer[]
+  error: Error
+}
+
+export const trailerlist = (state = defaultState.trailerlist, action: Params) => {
   switch (action.type) {
     case Actions.FETCH_TRAILERS:
       return Object.assign({}, state, {
@@ -15,7 +21,7 @@ export const trailerlist = (state = initialState.list, action: any) => {
     case Actions.FETCH_TRAILERS_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
-        error: action.data,
+        error: action.error,
       })
     default:
       return state

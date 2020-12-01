@@ -1,31 +1,38 @@
-import { initialState } from '../store'
+import { defaultState } from '../store'
 import * as Actions from './actions'
 
-export const userReducer = (state = initialState.user, action: any) => {
+type Params = {
+  type: string
+  moviePayload: Movie[]
+  folderPayload: Folder[]
+  data: User
+}
+
+export const userReducer = (state = defaultState.user, action: Params) => {
   switch (action.type) {
     case Actions.FETCH_NOTIFICATION:
       return {
         ...state,
-        notifications: [...action.payload],
+        notifications: [...action.moviePayload],
       }
     case Actions.FETCH_FOLDER:
       return {
         ...state,
-        folder: [...action.payload],
+        folder: [...action.folderPayload],
       }
     case Actions.FETCH_FAVORITE:
       return {
         ...state,
-        favorite: [...action.payload],
+        favorite: [...action.moviePayload],
       }
     case Actions.SIGN_IN:
       return {
         ...state,
-        ...action.payload,
+        ...action.data,
       }
     case Actions.SIGN_OUT:
       return {
-        ...action.payload,
+        ...action.data,
       }
     default:
       return state

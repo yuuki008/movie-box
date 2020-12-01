@@ -5,13 +5,13 @@ const folderRef = db.collection('folder')
 const usersRef = db.collection('user')
 
 export const deleteFolderMovie = (folderId: string, movie: Movie) => {
-  return async (dispatch: any) => {
+  return async (dispatch: React.Dispatch<unknown>) => {
     folderRef
       .doc(folderId)
       .collection('movie')
       .get()
       .then((snapshot) => {
-        const match: any = []
+        const match:any[] = []
         snapshot.docs.forEach((doc) => {
           const data = doc.data()
           if (data.id === movie.id) {
@@ -28,7 +28,7 @@ export const deleteFolderMovie = (folderId: string, movie: Movie) => {
 }
 
 export const addFolderMovie = (folderId: string, movie: Movie) => {
-  return async (dispatch: any) => {
+  return async (dispatch: React.Dispatch<unknown>) => {
     folderRef
       .doc(folderId)
       .collection('movie')

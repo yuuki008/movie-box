@@ -14,7 +14,7 @@ export const fetchMovieDetailSuccess = (data: Movie) => {
 }
 
 export const FETCH_MOVIE_DETAIL_FAILURE = 'FETCH_MOVIE_DETAIL_FAILURE'
-export const fetchMovieDetailFailure = (error: any) => {
+export const fetchMovieDetailFailure = (error: Error) => {
   return {
     type: FETCH_MOVIE_DETAIL_FAILURE,
     error,

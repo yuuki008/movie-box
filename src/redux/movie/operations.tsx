@@ -3,7 +3,7 @@ import { fetchMovieDetailSuccess, fetchMovieDetailAction, fetchMovieDetailFailur
 
 export const fetchMovieDetail = (id: string) => {
   const url_movie = URL_DETAIL + id + API_KEY
-  return async (dispatch: any) => {
+  return async (dispatch: React.Dispatch<unknown>) => {
     dispatch(fetchMovieDetailAction())
     return fetch(url_movie)
       .then((response) => response.json())

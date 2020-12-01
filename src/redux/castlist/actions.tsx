@@ -12,7 +12,7 @@ export const fetchCastsSuccess = (data: Cast[]) => {
   }
 }
 export const FETCH_CASTS_FAILURE = 'FETCH_CASTS_FAILURE'
-export const fetchCastsFailure = (error: any) => {
+export const fetchCastsFailure = (error: Error) => {
   return {
     type: FETCH_CASTS_FAILURE,
     error,

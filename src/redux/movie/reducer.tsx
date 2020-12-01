@@ -1,7 +1,13 @@
-import { initialState } from '../store'
+import { defaultState } from '../store'
 import * as Actions from './actions'
 
-export const movieDetail = (state = initialState.item, action: any) => {
+type Params = {
+  data: MovieDetail
+  type: String
+  error: Error
+}
+
+export const movieDetail = (state = defaultState.moviedetail, action: Params) => {
   switch (action.type) {
     case Actions.FETCH_MOVIE_DETAIL:
       return Object.assign({}, state, {
@@ -15,7 +21,7 @@ export const movieDetail = (state = initialState.item, action: any) => {
     case Actions.FETCH_MOVIE_DETAIL_FAILURE:
       return Object.assign({}, state, {
         isFetching: false,
-        error: action.data,
+        error: action.error,
       })
     default:
       return state

@@ -20,7 +20,7 @@ import {
 
 export const fetchMovieList = (API_GET_MOVIE_BY = API_GET_MOVIE_POPULAR, genreIDs: number[], page = 1) => {
   const genreParams = genreIDs ? `${API_PARAMS_GENRE}${genreIDs.join('%2C')}` : ''
-  return async (dispatch: any) => {
+  return async (dispatch: React.Dispatch<unknown>) => {
     dispatch(fetchMovie())
     return fetch(`${URL}${API_GET_MOVIE_BY}${API_KEY}${API_PARAMS_PAGE}${page}${genreParams}`)
       .then((response) => response.json())
@@ -31,7 +31,7 @@ export const fetchMovieList = (API_GET_MOVIE_BY = API_GET_MOVIE_POPULAR, genreID
 
 export const searchMovieList = (keyword: string) => {
   const url = URL_SEARCH + keyword + API_KEY_ALT
-  return async (dispatch: any) => {
+  return async (dispatch: React.Dispatch<unknown>) => {
     dispatch(searchMovie(keyword))
     return fetch(url)
       .then((response) => response.json())
@@ -45,7 +45,7 @@ export const fetchActorMovieList = (id: string) => {
   let url: string
   if (id) url = URL_LIST + API_KEY + '&with_cast=' + id
   else url = URL_LIST + API_KEY
-  return async (dispatch: any) => {
+  return async (dispatch: React.Dispatch<unknown>) => {
     dispatch(fetchMovie())
     return fetch(url)
       .then((response) => response.json())
@@ -57,7 +57,7 @@ export const fetchActorMovieList = (id: string) => {
 
 export const fetchSimilarMovies = (movieID: string) => {
   const url = URL + API_GET_MOVIE_SIMILAR(movieID) + API_KEY
-  return async (dispatch: any) => {
+  return async (dispatch: React.Dispatch<unknown>) => {
     dispatch(fetchMovie())
     return fetch(url)
       .then((responnse) => responnse.json())

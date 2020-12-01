@@ -3,13 +3,13 @@ import { fetchTrailers, fetchTrailersFailure, fetchTrailersSuccess } from './act
 
 export const fetchTrailerList = (id: string) => {
   const url_trailers = URL_DETAIL + id + URL_VIDEO + API_KEY
-  return async (dispatch: any) => {
+  return async (dispatch: React.Dispatch<unknown>) => {
     dispatch(fetchTrailers())
     return fetch(url_trailers)
       .then((response) => response.json())
       .then((json) => json.results)
       .then((data) => {
-        const youtubeTrailers = data.filter((trailer: any) => {
+        const youtubeTrailers = data.filter((trailer: { site: string }) => {
           return trailer.site === 'YouTube'
         })
         dispatch(fetchTrailersSuccess(youtubeTrailers))

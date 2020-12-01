@@ -13,7 +13,7 @@ export const fetchActorSuccess = (data: Actor) => {
   }
 }
 export const FETCH_ACTOR_FAILURE = 'FETCH_ACTOR_FAILURE'
-export const fetchActorFailure = (error: any) => {
+export const fetchActorFailure = (error: Error) => {
   return {
     type: FETCH_ACTOR_FAILURE,
     error,

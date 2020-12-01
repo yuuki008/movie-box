@@ -1,7 +1,15 @@
-import { initialState } from '../store'
+import { defaultState } from '../store'
 import * as Actions from './actions'
 
-export const movieList = (state = initialState.list, action: any) => {
+type Params = {
+  type: string
+  data: Movie
+  page: number
+  total_pages: number
+  error: Error
+}
+
+export const movieList = (state = defaultState.movielist, action: Params) => {
   switch (action.type) {
     case Actions.SEARCH_MOVIE:
     case Actions.FETCH_MOVIE:
