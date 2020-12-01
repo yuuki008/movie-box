@@ -10,7 +10,7 @@ import { actorDetail } from './actor/reducers'
 import { userReducer } from './user/reducers'
 import { folder } from './folder/reducers'
 
-export const initialState = {
+export const defaultState: StoreState = {
   user: {
     isSignedIn: false,
     username: '',
@@ -20,20 +20,37 @@ export const initialState = {
     notifications: [],
     uid: '',
   },
-  list: {
+  folder: [],
+  moviedetail: {
+    isFetching: false,
+    item: {},
+    error: {},
+  },
+  actordetail: {
+    isFetching: false,
+    item: {},
+    error: {},
+  },
+  movielist: {
     isFetching: false,
     items: [],
     page: 0,
     total_pages: 0,
     error: {},
   },
-  item: {
+  trailerlist: {
     isFetching: false,
-    item: {},
+    items: [],
+    page: 0,
+    total_pages: 0,
     error: {},
   },
-  folder: {
-    list: [],
+  castlist: {
+    isFetching: false,
+    items: [],
+    page: 0,
+    total_pages: 0,
+    error: {},
   },
 }
 

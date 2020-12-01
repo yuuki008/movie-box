@@ -32,7 +32,7 @@ type Cast = {
 }
 
 type Folder = {
-  created_at: number
+  created_at: any
   name: string
   uid: string
   id: string
@@ -65,25 +65,14 @@ type Trailer = {
   key: number
 }
 
-type DefaultRootState = {
-  movielist: MovieList
-  user: User
-  router: any
-  castlist: CastList
-  trailerlist: TrailerList
-  moviedetail: MovieDetail
-  actordetail: ActorDetail
-  folder: Folder
-}
-
 type User = {
   username: string
   uid: string
   isSignedIn: boolean
   genres: Genre[]
-  favorite?: []
-  notifications?: []
-  folder?: []
+  favorite: Movie[]
+  notifications: Movie[]
+  folder: Folder[]
 }
 
 type MovieList = {
@@ -91,19 +80,19 @@ type MovieList = {
   items: Movie[]
   page: number
   total_pages: number
-  error: any
+  error: Error
 }
 
 type ActorDetail = {
   isFetching: boolean
   item: Actor
-  error: any
+  error: Error
 }
 
 type CastList = {
   isFetching: boolean
   items: Cast[]
-  error: any
+  error: Error
   page: number
   total_pages: number
 }
@@ -111,7 +100,7 @@ type CastList = {
 type TrailerList = {
   isFetching: boolean
   items: Trailer[]
-  error: any
+  error: Error
   page: number
   total_pages: number
 }
@@ -120,4 +109,35 @@ type MovieDetail = {
   isFetching: boolean
   item: Movie
   error: any
+}
+
+type StoreState = {
+  user: User
+  folder: Folder[]
+  moviedetail: Item
+  actordetail: Item
+  movielist: List
+  trailerlist: List
+  castlist: List
+}
+
+type List = {
+  isFetching: boolean
+  items: any[]
+  page: number
+  total_pages: number
+  error: Error<unknown>
+}
+
+type Item = {
+  isFetching: boolean
+  item: {}
+  error: Error<unkonwn>
+}
+
+type Initial = {
+  user: User
+  list: List
+  item: Item
+  folder: Folder[]
 }
