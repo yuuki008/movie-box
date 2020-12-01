@@ -9,22 +9,19 @@ export const useProps = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const inputEmail = useCallback(
-    (value: string) => {
-      setEmail(value)
-    },
-    [setEmail],
-  )
-
-  const inputPassword = useCallback(
-    (value: string) => {
-      setPassword(value)
-    },
-    [setPassword],
-  )
   return {
-    inputEmail,
-    inputPassword,
+    inputEmail: useCallback(
+      (value: string) => {
+        setEmail(value)
+      },
+      [setEmail],
+    ),
+    inputPassword: useCallback(
+      (value: string) => {
+        setPassword(value)
+      },
+      [setPassword],
+    ),
     email,
     password,
     dispatch,

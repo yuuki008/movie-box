@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'src/hooks/useRedux'
 import { getFavorite, getFolders, getUid } from '../../redux/selectors'
 import { fetchFavoriteMovie, fetchFolders, makeFolder } from '../../redux/user/operations'
 
@@ -7,29 +8,12 @@ export const useProps = () => {
   const selector = useSelector((state) => state)
   const dispatch = useDispatch()
 
-  const [name, setName] = useState('')
-  const [background, setBackground] = useState('/lMnoYqPIAVL0YaLP5YjRy7iwaYv.jpg')
-
   const uid = getUid(selector)
   const favorites = getFavorite(selector)
   const folders = getFolders(selector)
 
-  console.log(folders[0])
-
-  const inputName = useCallback(
-    (value: string) => {
-      setName(value)
-    },
-    [setName],
-  )
-
-  const handleMakeFolder = () => {
-    if (name !== '') {
-      dispatch(makeFolder(uid, name))
-      setName('')
-      dispatch(fetchFolders(uid))
-    }
-  }
+  const [name, setName] = useState('')
+  const [background, setBackground] = useState('/lMnoYqPIAVL0YaLP5YjRy7iwaYv.jpg')
 
   useEffect(() => {
     if (uid) {
@@ -44,8 +28,19 @@ export const useProps = () => {
     }
   }, [favorites])
   return {
-    handleMakeFolder,
-    inputName,
+    handleMakeFolder() {
+      if (name !== '') {
+        dispatch(makeFolder(uid, name))
+        setName('')
+        dispatch(fetchFolders(uid))
+      }
+    },
+    inputName: useCallback(
+      (value: string) => {
+        setName(value)
+      },
+      [setName],
+    ),
     background,
     folders,
     name,

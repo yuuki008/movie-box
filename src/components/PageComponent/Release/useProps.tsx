@@ -8,13 +8,6 @@ type Params = {
 export const useProps = (params: Params) => {
   const [notification, setNotification] = useState(false)
 
-  const notificationToggle = useCallback(
-    (notification) => {
-      setNotification(!notification)
-    },
-    [setNotification],
-  )
-
   useEffect(() => {
     if (params.notifications.length > 0) {
       const list = []
@@ -35,6 +28,12 @@ export const useProps = (params: Params) => {
     movie: params.movie,
     notifications: params.notifications,
     notification: notification,
-    notificationToggle: notificationToggle,
+
+    notificationToggle: useCallback(
+      (notification: boolean) => {
+        setNotification(!notification)
+      },
+      [setNotification],
+    ),
   }
 }

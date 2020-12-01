@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'src/hooks/useRedux'
 import { getActorDetail, getMovieList } from '../../redux/selectors'
 import { fetchActorDetail } from '../../redux/actor/operations'
 import { fetchActorMovieList } from '../../redux/movielist/operations'
@@ -11,16 +12,6 @@ export const useProps = () => {
   const movies = getMovieList(selector)
   const id = window.location.pathname.split('/actor/')[1]
 
-  const gender = (gender: number) => {
-    if (gender === 1) {
-      return '女性'
-    } else if (gender === 2) {
-      return '男性'
-    } else {
-      return '不明'
-    }
-  }
-
   useEffect(() => {
     if (id) {
       dispatch(fetchActorDetail(id))
@@ -31,6 +22,14 @@ export const useProps = () => {
   return {
     actor,
     movies,
-    gender,
+    gender(gender: number) {
+      if (gender === 1) {
+        return '女性'
+      } else if (gender === 2) {
+        return '男性'
+      } else {
+        return '不明'
+      }
+    },
   }
 }

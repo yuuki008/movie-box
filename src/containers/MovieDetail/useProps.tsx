@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'src/hooks/useRedux'
 import { fetchCastList } from '../../redux/castlist/operations'
 import { fetchMovieDetail } from '../../redux/movie/operations'
 import { fetchTrailerList } from '../../redux/trailerlist/operations'
@@ -30,14 +31,9 @@ export const useProps = () => {
   const notifications = getNotifications(selector)
 
   const id = window.location.pathname.split('/movie/')[1]
-
   const [released, setReleased] = useState(false)
-
+  const [year, setYear] = useState(0)
   const backdropImage = `url(https://image.tmdb.org/t/p/original${movie.item.backdrop_path})`
-  let year
-  if (typeof movie.item.release_date === 'string') {
-    year = movie.item.release_date.split('-')[0]
-  }
 
   const stringmethod = (str: string) => {
     if (str !== undefined) {
@@ -70,10 +66,9 @@ export const useProps = () => {
     }
   }, [uid])
 
-  console.log(movie)
-
   useEffect(() => {
     if (movie.item.release_date !== undefined) {
+      setYear(movie.item.release_date.split('-')[0])
       const release = movie.item.release_date.split('-')
       const year = release[0]
       const month = release[1]
@@ -91,6 +86,7 @@ export const useProps = () => {
       dispatch(fetchSimilarMovies(movie.item.id))
     }
   }, [movie])
+
   return {
     movie,
     casts,

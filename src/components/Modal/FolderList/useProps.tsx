@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'src/hooks/useRedux'
 import { addFolderMovie, deleteFolderMovie } from '../../../redux/folder/operations'
 import { getUid, getFolders } from '../../../redux/selectors'
 import { fetchFolders, makeFolder } from '../../../redux/user/operations'
@@ -36,25 +37,6 @@ export const useProps = (props: Props) => {
   const [label, setLabel] = useState('')
   const [name, setName] = useState('')
 
-  const handleClose = useCallback(() => {
-    setOpen(false)
-  }, [setOpen])
-
-  const inputName = useCallback(
-    (value: string) => {
-      setName(value)
-    },
-    [setName],
-  )
-
-  const handleOpen = useCallback(() => {
-    setFolderOpen(true)
-  }, [setFolderOpen])
-
-  const handleFolderClose = useCallback(() => {
-    setFolderOpen(false)
-  }, [setFolderOpen])
-
   const handleFolder = () => {
     if (name !== '') {
       dispatch(makeFolder(uid, name))
@@ -86,10 +68,26 @@ export const useProps = (props: Props) => {
     folders,
     name,
     modalStyle,
-    handleClose,
-    inputName,
-    handleOpen,
-    handleFolderClose,
+
+    inputName: useCallback(
+      (value: string) => {
+        setName(value)
+      },
+      [setName],
+    ),
+
+    handleClose: useCallback(() => {
+      setOpen(false)
+    }, [setOpen]),
+
+    handleOpen: useCallback(() => {
+      setOpen(true)
+    }, [setOpen]),
+
+    handleFolderClose: useCallback(() => {
+      setFolderOpen(false)
+    }, [setFolderOpen]),
+
     handleFolder,
     addMovie,
   }

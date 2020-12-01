@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 import { makeStyles } from '@material-ui/styles'
-import { useSelector } from 'react-redux'
+import { useSelector } from 'src/hooks/useRedux'
 import { getMovieDetail } from '../../redux/selectors'
 import { db } from '../../firebase'
 

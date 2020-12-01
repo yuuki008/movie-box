@@ -25,34 +25,6 @@ export const useProps = () => {
     }
   }
 
-  const inputUsername = useCallback(
-    (value: string) => {
-      setUsername(value)
-    },
-    [setUsername],
-  )
-
-  const inputEmail = useCallback(
-    (value: string) => {
-      setEmail(value)
-    },
-    [setEmail],
-  )
-
-  const inputPassword = useCallback(
-    (value: string) => {
-      setPassword(value)
-    },
-    [setPassword],
-  )
-
-  const inputConfirmPassword = useCallback(
-    (value: string) => {
-      setConfirmPassword(value)
-    },
-    [setConfirmPassword],
-  )
-
   useEffect(() => {
     const url = `${URL_GENRE}${API_KEY}&language=ja-JP`
     fetch(url)
@@ -61,10 +33,34 @@ export const useProps = () => {
   }, [])
 
   return {
-    inputUsername,
-    inputEmail,
-    inputPassword,
-    inputConfirmPassword,
+    inputUsername: useCallback(
+      (value: string) => {
+        setUsername(value)
+      },
+      [setUsername],
+    ),
+
+    inputEmail: useCallback(
+      (value: string) => {
+        setEmail(value)
+      },
+      [setEmail],
+    ),
+
+    inputPassword: useCallback(
+      (value: string) => {
+        setPassword(value)
+      },
+      [setPassword],
+    ),
+
+    inputConfirmPassword: useCallback(
+      (value: string) => {
+        setConfirmPassword(value)
+      },
+      [setConfirmPassword],
+    ),
+
     selectGenre,
     username,
     email,

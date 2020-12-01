@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'src/hooks/useRedux'
 import { db } from '../../../firebase/index'
 import { deleteFolder, fetchFolders } from '../../../redux/user/operations'
 import { getUid } from '../../../redux/selectors'
@@ -10,17 +11,9 @@ type Params = {
 export const useProps = (params: Params) => {
   const selector = useSelector((state) => state)
   const dispatch = useDispatch()
+
   const uid = getUid(selector)
-
   const [movies, setMovies] = useState([])
-
-  const handleDelete = () => {
-    const ref = window.confirm('このフォルダを削除しますか?')
-    if (ref) {
-      dispatch(deleteFolder(uid, params.folder.id))
-      dispatch(fetchFolders(uid))
-    }
-  }
 
   useEffect(() => {
     if (params.folder.id) {
@@ -34,7 +27,13 @@ export const useProps = (params: Params) => {
 
   return {
     movies: movies,
-    handleDelete: handleDelete,
+    handleDelete() {
+      const ref = window.confirm('このフォルダを削除しますか？')
+      if (ref) {
+        dispatch(deleteFolder(uid, params.folder.id))
+        dispatch(fetchFolders(uid))
+      }
+    },
     folder: params.folder,
   }
 }

@@ -9,17 +9,6 @@ export const useProps = (params: Params) => {
   const [favorite, setFavorite] = useState(false)
   const [open, setOpen] = useState(false)
 
-  const handleClose = useCallback(() => {
-    setOpen(false)
-  }, [setOpen])
-
-  const favoriteToggle = useCallback(
-    (favorite: boolean) => {
-      setFavorite(!favorite)
-    },
-    [setFavorite, favorite],
-  )
-
   useEffect(() => {
     if (params.favorites.length > 0) {
       const list = []
@@ -39,8 +28,15 @@ export const useProps = (params: Params) => {
   return {
     favorite: favorite,
     open: open,
-    handleClose: handleClose,
-    favoriteToggle: favoriteToggle,
+    handleClose: useCallback(() => {
+      setOpen(false)
+    }, [setOpen]),
+    favoriteToggle: useCallback(
+      (favorite: boolean) => {
+        setFavorite(!favorite)
+      },
+      [setFavorite, favorite],
+    ),
     setOpen,
     movie: params.movie,
     favorites: params.favorites,

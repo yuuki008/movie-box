@@ -16,7 +16,9 @@ export const Layout = (props: Props) => {
     <Wrapper>
       <WrapperSub>
         <ActorInfoWrapper>
-          <ActorImage src={props.actor.item.profile_path ? URL_IMG + 'w342/' + props.actor.item.profile_path : NoImage} />
+          <ActorImage
+            src={props.actor.item.profile_path ? URL_IMG + 'w342/' + props.actor.item.profile_path : NoImage}
+          />
           <ActorInfoList>
             <ActorInfo>
               {props.actor.item.place_of_birth !== null && (
@@ -43,7 +45,9 @@ export const Layout = (props: Props) => {
         <ActorDescription>
           <ActorTitle>
             {props.actor.item.name}
-            {props.actor.item.gender !== 0 && <ActorGender>{props.actor.item.gender === 1 ? 'female' : 'male'}</ActorGender>}
+            {props.actor.item.gender !== 0 && (
+              <ActorGender>{props.actor.item.gender === 1 ? 'female' : 'male'}</ActorGender>
+            )}
           </ActorTitle>
           <ActorBiography>
             {props.actor.item.biography !== '' && (

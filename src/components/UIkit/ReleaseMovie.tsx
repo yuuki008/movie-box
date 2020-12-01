@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'src/hooks/useRedux'
 import styled from 'styled-components'
 import { IMG_SIZE_XSMALL, URL_IMG } from '../../api'
 import logo from '../../assets/images/logo_square.svg'

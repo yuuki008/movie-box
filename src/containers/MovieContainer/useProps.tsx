@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'src/hooks/useRedux'
 import { getMovieList } from '../../redux/selectors'
 import { searchMovieList, fetchMovieList } from '../../redux/movielist/operations'
 import {

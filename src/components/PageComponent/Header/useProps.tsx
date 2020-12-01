@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'src/hooks/useRedux'
 import { push } from 'connected-react-router'
 import { getIsSignedIn, getNotifications } from '../../../redux/selectors'
 import { fetchNotification, signOut } from '../../../redux/user/operations'
@@ -12,16 +13,6 @@ export const useProps = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const isSignedIn = getIsSignedIn(selector)
   const notifications = getNotifications(selector)
-
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    if (anchorEl !== event.currentTarget) {
-      setAnchorEl(event.currentTarget)
-    }
-  }
-
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
 
   const selectMenu = (path: string) => {
     dispatch(push(path))
@@ -73,14 +64,22 @@ export const useProps = () => {
     }
   }, [notifications])
   return {
-    isSignedIn: isSignedIn,
-    notifications: notifications,
-    anchorEl: anchorEl,
-    handleClick: handleClick,
-    handleClose: handleClose,
-    signOutAction: signOutAction,
+    isSignedIn,
+    notifications,
+    anchorEl,
+    handleClick(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+      if (anchorEl !== event.currentTarget) {
+        setAnchorEl(event.currentTarget)
+      }
+    },
+
+    handleClose() {
+      setAnchorEl(null)
+    },
+
+    signOutAction,
     menu: menu,
-    notSignInMenu: notSignInMenu,
-    signInMenu: signInMenu,
+    notSignInMenu,
+    signInMenu,
   }
 }

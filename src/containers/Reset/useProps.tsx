@@ -8,16 +8,15 @@ export const useProps = () => {
 
   const [email, setEmail] = useState('')
 
-  const inputEmail = useCallback(
-    (value: string) => {
-      setEmail(value)
-    },
-    [setEmail],
-  )
   return {
     dispatch,
     email,
-    inputEmail,
+    inputEmail: useCallback(
+      (value: string) => {
+        setEmail(value)
+      },
+      [setEmail],
+    ),
     push,
     resetPassword,
   }

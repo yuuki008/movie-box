@@ -1,15 +1,15 @@
 import { createSelector } from 'reselect'
 
-const movielist = (state: any) => {
+const movielist = (state: StoreState) => {
   console.log(state)
   return state.movielist
 }
-const moviedetail = (state: any) => state.moviedetail
-const castlist = (state: any) => state.castlist
-const trailerlist = (state: any) => state.trailerlist
-const actordetail = (state: any) => state.actordetail
-const user = (state: any) => state.user
-const folder = (state: any) => state.folder
+const moviedetail = (state: StoreState) => state.moviedetail
+const castlist = (state: StoreState) => state.castlist
+const trailerlist = (state: StoreState) => state.trailerlist
+const actordetail = (state: StoreState) => state.actordetail
+const user = (state: StoreState) => state.user
+const folder = (state: StoreState) => state.folder
 
 export const getMovieList = createSelector([movielist], (state) => state)
 
