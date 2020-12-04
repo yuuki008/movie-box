@@ -20,8 +20,6 @@ const AuthWrapper = (props: Props) => {
     }
   }, [])
 
-  console.log('tigブランチ確認')
-
   if ((!isSignedIn && path === '/mylist') || path === '/signin') {
     dispatch(push('/'))
   }
