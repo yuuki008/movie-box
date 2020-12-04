@@ -20,7 +20,7 @@ const AuthWrapper = (props: Props) => {
     }
   }, [])
 
-  console.log('tig確認')
+  console.log('tigブランチ確認')
 
   if ((!isSignedIn && path === '/mylist') || path === '/signin') {
     dispatch(push('/'))
