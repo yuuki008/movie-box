@@ -1,8 +1,9 @@
 import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { getIsSignedIn } from './redux/selectors'
 import { listenAuthState } from './redux/user/operations'
 import { push } from 'connected-react-router'
+import { useSelector } from 'src/hooks/useRedux'
 
 type Props = {
   children: JSX.Element
@@ -18,6 +19,8 @@ const AuthWrapper = (props: Props) => {
       dispatch(listenAuthState())
     }
   }, [])
+
+  console.log('tig確認')
 
   if ((!isSignedIn && path === '/mylist') || path === '/signin') {
     dispatch(push('/'))
