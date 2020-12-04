@@ -14,6 +14,7 @@ const AuthWrapper = (props: Props) => {
   const isSignedIn = getIsSignedIn(selector)
   const path = window.location.pathname
 
+  console.log('tig')
   useEffect(() => {
     if (!isSignedIn) {
       dispatch(listenAuthState())
