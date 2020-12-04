@@ -80,19 +80,19 @@ type MovieList = {
   items: Movie[]
   page: number
   total_pages: number
-  error: Error
+  error: Error<unkonwn>
 }
 
 type ActorDetail = {
   isFetching: boolean
-  item: Actor
-  error: Error
+  item: Actor<unknown>
+  error: Error<unknown>
 }
 
 type CastList = {
   isFetching: boolean
   items: Cast[]
-  error: Error
+  error: Error<unknown>
   page: number
   total_pages: number
 }
@@ -100,25 +100,25 @@ type CastList = {
 type TrailerList = {
   isFetching: boolean
   items: Trailer[]
-  error: Error
+  error: Error<unknown>
   page: number
   total_pages: number
 }
 
 type MovieDetail = {
   isFetching: boolean
-  item: Movie
-  error: any
+  item: Movie<unknown>
+  error: Error<unknown>
 }
 
 type StoreState = {
   user: User
   folder: Folder[]
-  moviedetail: Item
-  actordetail: Item
-  movielist: List
-  trailerlist: List
-  castlist: List
+  moviedetail: MovieDetail
+  actordetail: ActorDetail
+  movielist: MovieList
+  trailerlist: TrailerList
+  castlist: CastList
 }
 
 type List = {
