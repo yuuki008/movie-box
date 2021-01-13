@@ -29,8 +29,7 @@ const MenuButton: React.FC<Props> = (props: Props) => {
         className={classes.button}
         aria-owns={anchorEl ? 'simple-menu' : undefined}
         aria-haspopup="true"
-        onClick={handleClick}
-        onMouseOver={handleClick}>
+        onClick={handleClick}>
         {props.label}
       </Button>
       <Menu
@@ -38,7 +37,6 @@ const MenuButton: React.FC<Props> = (props: Props) => {
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleClose}
-        MenuListProps={{ onMouseLeave: handleClose }}
         className={classes.menu}>
         {props.menu.map((item: any) => (
           <MenuItem

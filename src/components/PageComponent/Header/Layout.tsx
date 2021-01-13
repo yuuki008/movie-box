@@ -45,8 +45,7 @@ export const Layout = (props: Props) => {
               <IconButton
                 aria-owns={props.anchorEl ? 'simple-menu' : undefined}
                 aria-haspopup="true"
-                onClick={props.handleClick}
-                onMouseOver={props.handleClick}>
+                onClick={props.handleClick}>
                 <Badge badgeContent={'!'} color="primary">
                   <NotificationsIcon className={classes.icon} />
                 </Badge>
@@ -56,7 +55,6 @@ export const Layout = (props: Props) => {
                 anchorEl={props.anchorEl}
                 open={Boolean(props.anchorEl)}
                 onClose={props.handleClose}
-                MenuListProps={{ onMouseLeave: props.handleClose }}
                 className={classes.menu}>
                 {props.notifications.length > 0 ? (
                   props.notifications.map((item: Movie) => <ReleaseMovie key={item.movieId} movie={item} />)

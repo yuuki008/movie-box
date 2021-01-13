@@ -235,10 +235,6 @@ html {
   --imageBorderRadius: 8px;
 }
 
-.MuiMenu-paper{
-  height: 50vh;
-}
-
 .react-autosuggest__container {
   position: relative;
 }
