@@ -76,6 +76,10 @@ export const useProps = (props: Props) => {
       [setName],
     ),
 
+    handleFolderOpen: useCallback(() => {
+      setFolderOpen(true)
+    }, [setFolderOpen]),
+
     handleClose: useCallback(() => {
       setOpen(false)
     }, [setOpen]),

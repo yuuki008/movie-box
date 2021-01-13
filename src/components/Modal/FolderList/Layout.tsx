@@ -22,6 +22,7 @@ type Props = {
   handleClose: () => void
   inputName: (value: string) => void
   handleOpen: () => void
+  handleFolderOpen: () => void
   handleFolderClose: () => void
   handleFolder: () => void
   addMovie: (id: string, check: boolean, name: string) => void
@@ -32,7 +33,7 @@ export const Layout = (props: Props) => {
   return (
     <>
       <IconWrapper>
-        <IconButton aria-haspopup="true" onClick={props.handleOpen} className={classes.defaultIcon}>
+        <IconButton aria-haspopup="true" onClick={props.handleFolderOpen} className={classes.defaultIcon}>
           <LightTooltip title="マイプレイリストに追加" placement="top">
             <ListIcon className={classes.listIcon} />
           </LightTooltip>
